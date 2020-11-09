@@ -4,32 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.Gravity"/>
+        <import type="androidx.core.view.GravityCompat"/>
+        <variable
+            name="onClickHandler"
+            type="com.ejooyoung.pdf_reader.main.MainActivity" />
     </data>
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/layDrawer"
+    <com.discord.panels.OverlappingPanelsLayout
+        android:id="@+id/layOverlapping"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/layStart"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="start"
+            android:background="#ff0000">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layCenter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#ffffff"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/layToolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize">
+                android:layout_height="?attr/actionBarSize"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                app:contentInsetStart="0dp"
+                app:contentInsetEnd="0dp">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivNavigation"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/ic_menu"
-                    android:onClick="@{(v) -> layDrawer.openDrawer(Gravity.TOP)}"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivNavigation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/ic_menu"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:onClick="@{() -> layOverlapping.openStartPanel()}"/>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivSetting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/ic_setting"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:onClick="@{() -> layOverlapping.openEndPanel()}"/>
+                </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
 
             <FrameLayout
@@ -38,18 +73,15 @@
                 android:layout_height="match_parent">
 
             </FrameLayout>
+
         </LinearLayout>
 
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/viewNavigation"
+        <include
+            android:id="@+id/layEnd"
+            layout="@layout/layout_main_setting"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
-
-            <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:background="#000000"/>
-        </com.google.android.material.navigation.NavigationView>
-    </androidx.drawerlayout.widget.DrawerLayout>
+            android:layout_gravity="end"
+            app:onClickHandler="@{onClickHandler}"/>
+    </com.discord.panels.OverlappingPanelsLayout>
 </layout>
