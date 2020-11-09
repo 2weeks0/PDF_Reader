@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.main
+package com.ejooyoung.pdf_reader
 
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
@@ -6,7 +6,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.ejooyoung.pdf_reader.MainApplication
 import com.ejooyoung.pdf_reader.model.PDF
 import java.io.File
 

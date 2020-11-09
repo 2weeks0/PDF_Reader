@@ -1,14 +1,15 @@
-package com.ejooyoung.pdf_reader.main
+package com.ejooyoung.pdf_reader.bookshelf
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.ejooyoung.pdf_reader.bookshelf.listener.OnClickPdfItemListener
 import com.ejooyoung.pdf_reader.databinding.ItemMainPdfBinding
 import com.ejooyoung.pdf_reader.model.PDF
 import com.ejooyoung.pdf_reader.util.widget.ViewHolder
 
-class MainAdapter(private val clickListener: OnClickPdfItemListener) : RecyclerView.Adapter<ViewHolder<ViewDataBinding>>() {
+class BookshelfAdapter(private val clickListener: OnClickPdfItemListener) : RecyclerView.Adapter<ViewHolder<ViewDataBinding>>() {
 
     private val itemList: ArrayList<PDF> = arrayListOf()
 

@@ -1,14 +1,17 @@
 package com.ejooyoung.pdf_reader.util
 
-class Const {
-    companion object {
-        const val REQUEST_STORAGE_PERMISSION = 1000
+object Const {
+
+    object Permission {
+        const val STORAGE = 1000
     }
 
-    class DB {
-        companion object {
-            const val VERSION = 1
-            const val TABLE_NAME_PDF = "Pdf"
-        }
+    object DB {
+        const val VERSION = 1
+        const val TABLE_NAME_PDF = "Pdf"
+    }
+
+    object Request {
+        const val OPEN_PDF = 1000
     }
 }

@@ -3,7 +3,7 @@ package com.ejooyoung.pdf_reader.util
 import android.graphics.Bitmap
 import androidx.core.net.toUri
 import com.ejooyoung.pdf_reader.MainApplication
-import com.ejooyoung.pdf_reader.main.MainRepository
+import com.ejooyoung.pdf_reader.bookshelf.BookshelfRepository
 import com.shockwave.pdfium.PdfiumCore
 import java.io.File
 import java.io.FileOutputStream
@@ -18,13 +18,13 @@ object ThumbnailUtils {
         val core = PdfiumCore(application)
         val pdfDocument =
             core.newDocument(application.contentResolver.openFileDescriptor(file.toUri(), "r"))
-        core.openPage(pdfDocument, MainRepository.PAGE_NUM_TO_MAKE_THUMB)
-        val width = core.getPageWidthPoint(pdfDocument, MainRepository.PAGE_NUM_TO_MAKE_THUMB)
-        val height = core.getPageHeightPoint(pdfDocument, MainRepository.PAGE_NUM_TO_MAKE_THUMB)
+        core.openPage(pdfDocument, BookshelfRepository.PAGE_NUM_TO_MAKE_THUMB)
+        val width = core.getPageWidthPoint(pdfDocument, BookshelfRepository.PAGE_NUM_TO_MAKE_THUMB)
+        val height = core.getPageHeightPoint(pdfDocument, BookshelfRepository.PAGE_NUM_TO_MAKE_THUMB)
         val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         core.renderPageBitmap(
             pdfDocument, bmp,
-            MainRepository.PAGE_NUM_TO_MAKE_THUMB, 0, 0, width, height
+            BookshelfRepository.PAGE_NUM_TO_MAKE_THUMB, 0, 0, width, height
         )
         saveImage(application, file, bmp)
         core.closeDocument(pdfDocument)

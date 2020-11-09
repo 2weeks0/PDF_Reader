@@ -1,12 +1,11 @@
-package com.ejooyoung.pdf_reader.util
+package com.ejooyoung.pdf_reader
 
 import android.os.Bundle
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
-import com.ejooyoung.pdf_reader.MainApplication
-import com.ejooyoung.pdf_reader.main.MainViewModel
+import com.ejooyoung.pdf_reader.bookshelf.BookshelfViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory constructor(
@@ -21,8 +20,8 @@ class ViewModelFactory constructor(
         handle: SavedStateHandle
     ) = with(modelClass) {
         when {
-            isAssignableFrom(MainViewModel::class.java) ->
-                MainViewModel(application)
+            isAssignableFrom(BookshelfViewModel::class.java) ->
+                BookshelfViewModel(application)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

@@ -1,39 +1,31 @@
-package com.ejooyoung.pdf_reader.main
+package com.ejooyoung.pdf_reader.bookshelf
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
-import android.os.ParcelFileDescriptor
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ejooyoung.pdf_reader.R
+import com.ejooyoung.pdf_reader.bookshelf.listener.OnClickPdfItemListener
 import com.ejooyoung.pdf_reader.databinding.FragmentMainBinding
 import com.ejooyoung.pdf_reader.util.ext.getViewModelFactory
 import com.ejooyoung.pdf_reader.viewer.ViewerActivity
-import com.shockwave.pdfium.PdfiumCore
-import java.io.File
-import java.io.FileOutputStream
 
 
-class MainFragment : Fragment(), OnClickPdfItemListener {
+class BookshelfFragment : Fragment(),
+    OnClickPdfItemListener {
 
-    private val viewModel by viewModels<MainViewModel> { getViewModelFactory() }
+    private val viewModel by viewModels<BookshelfViewModel> { getViewModelFactory() }
     private lateinit var binding: FragmentMainBinding
-    private lateinit var mainAdapter: MainAdapter
+    private lateinit var bookshelfAdapter: BookshelfAdapter
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = BookshelfFragment()
     }
 
     override fun onCreateView(
@@ -60,14 +52,14 @@ class MainFragment : Fragment(), OnClickPdfItemListener {
             LinearLayoutManager.VERTICAL,
             false
         )
-        mainAdapter = MainAdapter(this).apply {
+        bookshelfAdapter = BookshelfAdapter(this).apply {
 //            setHasStableIds(true)
         }
-        binding.rv.adapter = mainAdapter
+        binding.rv.adapter = bookshelfAdapter
     }
 
     private fun setupObserver() {
-        viewModel.pdfList.observe(viewLifecycleOwner, Observer { mainAdapter.setItem(it) })
+        viewModel.pdfList.observe(viewLifecycleOwner, Observer { bookshelfAdapter.setItem(it) })
     }
 
     override fun onClickItem(uri: Uri) {
