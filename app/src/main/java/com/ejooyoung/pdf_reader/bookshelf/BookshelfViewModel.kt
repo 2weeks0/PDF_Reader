@@ -3,7 +3,7 @@ package com.ejooyoung.pdf_reader.bookshelf
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.ejooyoung.pdf_reader.model.PDF
+import com.ejooyoung.pdf_reader.model.Book
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class BookshelfViewModel private constructor(
@@ -12,17 +12,17 @@ class BookshelfViewModel private constructor(
 
     private val repository = BookshelfRepository.newInstance()
     private val compositeDisposable = CompositeDisposable()
-    val pdfList = MutableLiveData(arrayListOf<PDF>())
+    val bookList = MutableLiveData(arrayListOf<Book>())
 
     companion object {
         fun newInstance(application: Application) = BookshelfViewModel(application)
     }
 
     init {
-        loadPdfList()
+        loadBookList()
     }
 
-    private fun loadPdfList() {
+    private fun loadBookList() {
 
     }
 }

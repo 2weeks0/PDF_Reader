@@ -61,7 +61,7 @@ class BookshelfFragment : Fragment(),
     }
 
     private fun setupObserver() {
-        viewModel.pdfList.observe(viewLifecycleOwner, Observer { bookshelfAdapter.setItem(it) })
+        viewModel.bookList.observe(viewLifecycleOwner, Observer { bookshelfAdapter.setItem(it) })
     }
 
     override fun onClickItem(uri: Uri) {

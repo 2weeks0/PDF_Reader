@@ -8,7 +8,7 @@ object Const {
 
     object DB {
         const val VERSION = 1
-        const val TABLE_NAME_PDF = "Pdf"
+        const val TABLE_NAME_BOOK = "Book"
     }
 
     object Request {

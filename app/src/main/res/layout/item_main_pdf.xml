@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="pdf"
-            type="com.ejooyoung.pdf_reader.model.PDF" />
+            name="book"
+            type="com.ejooyoung.pdf_reader.model.Book" />
         <variable
             name="clickListener"
             type="com.ejooyoung.pdf_reader.bookshelf.listener.OnClickPdfItemListener" />
@@ -24,15 +24,13 @@
             android:id="@+id/ivThumb"
             android:layout_width="50dp"
             android:layout_height="60dp"
-            android:layout_marginEnd="20dp"
-            app:setPdfForThumbnail="@{pdf}"/>
+            android:layout_marginEnd="20dp"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{pdf.name}"
-            android:onClick="@{(v) -> clickListener.onClickItem(pdf.uri)}"
+            android:text="@{book.fileName}"
             tools:text="가나다라마"/>
     </LinearLayout>
 </layout>
