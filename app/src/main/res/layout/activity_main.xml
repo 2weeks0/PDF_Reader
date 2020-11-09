@@ -6,8 +6,8 @@
     <data>
         <import type="androidx.core.view.GravityCompat"/>
         <variable
-            name="onClickHandler"
-            type="com.ejooyoung.pdf_reader.main.MainActivity" />
+            name="settingViewModel"
+            type="com.ejooyoung.pdf_reader.main.SettingViewModel" />
     </data>
 
     <com.discord.panels.OverlappingPanelsLayout
@@ -70,9 +70,7 @@
             <FrameLayout
                 android:id="@+id/layContainer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </FrameLayout>
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
 
@@ -82,6 +80,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            app:onClickHandler="@{onClickHandler}"/>
+            app:settingViewModel="@{settingViewModel}"/>
     </com.discord.panels.OverlappingPanelsLayout>
 </layout>

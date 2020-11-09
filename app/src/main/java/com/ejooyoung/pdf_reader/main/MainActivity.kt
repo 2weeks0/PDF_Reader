@@ -4,21 +4,23 @@ import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
-import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import com.discord.panels.OverlappingPanelsLayout
 import com.ejooyoung.pdf_reader.util.Const
 import com.ejooyoung.pdf_reader.R
+import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.bookshelf.BookshelfFragment
 import com.ejooyoung.pdf_reader.databinding.ActivityMainBinding
-import com.ejooyoung.pdf_reader.viewer.ViewerActivity
 
 class MainActivity : AppCompatActivity() {
 
+    private val settingViewModel by viewModels<SettingViewModel> {
+        ViewModelFactories.of(application, this) }
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupDataBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.onClickHandler = this
+        binding.settingViewModel = settingViewModel
     }
 
     private fun setupFragment() {
@@ -53,41 +55,26 @@ class MainActivity : AppCompatActivity() {
             )
     }
 
-    fun onClick(view: View) {
-        when (view.id) {
-            R.id.layAdd -> openFileManager()
-        }
-    }
-
-    private fun openFileManager() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-            type = "application/pdf"
-            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            putExtra(Intent.EXTRA_LOCAL_ONLY, true)
-        }
-
-        startActivityForResult(intent, Const.Request.OPEN_PDF)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Const.Request.OPEN_PDF && resultCode == Activity.RESULT_OK) {
             data?.clipData?.let {
                 for (i in 0 until it.itemCount) {
-                    startViewerActivity(it.getItemAt(i).uri)
+//                    ActivityUtils.startViewerActivity(this, it.getItemAt(i).uri)
                 }
                 return
             }
             data?.data?.let {
-                startViewerActivity(Uri.parse(it.toString()))
+//                ActivityUtils.startViewerActivity(this, Uri.parse(it.toString()))
             }
         }
     }
 
-    private fun startViewerActivity(uri: Uri) {
-        val intent = Intent(this, ViewerActivity::class.java).apply {
-            data = uri
+    override fun onBackPressed() {
+        if (binding.layOverlapping.getSelectedPanel() != OverlappingPanelsLayout.Panel.CENTER) {
+            binding.layOverlapping.closePanels()
+            return
         }
-        startActivity(intent)
+        super.onBackPressed()
     }
 }

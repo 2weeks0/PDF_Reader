@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="onClickHandler"
-            type="com.ejooyoung.pdf_reader.main.MainActivity" />
+            name="settingViewModel"
+            type="com.ejooyoung.pdf_reader.main.SettingViewModel" />
     </data>
 
     <LinearLayout
@@ -23,7 +23,7 @@
             android:orientation="vertical"
             android:gravity="center"
             android:background="?attr/selectableItemBackground"
-            android:onClick="@{(v) -> onClickHandler.onClick(v)}">
+            android:onClick="@{(v) -> settingViewModel.onClick(v)}">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"

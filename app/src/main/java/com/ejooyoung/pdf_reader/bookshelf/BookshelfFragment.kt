@@ -11,16 +11,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ejooyoung.pdf_reader.R
+import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.bookshelf.listener.OnClickPdfItemListener
 import com.ejooyoung.pdf_reader.databinding.FragmentMainBinding
-import com.ejooyoung.pdf_reader.util.ext.getViewModelFactory
 import com.ejooyoung.pdf_reader.viewer.ViewerActivity
 
 
 class BookshelfFragment : Fragment(),
     OnClickPdfItemListener {
 
-    private val viewModel by viewModels<BookshelfViewModel> { getViewModelFactory() }
+    private val viewModel by viewModels<BookshelfViewModel> {
+        ViewModelFactories.of(requireActivity().application, this)
+    }
     private lateinit var binding: FragmentMainBinding
     private lateinit var bookshelfAdapter: BookshelfAdapter
 
