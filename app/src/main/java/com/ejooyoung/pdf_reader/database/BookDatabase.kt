@@ -10,7 +10,7 @@ import com.ejooyoung.pdf_reader.util.Const
 @Database(entities = [Book::class], version = Const.DB.VERSION)
 abstract class BookDatabase : RoomDatabase() {
 
-    abstract fun bookDao(): BookDao
+    abstract fun bookDataSource(): BookDataSource
 
     companion object {
         @Volatile private var INSTANCE: BookDatabase? = null
@@ -23,7 +23,7 @@ abstract class BookDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(
                 context.applicationContext,
-                BookDatabase::class.java, "pdf_reader.db"
+                BookDatabase::class.java, Const.DB.FILE_NAME
             ).build()
     }
 }

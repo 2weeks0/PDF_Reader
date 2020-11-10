@@ -4,8 +4,8 @@ import android.content.Context
 
 object DatabaseProvider {
 
-    fun providePdfSource(context: Context): BookDao {
+    fun provideBookSource(context: Context): BookDataSource {
         val database = BookDatabase.getInstance(context)
-        return database.bookDao()
+        return database.bookDataSource()
     }
 }

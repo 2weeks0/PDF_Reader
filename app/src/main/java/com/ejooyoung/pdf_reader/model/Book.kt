@@ -6,14 +6,20 @@ import androidx.room.PrimaryKey
 import com.ejooyoung.pdf_reader.util.Const
 import java.util.*
 
-@Entity(tableName = Const.DB.TABLE_NAME_BOOK)
+@Entity(tableName = Const.DB.Book.TABLE)
 data class Book(
     @PrimaryKey(autoGenerate = false)
-    @ColumnInfo(name = "guid")
+    @ColumnInfo(name = Const.DB.Book.COLUMN_GUID)
     val guid: String = UUID.randomUUID().toString(),
-    @ColumnInfo(name = "file_name")
+    @ColumnInfo(name = Const.DB.Book.COLUMN_FILE_NAME)
     val fileName: String,
-    @ColumnInfo(name = "absolute_path")
+    @ColumnInfo(name = Const.DB.Book.COLUMN_ABSOLUTE_PATH)
     val absolutePath: String,
-    @ColumnInfo(name = "thumbnail_path")
-    val thumbnailPath: String)
+    @ColumnInfo(name = Const.DB.Book.COLUMN_THUMBNAIL_GUID)
+    val thumbnailGuid: String
+) {
+    companion object {
+        fun valueOf(fileName: String, absolutePath: String, thumbnailGuid: String) =
+            Book(fileName = fileName, absolutePath = absolutePath, thumbnailGuid = thumbnailGuid)
+    }
+}

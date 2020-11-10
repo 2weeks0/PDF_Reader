@@ -8,7 +8,23 @@ object Const {
 
     object DB {
         const val VERSION = 1
-        const val TABLE_NAME_BOOK = "Book"
+        const val FILE_NAME = "pdf_reader.db"
+
+        object Book {
+            const val TABLE = "Book"
+            const val COLUMN_GUID = "guid"
+            const val COLUMN_FILE_NAME = "fileName"
+            const val COLUMN_ABSOLUTE_PATH = "absolutePath"
+            const val COLUMN_THUMBNAIL_GUID = "thumbnailGuid"
+        }
+
+        object Thumbnail {
+            const val TABLE = "Thumbnail"
+            const val COLUMN_GUID = "guid"
+            const val COLUMN_FILE_NAME = "fileName"
+            const val COLUMN_ABSOLUTE_PATH = "absolutePath"
+            const val COLUMN_BOOK_GUID = "bookGuid"
+        }
     }
 
     object Request {

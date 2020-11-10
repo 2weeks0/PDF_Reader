@@ -6,14 +6,14 @@ import com.ejooyoung.pdf_reader.util.Const
 
 
 @Dao
-interface BookDao {
+interface BookDataSource {
 
-    @Query("SELECT * FROM ${Const.DB.TABLE_NAME_BOOK}")
+    @Query("SELECT * FROM ${Const.DB.Book.TABLE}")
     fun selectAllBooks(): List<Book>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertBook(vararg book: Book)
+    fun insertBooks(vararg book: Book)
 
     @Delete
-    fun deleteBook(book: Book)
+    fun deleteBooks(vararg book: Book)
 }

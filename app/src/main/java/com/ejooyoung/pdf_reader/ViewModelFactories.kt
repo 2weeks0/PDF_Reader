@@ -7,7 +7,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import com.ejooyoung.pdf_reader.bookshelf.BookshelfViewModel
+import com.ejooyoung.pdf_reader.database.DatabaseProvider
 import com.ejooyoung.pdf_reader.main.SettingViewModel
+import com.ejooyoung.pdf_reader.repository.BookRepositoryImpl
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactories private constructor(
@@ -31,7 +33,12 @@ class ViewModelFactories private constructor(
     ) = with(modelClass) {
         when {
             isAssignableFrom(BookshelfViewModel::class.java) -> BookshelfViewModel.newInstance(application)
-            isAssignableFrom(SettingViewModel::class.java) -> SettingViewModel.newInstance(application)
+
+            isAssignableFrom(SettingViewModel::class.java) ->
+                with(DatabaseProvider.provideBookSource(application)) {
+                    SettingViewModel.newInstance(application, BookRepositoryImpl.getInstance(this))
+                }
+
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

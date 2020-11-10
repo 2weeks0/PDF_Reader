@@ -58,15 +58,7 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Const.Request.OPEN_PDF && resultCode == Activity.RESULT_OK) {
-            data?.clipData?.let {
-                for (i in 0 until it.itemCount) {
-//                    ActivityUtils.startViewerActivity(this, it.getItemAt(i).uri)
-                }
-                return
-            }
-            data?.data?.let {
-//                ActivityUtils.startViewerActivity(this, Uri.parse(it.toString()))
-            }
+            settingViewModel.insertBookToDB(data)
         }
     }
 
