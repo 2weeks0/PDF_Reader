@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Const.Request.OPEN_PDF && resultCode == Activity.RESULT_OK) {
-            settingViewModel.insertBookToDB(data)
+            settingViewModel.insertBookToDB(data!!)
         }
     }
 

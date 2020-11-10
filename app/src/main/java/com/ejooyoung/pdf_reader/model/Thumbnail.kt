@@ -11,10 +11,15 @@ data class Thumbnail(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = Const.DB.Thumbnail.COLUMN_GUID)
     val guid: String = UUID.randomUUID().toString(),
-    @ColumnInfo(name = Const.DB.Thumbnail.COLUMN_FILE_NAME)
-    val fileName: String,
-    @ColumnInfo(name = Const.DB.Thumbnail.COLUMN_ABSOLUTE_PATH)
-    val absolutePath: String,
+    @ColumnInfo(name = Const.DB.Thumbnail.COLUMN_DIR_PATH)
+    val dirPath: String,
     @ColumnInfo(name = Const.DB.Thumbnail.COLUMN_BOOK_GUID)
     val bookGuid: String
-)
+) {
+    companion object {
+        fun valueOf(dirPath: String, bookGuid: String) =
+            Thumbnail(dirPath = dirPath, bookGuid = bookGuid)
+    }
+
+    fun getAbsolutePath() = "$dirPath/$guid.png"
+}

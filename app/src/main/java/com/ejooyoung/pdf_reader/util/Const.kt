@@ -14,15 +14,14 @@ object Const {
             const val TABLE = "Book"
             const val COLUMN_GUID = "guid"
             const val COLUMN_FILE_NAME = "fileName"
-            const val COLUMN_ABSOLUTE_PATH = "absolutePath"
+            const val COLUMN_URI = "uri"
             const val COLUMN_THUMBNAIL_GUID = "thumbnailGuid"
         }
 
         object Thumbnail {
             const val TABLE = "Thumbnail"
             const val COLUMN_GUID = "guid"
-            const val COLUMN_FILE_NAME = "fileName"
-            const val COLUMN_ABSOLUTE_PATH = "absolutePath"
+            const val COLUMN_DIR_PATH = "dirPath"
             const val COLUMN_BOOK_GUID = "bookGuid"
         }
     }

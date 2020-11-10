@@ -13,13 +13,13 @@ data class Book(
     val guid: String = UUID.randomUUID().toString(),
     @ColumnInfo(name = Const.DB.Book.COLUMN_FILE_NAME)
     val fileName: String,
-    @ColumnInfo(name = Const.DB.Book.COLUMN_ABSOLUTE_PATH)
-    val absolutePath: String,
+    @ColumnInfo(name = Const.DB.Book.COLUMN_URI)
+    val uri: String,
     @ColumnInfo(name = Const.DB.Book.COLUMN_THUMBNAIL_GUID)
-    val thumbnailGuid: String
+    var thumbnailGuid: String
 ) {
     companion object {
-        fun valueOf(fileName: String, absolutePath: String, thumbnailGuid: String) =
-            Book(fileName = fileName, absolutePath = absolutePath, thumbnailGuid = thumbnailGuid)
+        fun valueOf(fileName: String, uri: String, thumbnailGuid: String) =
+            Book(fileName = fileName, uri = uri, thumbnailGuid = thumbnailGuid)
     }
 }

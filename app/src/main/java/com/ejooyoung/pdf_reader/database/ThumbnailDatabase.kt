@@ -4,18 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.ejooyoung.pdf_reader.model.Book
+import com.ejooyoung.pdf_reader.model.Thumbnail
 import com.ejooyoung.pdf_reader.util.Const
 
-@Database(entities = [Book::class], version = Const.DB.VERSION, exportSchema = true)
-abstract class BookDatabase : RoomDatabase() {
+@Database(entities = [Thumbnail::class], version = Const.DB.VERSION, exportSchema = true)
+abstract class ThumbnailDatabase : RoomDatabase() {
 
-    abstract fun bookDataSource(): BookDataSource
+    abstract fun thumbnailDataSource(): ThumbnailDataSource
 
     companion object {
-        @Volatile private var INSTANCE: BookDatabase? = null
+        @Volatile private var INSTANCE: ThumbnailDatabase? = null
 
-        fun getInstance(context: Context): BookDatabase =
+        fun getInstance(context: Context): ThumbnailDatabase =
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
@@ -23,7 +23,7 @@ abstract class BookDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(
                 context.applicationContext,
-                BookDatabase::class.java, Const.DB.FILE_NAME
+                ThumbnailDatabase::class.java, Const.DB.FILE_NAME
             ).build()
     }
 }

@@ -8,4 +8,9 @@ object DatabaseProvider {
         val database = BookDatabase.getInstance(context)
         return database.bookDataSource()
     }
+
+    fun provideThumbnailSource(context: Context): ThumbnailDataSource {
+        val database = ThumbnailDatabase.getInstance(context)
+        return database.thumbnailDataSource()
+    }
 }

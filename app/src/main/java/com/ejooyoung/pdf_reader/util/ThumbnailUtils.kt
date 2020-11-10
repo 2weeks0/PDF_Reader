@@ -1,40 +1,46 @@
 package com.ejooyoung.pdf_reader.util
 
 import android.graphics.Bitmap
+import android.net.Uri
 import androidx.core.net.toUri
 import com.ejooyoung.pdf_reader.MainApplication
 import com.ejooyoung.pdf_reader.bookshelf.BookshelfRepository
+import com.ejooyoung.pdf_reader.database.DatabaseProvider
+import com.ejooyoung.pdf_reader.model.Book
+import com.ejooyoung.pdf_reader.model.Thumbnail
 import com.shockwave.pdfium.PdfiumCore
 import java.io.File
 import java.io.FileOutputStream
 
 object ThumbnailUtils {
 
-    fun makeThumbnailIfNotExist(application: MainApplication, file: File): Boolean {
-        if (File(application.getThumbPath(file.name)).exists()) {
-            return false
-        }
+    private const val PAGE_NUM_TO_MAKE_THUMB = 0
 
+    fun create(application: MainApplication, book: Book): Thumbnail {
         val core = PdfiumCore(application)
         val pdfDocument =
-            core.newDocument(application.contentResolver.openFileDescriptor(file.toUri(), "r"))
-        core.openPage(pdfDocument, BookshelfRepository.PAGE_NUM_TO_MAKE_THUMB)
-        val width = core.getPageWidthPoint(pdfDocument, BookshelfRepository.PAGE_NUM_TO_MAKE_THUMB)
-        val height = core.getPageHeightPoint(pdfDocument, BookshelfRepository.PAGE_NUM_TO_MAKE_THUMB)
+            core.newDocument(application.contentResolver.openFileDescriptor(Uri.parse(book.uri), "r"))
+        core.openPage(pdfDocument, PAGE_NUM_TO_MAKE_THUMB)
+        val width = core.getPageWidthPoint(pdfDocument, PAGE_NUM_TO_MAKE_THUMB)
+        val height = core.getPageHeightPoint(pdfDocument, PAGE_NUM_TO_MAKE_THUMB)
         val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         core.renderPageBitmap(
             pdfDocument, bmp,
-            BookshelfRepository.PAGE_NUM_TO_MAKE_THUMB, 0, 0, width, height
+            PAGE_NUM_TO_MAKE_THUMB, 0, 0, width, height
         )
-        saveImage(application, file, bmp)
+        val dirPath = application.getThumbDir()
+        val thumbnail = Thumbnail.valueOf(dirPath, book.guid)
+        saveImage(thumbnail.getAbsolutePath(), bmp)
+        DatabaseProvider.provideThumbnailSource(application).insertThumbnails(thumbnail)
         core.closeDocument(pdfDocument)
-        return true
+        return thumbnail
     }
 
-    private fun saveImage(application: MainApplication, file: File, bmp: Bitmap) {
-        val f = File(application.getThumbDir(), file.name.replace("pdf", "png"))
+    private fun saveImage(absolutePath: String, bmp: Bitmap): String {
+        val f = File(absolutePath)
         val out = FileOutputStream(f)
         bmp.compress(Bitmap.CompressFormat.PNG, 100, out)
         out.close()
+        return f.name
     }
 }

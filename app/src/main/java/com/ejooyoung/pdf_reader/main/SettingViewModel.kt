@@ -3,13 +3,16 @@ package com.ejooyoung.pdf_reader.main
 import android.app.Activity
 import android.app.Application
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import com.ejooyoung.pdf_reader.R
-import com.ejooyoung.pdf_reader.model.Book
 import com.ejooyoung.pdf_reader.repository.BookRepository
 import com.ejooyoung.pdf_reader.util.Const
-import com.ejooyoung.pdf_reader.util.ext.toBook
+import com.ejooyoung.pdf_reader.util.ext.toBookArray
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class SettingViewModel private constructor(
     application: Application,
@@ -19,7 +22,8 @@ class SettingViewModel private constructor(
     companion object {
         fun newInstance(
             application: Application,
-            bookRepository: BookRepository) = SettingViewModel(application, bookRepository)
+            bookRepository: BookRepository
+        ) = SettingViewModel(application, bookRepository)
     }
 
     fun onClick(view: View) {
@@ -38,19 +42,14 @@ class SettingViewModel private constructor(
         activity.startActivityForResult(intent, Const.Request.OPEN_PDF)
     }
 
-    fun insertBookToDB(data: Intent?) {
-        data?.clipData?.let {
-            val array = emptyArray<Book>().apply {
-                for (i in 0 until it.itemCount) {
-                    val uri = it.getItemAt(i).uri
-                    this[i] = uri.toBook()
-                }
+    fun insertBookToDB(data: Intent) {
+        Observable.fromCallable { data.toBookArray(getApplication()) }
+//            .onErrorReturnItem(emptyArray())
+            .flatMapCompletable { bookRepository.insertBooks(*it) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                Log.d("LEEJY", "insertBookToDB complete")
             }
-            bookRepository.insertBooks(*array)
-            return
-        }
-        data?.data?.let {
-            bookRepository.insertBooks(it.toBook())
-        }
     }
 }
