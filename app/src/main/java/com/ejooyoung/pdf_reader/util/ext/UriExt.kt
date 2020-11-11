@@ -3,9 +3,7 @@ package com.ejooyoung.pdf_reader.util.ext
 import android.content.Intent
 import android.net.Uri
 import android.provider.OpenableColumns
-import android.util.Log
 import com.ejooyoung.pdf_reader.MainApplication
-import com.ejooyoung.pdf_reader.database.DatabaseProvider
 import com.ejooyoung.pdf_reader.model.Book
 import com.ejooyoung.pdf_reader.repository.BookRepositoryImpl
 import com.ejooyoung.pdf_reader.util.ThumbnailUtils
@@ -31,6 +29,7 @@ fun Intent.toBookList(application: MainApplication): List<Book> {
 }
 
 private fun Uri.toBook(application: MainApplication): Book? {
+    application.contentResolver.takePersistableUriPermission(this, Intent.FLAG_GRANT_READ_URI_PERMISSION)
     var fileName = File(toString()).name
 
     // fileName 추출

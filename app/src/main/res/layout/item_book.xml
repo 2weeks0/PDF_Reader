@@ -8,8 +8,8 @@
             name="book"
             type="com.ejooyoung.pdf_reader.model.Book" />
         <variable
-            name="clickListener"
-            type="com.ejooyoung.pdf_reader.bookshelf.listener.OnClickPdfItemListener" />
+            name="onClickListener"
+            type="com.ejooyoung.pdf_reader.bookshelf.listener.OnClickBookListener" />
     </data>
 
     <LinearLayout
@@ -18,13 +18,15 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:onClick="@{(v) -> onClickListener.onClickBook(v, book.uriString)}">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivThumb"
             android:layout_width="50dp"
             android:layout_height="60dp"
-            android:layout_marginEnd="20dp"/>
+            android:layout_marginEnd="20dp"
+            app:thumbGuid="@{book.thumbnailGuid}"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvName"

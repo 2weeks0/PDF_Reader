@@ -1,7 +1,5 @@
 package com.ejooyoung.pdf_reader.bookshelf
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
-import com.ejooyoung.pdf_reader.bookshelf.listener.OnClickPdfItemListener
 import com.ejooyoung.pdf_reader.databinding.FragmentMainBinding
-import com.ejooyoung.pdf_reader.viewer.ViewerActivity
 
-
-class BookshelfFragment : Fragment(),
-    OnClickPdfItemListener {
+class BookshelfFragment : Fragment() {
 
     private val viewModel by viewModels<BookshelfViewModel> {
         ViewModelFactories.of(requireActivity().application, this)
@@ -54,7 +48,7 @@ class BookshelfFragment : Fragment(),
             LinearLayoutManager.VERTICAL,
             false
         )
-        bookshelfAdapter = BookshelfAdapter(this).apply {
+        bookshelfAdapter = BookshelfAdapter(viewModel).apply {
 //            setHasStableIds(true)
         }
         binding.rv.adapter = bookshelfAdapter
@@ -62,12 +56,5 @@ class BookshelfFragment : Fragment(),
 
     private fun setupObserver() {
         viewModel.bookList.observe(viewLifecycleOwner, Observer { bookshelfAdapter.setItem(it) })
-    }
-
-    override fun onClickItem(uri: Uri) {
-        val intent = Intent(requireContext(), ViewerActivity::class.java).apply {
-            data = uri
-        }
-        startActivity(intent)
     }
 }

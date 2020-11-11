@@ -33,7 +33,7 @@ class SettingViewModel private constructor(
     }
 
     private fun openFileManager(activity: Activity) {
-        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             type = "application/pdf"
             putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             putExtra(Intent.EXTRA_LOCAL_ONLY, true)

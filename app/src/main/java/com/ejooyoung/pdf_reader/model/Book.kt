@@ -14,12 +14,12 @@ data class Book(
     @ColumnInfo(name = Const.DB.Book.COLUMN_FILE_NAME)
     val fileName: String,
     @ColumnInfo(name = Const.DB.Book.COLUMN_URI)
-    val uri: String,
+    val uriString: String,
     @ColumnInfo(name = Const.DB.Book.COLUMN_THUMBNAIL_GUID)
     var thumbnailGuid: String
 ) {
     companion object {
-        fun valueOf(fileName: String, uri: String, thumbnailGuid: String) =
-            Book(fileName = fileName, uri = uri, thumbnailGuid = thumbnailGuid)
+        fun valueOf(fileName: String, uriString: String, thumbnailGuid: String) =
+            Book(fileName = fileName, uriString = uriString, thumbnailGuid = thumbnailGuid)
     }
 }
