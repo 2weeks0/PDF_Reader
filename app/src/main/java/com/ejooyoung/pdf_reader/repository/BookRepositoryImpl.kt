@@ -1,9 +1,9 @@
 package com.ejooyoung.pdf_reader.repository
 
+import android.app.Application
 import com.ejooyoung.pdf_reader.database.BookDataSource
+import com.ejooyoung.pdf_reader.database.DatabaseProvider
 import com.ejooyoung.pdf_reader.model.Book
-import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Observable
 
 class BookRepositoryImpl private constructor(
     private val bookDataSource: BookDataSource
@@ -12,23 +12,23 @@ class BookRepositoryImpl private constructor(
     companion object {
         private var INSTANCE: BookRepository? = null
 
-        fun getInstance(bookDataSource: BookDataSource): BookRepository {
+        fun getInstance(application: Application): BookRepository {
             if (INSTANCE == null) {
-                INSTANCE = BookRepositoryImpl(bookDataSource)
+                INSTANCE = BookRepositoryImpl(DatabaseProvider.provideBookSource(application))
             }
             return INSTANCE!!
         }
     }
 
-    override fun selectAllBooks() = Observable.fromCallable {
-        bookDataSource.selectAllBooks()
-    }.onErrorReturnItem(emptyList())!!
+    override fun selectAllBooks() =
+        bookDataSource.selectAllBooks().onErrorReturnItem(emptyList())!!
 
-    override fun insertBooks(vararg book: Book) = Completable.fromAction {
-        bookDataSource.insertBooks(*book)
-    }.onErrorComplete()!!
+    override fun selectBook(fileName: String, uri: String) =
+        bookDataSource.selectBook(fileName, uri).onErrorReturn { null }!!
 
-    override fun deleteBooks(vararg book: Book) = Completable.fromAction {
-        bookDataSource.deleteBooks(*book)
-    }.onErrorComplete()!!
+    override fun insertBooks(vararg book: Book) =
+        bookDataSource.insertBooks(*book).onErrorComplete()!!
+
+    override fun deleteBooks(vararg book: Book) =
+        bookDataSource.deleteBooks(*book).onErrorComplete()!!
 }

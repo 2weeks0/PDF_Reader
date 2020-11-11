@@ -8,6 +8,7 @@ import com.ejooyoung.pdf_reader.bookshelf.BookshelfRepository
 import com.ejooyoung.pdf_reader.database.DatabaseProvider
 import com.ejooyoung.pdf_reader.model.Book
 import com.ejooyoung.pdf_reader.model.Thumbnail
+import com.ejooyoung.pdf_reader.repository.ThumbnailRepositoryImpl
 import com.shockwave.pdfium.PdfiumCore
 import java.io.File
 import java.io.FileOutputStream
@@ -31,7 +32,7 @@ object ThumbnailUtils {
         val dirPath = application.getThumbDir()
         val thumbnail = Thumbnail.valueOf(dirPath, book.guid)
         saveImage(thumbnail.getAbsolutePath(), bmp)
-        DatabaseProvider.provideThumbnailSource(application).insertThumbnails(thumbnail)
+        ThumbnailRepositoryImpl.getInstance(application).insertThumbnails(thumbnail).subscribe()
         core.closeDocument(pdfDocument)
         return thumbnail
     }

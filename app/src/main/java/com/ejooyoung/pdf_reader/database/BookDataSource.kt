@@ -3,20 +3,24 @@ package com.ejooyoung.pdf_reader.database
 import androidx.room.*
 import com.ejooyoung.pdf_reader.model.Book
 import com.ejooyoung.pdf_reader.util.Const
-
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Maybe
 
 @Dao
 interface BookDataSource {
 
     @Query("SELECT * FROM ${Const.DB.Book.TABLE}")
-    fun selectAllBooks(): List<Book>
+    fun selectAllBooks(): Flowable<List<Book>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertBooks(vararg book: Book)
+    fun insertBooks(vararg book: Book): Completable
 
     @Delete
-    fun deleteBooks(vararg book: Book)
+    fun deleteBooks(vararg book: Book): Completable
 
-    @Query("SELECT count(${Const.DB.Book.COLUMN_GUID}) FROM ${Const.DB.Book.TABLE} WHERE ${Const.DB.Book.COLUMN_FILE_NAME} = :fileName AND ${Const.DB.Book.COLUMN_URI} = :uri")
-    fun containsBook(fileName: String, uri: String): Int
+    @Query("SELECT * FROM ${Const.DB.Book.TABLE}" +
+            " WHERE ${Const.DB.Book.COLUMN_FILE_NAME} = :fileName" +
+            " AND ${Const.DB.Book.COLUMN_URI} = :uri")
+    fun selectBook(fileName: String, uri: String): Maybe<Book>
 }

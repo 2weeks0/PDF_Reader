@@ -35,9 +35,7 @@ class ViewModelFactories private constructor(
             isAssignableFrom(BookshelfViewModel::class.java) -> BookshelfViewModel.newInstance(application)
 
             isAssignableFrom(SettingViewModel::class.java) ->
-                with(DatabaseProvider.provideBookSource(application)) {
-                    SettingViewModel.newInstance(application, BookRepositoryImpl.getInstance(this))
-                }
+                    SettingViewModel.newInstance(application, BookRepositoryImpl.getInstance(application))
 
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
