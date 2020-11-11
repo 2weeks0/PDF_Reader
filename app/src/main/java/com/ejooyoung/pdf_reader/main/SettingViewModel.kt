@@ -9,7 +9,7 @@ import androidx.lifecycle.AndroidViewModel
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.repository.BookRepository
 import com.ejooyoung.pdf_reader.util.Const
-import com.ejooyoung.pdf_reader.util.ext.toBookArray
+import com.ejooyoung.pdf_reader.util.ext.toBookList
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -43,7 +43,7 @@ class SettingViewModel private constructor(
     }
 
     fun insertBookToDB(data: Intent) {
-        Observable.fromCallable { data.toBookArray(getApplication()) }
+        Observable.fromCallable { data.toBookList(getApplication()).toTypedArray() }
 //            .onErrorReturnItem(emptyArray())
             .flatMapCompletable { bookRepository.insertBooks(*it) }
             .subscribeOn(Schedulers.io())

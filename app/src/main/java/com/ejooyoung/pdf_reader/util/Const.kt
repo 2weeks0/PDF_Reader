@@ -8,7 +8,7 @@ object Const {
 
     object DB {
         const val VERSION = 1
-        const val FILE_NAME = "pdf_reader.db"
+        const val FILE_NAME = "db.db"
 
         object Book {
             const val TABLE = "Book"

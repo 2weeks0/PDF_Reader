@@ -36,11 +36,10 @@ object ThumbnailUtils {
         return thumbnail
     }
 
-    private fun saveImage(absolutePath: String, bmp: Bitmap): String {
+    private fun saveImage(absolutePath: String, bmp: Bitmap) {
         val f = File(absolutePath)
         val out = FileOutputStream(f)
         bmp.compress(Bitmap.CompressFormat.PNG, 100, out)
         out.close()
-        return f.name
     }
 }

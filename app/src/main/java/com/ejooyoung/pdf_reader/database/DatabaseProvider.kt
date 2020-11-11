@@ -5,12 +5,12 @@ import android.content.Context
 object DatabaseProvider {
 
     fun provideBookSource(context: Context): BookDataSource {
-        val database = BookDatabase.getInstance(context)
+        val database = DatabaseSource.getInstance(context)
         return database.bookDataSource()
     }
 
     fun provideThumbnailSource(context: Context): ThumbnailDataSource {
-        val database = ThumbnailDatabase.getInstance(context)
+        val database = DatabaseSource.getInstance(context)
         return database.thumbnailDataSource()
     }
 }
