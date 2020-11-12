@@ -1,8 +1,8 @@
 package com.ejooyoung.pdf_reader.bookshelf
 
 import android.app.Application
-import com.ejooyoung.pdf_reader.repository.BookRepository
-import com.ejooyoung.pdf_reader.repository.BookRepositoryImpl
+import com.ejooyoung.pdf_reader.base.repository.BookRepository
+import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 
 class BookshelfRepositoryImpl private constructor(
     application: Application

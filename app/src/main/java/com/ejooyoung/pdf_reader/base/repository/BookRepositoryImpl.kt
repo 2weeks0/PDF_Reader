@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.repository
+package com.ejooyoung.pdf_reader.base.repository
 
 import android.app.Application
 import com.ejooyoung.pdf_reader.database.BookDataSource

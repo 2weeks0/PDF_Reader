@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.util.widget
+package com.ejooyoung.pdf_reader.base.widget
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView

@@ -11,7 +11,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.discord.panels.OverlappingPanelsLayout
-import com.ejooyoung.pdf_reader.util.Const
+import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.bookshelf.BookshelfFragment

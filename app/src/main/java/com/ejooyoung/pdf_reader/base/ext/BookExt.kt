@@ -1,12 +1,12 @@
-package com.ejooyoung.pdf_reader.util.ext
+package com.ejooyoung.pdf_reader.base.ext
 
 import android.content.Intent
 import android.net.Uri
 import android.provider.OpenableColumns
 import com.ejooyoung.pdf_reader.MainApplication
 import com.ejooyoung.pdf_reader.model.Book
-import com.ejooyoung.pdf_reader.repository.BookRepositoryImpl
-import com.ejooyoung.pdf_reader.util.ThumbnailUtils
+import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
+import com.ejooyoung.pdf_reader.base.utils.ThumbnailUtils
 import java.io.File
 
 

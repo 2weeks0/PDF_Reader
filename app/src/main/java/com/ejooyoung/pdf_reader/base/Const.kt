@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.util
+package com.ejooyoung.pdf_reader.base
 
 object Const {
 

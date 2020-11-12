@@ -7,9 +7,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import com.ejooyoung.pdf_reader.bookshelf.BookshelfViewModel
-import com.ejooyoung.pdf_reader.database.DatabaseProvider
 import com.ejooyoung.pdf_reader.main.SettingViewModel
-import com.ejooyoung.pdf_reader.repository.BookRepositoryImpl
+import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactories private constructor(

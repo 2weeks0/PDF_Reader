@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.ejooyoung.pdf_reader.model.Book
 import com.ejooyoung.pdf_reader.model.Thumbnail
-import com.ejooyoung.pdf_reader.util.Const
+import com.ejooyoung.pdf_reader.base.Const
 
 @Database(entities = [Book::class, Thumbnail::class], version = Const.DB.VERSION, exportSchema = false)
 abstract class DatabaseSource : RoomDatabase() {

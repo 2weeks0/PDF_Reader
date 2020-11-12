@@ -3,7 +3,7 @@ package com.ejooyoung.pdf_reader.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.ejooyoung.pdf_reader.util.Const
+import com.ejooyoung.pdf_reader.base.Const
 import java.util.*
 
 @Entity(tableName = Const.DB.Thumbnail.TABLE)

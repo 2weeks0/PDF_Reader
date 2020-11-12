@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.util
+package com.ejooyoung.pdf_reader.base.utils
 
 import android.app.Activity
 import android.content.Intent

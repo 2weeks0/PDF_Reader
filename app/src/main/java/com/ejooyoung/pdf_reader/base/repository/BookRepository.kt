@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.repository
+package com.ejooyoung.pdf_reader.base.repository
 
 import com.ejooyoung.pdf_reader.model.Book
 import io.reactivex.rxjava3.core.Completable

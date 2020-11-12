@@ -7,9 +7,9 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import com.ejooyoung.pdf_reader.R
-import com.ejooyoung.pdf_reader.repository.BookRepository
-import com.ejooyoung.pdf_reader.util.Const
-import com.ejooyoung.pdf_reader.util.ext.toBookList
+import com.ejooyoung.pdf_reader.base.repository.BookRepository
+import com.ejooyoung.pdf_reader.base.Const
+import com.ejooyoung.pdf_reader.base.ext.toBookList
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
