@@ -3,6 +3,8 @@ package com.ejooyoung.pdf_reader.bookshelf
 import android.app.Application
 import com.ejooyoung.pdf_reader.base.repository.BookRepository
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
+import com.ejooyoung.pdf_reader.model.Book
+import io.reactivex.rxjava3.core.Flowable
 
 class BookshelfRepositoryImpl private constructor(
     application: Application
@@ -14,5 +16,8 @@ class BookshelfRepositoryImpl private constructor(
         fun newInstance(application: Application) = BookshelfRepositoryImpl(application)
     }
 
-    override fun loadBookList() = bookRepository.selectAllBooks()
+    override fun loadBookList(): Flowable<List<Book>> {
+        return bookRepository.selectAllBooks()
+            .onErrorReturnItem(emptyList())!!
+    }
 }

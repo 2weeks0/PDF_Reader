@@ -4,6 +4,8 @@ import android.app.Application
 import com.ejooyoung.pdf_reader.database.DatabaseProvider
 import com.ejooyoung.pdf_reader.database.ThumbnailDataSource
 import com.ejooyoung.pdf_reader.model.Thumbnail
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Maybe
 
 class ThumbnailRepositoryImpl private constructor(
     private val thumbnailDataSource: ThumbnailDataSource
@@ -20,12 +22,18 @@ class ThumbnailRepositoryImpl private constructor(
         }
     }
 
-    override fun selectThumbnail(thumbGuid: String) =
-        thumbnailDataSource.selectThumbnail(thumbGuid).onErrorReturn { null }!!
+    override fun selectThumbnail(thumbGuid: String): Maybe<Thumbnail?> {
+        return thumbnailDataSource.selectThumbnail(thumbGuid)
+            .onErrorReturn { null }!!
+    }
 
-    override fun insertThumbnails(vararg thumbnail: Thumbnail) =
-        thumbnailDataSource.insertThumbnails(*thumbnail).onErrorComplete()!!
+    override fun insertThumbnails(vararg thumbnail: Thumbnail): Completable {
+        return thumbnailDataSource.insertThumbnails(*thumbnail)
+            .onErrorComplete()!!
+    }
 
-    override fun deleteThumbnails(vararg thumbnail: Thumbnail) =
-        thumbnailDataSource.deleteThumbnails(*thumbnail).onErrorComplete()!!
+    override fun deleteThumbnails(vararg thumbnail: Thumbnail): Completable {
+        return thumbnailDataSource.deleteThumbnails(*thumbnail)
+            .onErrorComplete()!!
+    }
 }

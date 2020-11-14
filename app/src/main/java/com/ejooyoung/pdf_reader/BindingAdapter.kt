@@ -24,9 +24,9 @@ object BindingAdapter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {thumb ->
-                    if (File(thumb.getAbsolutePath()).exists()) {
+                    if (File(thumb?.getAbsolutePath()).exists()) {
                         Glide.with(iv)
-                            .load(thumb.getAbsolutePath())
+                            .load(thumb?.getAbsolutePath())
                             .transform(MultiTransformation(CenterCrop(), RoundedCorners(RADIUS_THUMB)))
                             .into(iv)
                 }
