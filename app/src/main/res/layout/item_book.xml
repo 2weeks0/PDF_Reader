@@ -30,9 +30,31 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@{book.fileName}"
             tools:text="가나다라마"/>
+
+        <LinearLayout
+            android:id="@+id/layProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/progress"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="100dp"
+                android:layout_height="10dp"
+                android:progress="@{100 * book.currentPage / book.lastPage}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/progress_reading(100 * book.currentPage / book.lastPage)}"
+                tools:text="50%"/>
+        </LinearLayout>
     </LinearLayout>
 </layout>
