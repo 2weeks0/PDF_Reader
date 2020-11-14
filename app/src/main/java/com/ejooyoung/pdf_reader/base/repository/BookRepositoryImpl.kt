@@ -31,19 +31,13 @@ class BookRepositoryImpl private constructor(
 
     override fun insertBooks(vararg book: Book) =
         bookDataSource.insertBooks(*book)
-            .onErrorComplete()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())!!
+            .onErrorComplete()!!
 
     override fun deleteBooks(vararg book: Book) =
         bookDataSource.deleteBooks(*book)
-            .onErrorComplete()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())!!
+            .onErrorComplete()!!
 
     override fun updateBook(book: Book) =
         bookDataSource.updateBook(book)
-            .onErrorComplete()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())!!
+            .onErrorComplete()!!
 }

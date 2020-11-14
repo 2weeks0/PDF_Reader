@@ -35,6 +35,8 @@ class SettingViewModel private constructor(
     private fun openFileManager(activity: Activity) {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             type = "application/pdf"
+            addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+            putExtra("android.content.extra.SHOW_ADVANCED",true);
             putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             putExtra(Intent.EXTRA_LOCAL_ONLY, true)
         }
@@ -45,6 +47,8 @@ class SettingViewModel private constructor(
     fun insertBookToDB(data: Intent) {
         Observable.fromCallable { data.toBookList(getApplication()).toTypedArray() }
             .flatMapCompletable { bookRepository.insertBooks(*it) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 Log.d("LEEJY", "insertBookToDB complete")
             }

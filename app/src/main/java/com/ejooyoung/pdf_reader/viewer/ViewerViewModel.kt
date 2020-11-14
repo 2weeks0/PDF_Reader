@@ -5,6 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import com.ejooyoung.pdf_reader.base.repository.BookRepository
 import com.ejooyoung.pdf_reader.base.utils.DateUtils
 import com.ejooyoung.pdf_reader.model.Book
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class ViewerViewModel private constructor(
     application: Application,
@@ -30,6 +32,8 @@ class ViewerViewModel private constructor(
 
     fun updateBook() {
         bookRepository.updateBook(book)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())!!
             .subscribe()
     }
 }

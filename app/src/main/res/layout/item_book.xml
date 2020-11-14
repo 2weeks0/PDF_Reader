@@ -47,13 +47,13 @@
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="100dp"
                 android:layout_height="10dp"
-                android:progress="@{100 * book.currentPage / book.lastPage}" />
+                android:progress="@{book.lastPage == 0 ? 0 : 100 * book.currentPage / book.lastPage}" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvProgress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{@string/progress_reading(100 * book.currentPage / book.lastPage)}"
+                android:text="@{@string/progress_reading(book.lastPage == 0 ? 0 : 100 * book.currentPage / book.lastPage)}"
                 tools:text="50%"/>
         </LinearLayout>
     </LinearLayout>
