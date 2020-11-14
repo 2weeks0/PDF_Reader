@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import com.amitshekhar.DebugDB
 import com.discord.panels.OverlappingPanelsLayout
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.R
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DebugDB.getAddressLog()
         setupDataBinding()
         setupFragment()
     }
