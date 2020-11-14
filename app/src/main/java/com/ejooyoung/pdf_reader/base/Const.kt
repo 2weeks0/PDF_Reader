@@ -16,6 +16,9 @@ object Const {
             const val COLUMN_FILE_NAME = "fileName"
             const val COLUMN_URI = "uri"
             const val COLUMN_THUMBNAIL_GUID = "thumbnailGuid"
+            const val COLUMN_LAST_PAGE = "lastPage"
+            const val COLUMN_CURRENT_PAGE = "currentPage"
+            const val COLUMN_READ_TIME = "readTime"
         }
 
         object Thumbnail {
@@ -29,4 +32,6 @@ object Const {
     object Request {
         const val OPEN_PDF = 1000
     }
+
+    const val KEY_BUNDLE_BOOK = "bundleKeyBook"
 }

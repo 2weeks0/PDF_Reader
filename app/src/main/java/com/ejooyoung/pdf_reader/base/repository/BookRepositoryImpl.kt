@@ -4,6 +4,9 @@ import android.app.Application
 import com.ejooyoung.pdf_reader.database.BookDataSource
 import com.ejooyoung.pdf_reader.database.DatabaseProvider
 import com.ejooyoung.pdf_reader.model.Book
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Maybe
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class BookRepositoryImpl private constructor(
     private val bookDataSource: BookDataSource
@@ -23,12 +26,24 @@ class BookRepositoryImpl private constructor(
     override fun selectAllBooks() =
         bookDataSource.selectAllBooks().onErrorReturnItem(emptyList())!!
 
-    override fun selectBook(fileName: String, uri: String) =
-        bookDataSource.selectBook(fileName, uri).onErrorReturn { null }!!
+    override fun selectBook(fileName: String, uri: String): Maybe<Book?> =
+        bookDataSource.selectBook(fileName, uri)
 
     override fun insertBooks(vararg book: Book) =
-        bookDataSource.insertBooks(*book).onErrorComplete()!!
+        bookDataSource.insertBooks(*book)
+            .onErrorComplete()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())!!
 
     override fun deleteBooks(vararg book: Book) =
-        bookDataSource.deleteBooks(*book).onErrorComplete()!!
+        bookDataSource.deleteBooks(*book)
+            .onErrorComplete()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())!!
+
+    override fun updateBook(book: Book) =
+        bookDataSource.updateBook(book)
+            .onErrorComplete()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())!!
 }

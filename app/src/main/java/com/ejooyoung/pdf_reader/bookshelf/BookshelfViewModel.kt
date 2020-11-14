@@ -3,9 +3,11 @@ package com.ejooyoung.pdf_reader.bookshelf
 import android.app.Application
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.bookshelf.listener.OnClickBookListener
 import com.ejooyoung.pdf_reader.model.Book
 import com.ejooyoung.pdf_reader.viewer.ViewerActivity
@@ -39,10 +41,10 @@ class BookshelfViewModel private constructor(
         compositeDisposable.add(disposable)
     }
 
-    override fun onClickBook(view: View, uriString: String) {
-        val intent = Intent(view.context, ViewerActivity::class.java).apply {
-            data = Uri.parse(uriString)
+    override fun onClickBook(view: View, book: Book) {
+        Intent(view.context, ViewerActivity::class.java).let {
+            it.putExtra(Const.KEY_BUNDLE_BOOK, book)
+            view.context.startActivity(it)
         }
-        view.context.startActivity(intent)
     }
 }

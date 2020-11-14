@@ -44,10 +44,7 @@ class SettingViewModel private constructor(
 
     fun insertBookToDB(data: Intent) {
         Observable.fromCallable { data.toBookList(getApplication()).toTypedArray() }
-//            .onErrorReturnItem(emptyArray())
             .flatMapCompletable { bookRepository.insertBooks(*it) }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 Log.d("LEEJY", "insertBookToDB complete")
             }

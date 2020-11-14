@@ -19,7 +19,7 @@
         android:layout_margin="20dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:onClick="@{(v) -> onClickListener.onClickBook(v, book.uriString)}">
+        android:onClick="@{(v) -> onClickListener.onClickBook(v, book)}">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivThumb"

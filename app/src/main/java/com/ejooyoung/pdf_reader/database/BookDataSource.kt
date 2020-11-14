@@ -22,5 +22,8 @@ interface BookDataSource {
     @Query("SELECT * FROM ${Const.DB.Book.TABLE}" +
             " WHERE ${Const.DB.Book.COLUMN_FILE_NAME} = :fileName" +
             " AND ${Const.DB.Book.COLUMN_URI} = :uri")
-    fun selectBook(fileName: String, uri: String): Maybe<Book>
+    fun selectBook(fileName: String, uri: String): Maybe<Book?>
+
+    @Update
+    fun updateBook(book: Book): Completable
 }
