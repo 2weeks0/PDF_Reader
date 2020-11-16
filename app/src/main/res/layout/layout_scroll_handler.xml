@@ -17,11 +17,13 @@
         android:background="@android:color/transparent">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/layToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/bg_scroll_handler">
 
             <LinearLayout
+                android:id="@+id/layTop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
@@ -47,11 +49,30 @@
         </androidx.appcompat.widget.Toolbar>
 
         <RelativeLayout
+            android:id="@+id/layBottom"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:background="@color/bg_scroll_handler"
             android:layout_alignParentBottom="true">
 
+            <androidx.appcompat.widget.AppCompatSeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:max="@{book.lastPage - 1}"
+                android:progress="@{book.currentPage}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSeekBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/seekBar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                tools:text="1 / 200"/>
         </RelativeLayout>
     </RelativeLayout>
 </layout>

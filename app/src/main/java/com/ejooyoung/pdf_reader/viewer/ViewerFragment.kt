@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
+import com.ejooyoung.pdf_reader.base.utils.Logger
 import com.ejooyoung.pdf_reader.base.widget.ScrollHandler
 import com.ejooyoung.pdf_reader.databinding.FragmentViewerBinding
 import com.ejooyoung.pdf_reader.model.Book
@@ -55,8 +56,9 @@ class ViewerFragment : Fragment() {
                 .enableAnnotationRendering(true)
                 .scrollHandle(ScrollHandler(requireContext(), book))
                 .autoSpacing(true)
-                .nightMode(true)
+                .nightMode(false)
                 .onPageChange { page, pageCount ->
+                    Logger.d("$page / $pageCount")
                     if (book.lastPage == 0) book.lastPage = pageCount
                     book.currentPage = page
                 }
