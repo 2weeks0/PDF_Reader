@@ -80,6 +80,7 @@
                 android:id="@+id/seekBar"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
+                android:layout_marginTop="10dp"
                 android:max="@{book.lastPage - 1}"
                 android:progress="@{book.currentPage}" />
 
@@ -89,15 +90,15 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/seekBar"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
                 tools:text="1 / 200"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:weightSum="4"
                 android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:layout_below="@id/tvSeekBar">
 
                 <androidx.appcompat.widget.AppCompatImageView
