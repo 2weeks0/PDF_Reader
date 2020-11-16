@@ -13,10 +13,11 @@
             type="com.ejooyoung.pdf_reader.viewer.scroll.ScrollHandlerViewModel" />
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/layRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:background="@android:color/transparent">
 
         <androidx.appcompat.widget.Toolbar
@@ -64,6 +65,27 @@
                     app:srcCompat="@drawable/ic_info"/>
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
+
+        <RelativeLayout
+            android:id="@+id/layTouchZone"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <View
+                android:id="@+id/leftTouchZone"
+                android:layout_width="@dimen/touch_zone_width"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:background="#11ff0000"/>
+
+            <View
+                android:id="@+id/rightTouchZone"
+                android:layout_width="@dimen/touch_zone_width"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="#110000ff"/>
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/layBottom"
@@ -138,5 +160,5 @@
                     app:srcCompat="@drawable/ic_setting"/>
             </LinearLayout>
         </RelativeLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </layout>
