@@ -58,7 +58,7 @@ class ViewerFragment : Fragment() {
                 .autoSpacing(true)
                 .nightMode(false)
                 .onPageChange { page, pageCount ->
-                    Logger.d("$page / $pageCount")
+                    Logger.d("${(page + 1)} / $pageCount")
                     if (book.lastPage == 0) book.lastPage = pageCount
                     book.currentPage = page
                 }

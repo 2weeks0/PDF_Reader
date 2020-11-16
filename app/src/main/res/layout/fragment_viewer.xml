@@ -7,15 +7,51 @@
             type="com.ejooyoung.pdf_reader.viewer.ViewerViewModel" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/layRoot"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <com.github.barteksc.pdfviewer.PDFView
             android:id="@+id/viewPdf"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"/>
+
+            <RelativeLayout
+                android:id="@+id/layTouchZone"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/leftTouchZone"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:background="#11ff0000"
+                    android:onClick="@{() -> viewModel.previousPage(viewPdf)}"/>
+
+                <View
+                    android:id="@+id/rightTouchZone"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:background="#110000ff"
+                    android:onClick="@{() -> viewModel.nextPage(viewPdf)}"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/scroll_handler_bottom_height"/>
+        </LinearLayout>
+    </FrameLayout>
 </layout>

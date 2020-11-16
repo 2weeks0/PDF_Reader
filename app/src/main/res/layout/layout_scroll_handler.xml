@@ -68,7 +68,7 @@
         <RelativeLayout
             android:id="@+id/layBottom"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/scroll_handler_bottom_height"
             android:background="@color/bg_scroll_handler"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"

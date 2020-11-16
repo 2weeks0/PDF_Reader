@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="toolbar_padding_start">15dp</dimen>
-    <dimen name="toolbar_padding_end">15dp</dimen>
+    <dimen name="scroll_handler_bottom_height">130dp</dimen>
 </resources>
