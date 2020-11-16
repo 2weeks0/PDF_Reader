@@ -54,7 +54,7 @@ class ViewerFragment : Fragment() {
                 .defaultPage(book.currentPage)
                 .pageFitPolicy(FitPolicy.WIDTH)
                 .enableAnnotationRendering(true)
-                .scrollHandle(ScrollHandler(this, book))
+                .scrollHandle(ScrollHandler(this, viewModel.visibilityScrollHandler, book))
                 .autoSpacing(true)
                 .nightMode(false)
                 .onPageChange { page, pageCount ->

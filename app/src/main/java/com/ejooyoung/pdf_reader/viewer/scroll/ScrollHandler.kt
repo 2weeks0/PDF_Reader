@@ -5,6 +5,7 @@ import android.app.Application
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import android.widget.SeekBar
+import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ejooyoung.pdf_reader.R
@@ -17,6 +18,7 @@ import com.github.barteksc.pdfviewer.scroll.ScrollHandle
 @SuppressLint("ViewConstructor")
 class ScrollHandler constructor(
     fragment: Fragment,
+    private val visibilityScrollHandler: ObservableBoolean,
     private val book: Book
 ) : RelativeLayout(fragment.requireContext()), ScrollHandle {
 
@@ -79,10 +81,12 @@ class ScrollHandler constructor(
 
     override fun show() {
         visibility = VISIBLE
+        visibilityScrollHandler.set(true)
     }
 
     override fun hide() {
         visibility = GONE
+        visibilityScrollHandler.set(false)
     }
 
     override fun hideDelayed() {

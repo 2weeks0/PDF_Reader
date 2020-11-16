@@ -1,6 +1,7 @@
 package com.ejooyoung.pdf_reader.viewer
 
 import android.app.Application
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.AndroidViewModel
 import com.ejooyoung.pdf_reader.base.repository.BookRepository
 import com.ejooyoung.pdf_reader.base.utils.DateUtils
@@ -15,6 +16,8 @@ class ViewerViewModel private constructor(
     private val bookRepository: BookRepository,
     private val book: Book
 ) : AndroidViewModel(application) {
+
+    val visibilityScrollHandler = ObservableBoolean(false)
 
     companion object {
         fun newInstance(

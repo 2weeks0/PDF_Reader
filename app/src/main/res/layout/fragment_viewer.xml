@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.ejooyoung.pdf_reader.viewer.ViewerViewModel" />
@@ -24,7 +25,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"/>
+                android:layout_height="?attr/actionBarSize"
+                android:visibility="@{viewModel.visibilityScrollHandler ? View.VISIBLE : View.GONE}"/>
 
             <RelativeLayout
                 android:id="@+id/layTouchZone"
@@ -49,7 +51,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/scroll_handler_bottom_height"/>
+                android:layout_height="@dimen/scroll_handler_bottom_height"
+                android:visibility="@{viewModel.visibilityScrollHandler ? View.VISIBLE : View.GONE}"/>
         </LinearLayout>
     </FrameLayout>
 </layout>
