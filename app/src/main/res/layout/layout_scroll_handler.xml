@@ -8,6 +8,9 @@
         <variable
             name="book"
             type="com.ejooyoung.pdf_reader.model.Book" />
+        <variable
+            name="viewModel"
+            type="com.ejooyoung.pdf_reader.viewer.scroll.ScrollHandlerViewModel" />
     </data>
 
     <RelativeLayout
@@ -20,19 +23,21 @@
             android:id="@+id/layToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/bg_scroll_handler">
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:background="@color/bg_scroll_handler"
+            app:contentInsetStart="0dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/layTop"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:layout_height="match_parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivBack"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
+                    android:layout_centerVertical="true"
                     android:onClick="@{(v) -> ((Activity) v.context).finish()}"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/ic_back" />
@@ -41,11 +46,23 @@
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/ivBack"
+                    android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
                     android:textColor="@android:color/white"
                     android:text="@{book.fileName}"
                     tools:text="파일 이름"/>
-            </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:onClick="@{() -> viewModel.showInfo()}"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/ic_info"/>
+            </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
         <RelativeLayout
@@ -53,15 +70,16 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:background="@color/bg_scroll_handler"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:layout_alignParentBottom="true">
 
             <androidx.appcompat.widget.AppCompatSeekBar
                 android:id="@+id/seekBar"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
                 android:max="@{book.lastPage - 1}"
                 android:progress="@{book.currentPage}" />
 
@@ -72,7 +90,52 @@
                 android:layout_below="@id/seekBar"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 tools:text="1 / 200"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="4"
+                android:orientation="horizontal"
+                android:layout_below="@id/tvSeekBar">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivUndo"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.performUndo()}"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/ic_undo"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivContents"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.showContents()}"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/ic_contents"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivBookmark"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.showBookmark()}"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/ic_bookmark"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivSetting"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.showSetting()}"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/ic_setting"/>
+            </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
 </layout>

@@ -10,9 +10,9 @@ import androidx.fragment.app.viewModels
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.base.utils.Logger
-import com.ejooyoung.pdf_reader.base.widget.ScrollHandler
 import com.ejooyoung.pdf_reader.databinding.FragmentViewerBinding
 import com.ejooyoung.pdf_reader.model.Book
+import com.ejooyoung.pdf_reader.viewer.scroll.ScrollHandler
 import com.github.barteksc.pdfviewer.util.FitPolicy
 
 class ViewerFragment : Fragment() {
@@ -54,7 +54,7 @@ class ViewerFragment : Fragment() {
                 .defaultPage(book.currentPage)
                 .pageFitPolicy(FitPolicy.WIDTH)
                 .enableAnnotationRendering(true)
-                .scrollHandle(ScrollHandler(requireContext(), book))
+                .scrollHandle(ScrollHandler(this, book))
                 .autoSpacing(true)
                 .nightMode(false)
                 .onPageChange { page, pageCount ->

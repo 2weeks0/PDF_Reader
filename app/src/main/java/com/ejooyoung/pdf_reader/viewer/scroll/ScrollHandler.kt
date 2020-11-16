@@ -1,11 +1,14 @@
-package com.ejooyoung.pdf_reader.base.widget
+package com.ejooyoung.pdf_reader.viewer.scroll
 
 import android.annotation.SuppressLint
-import android.content.Context
+import android.app.Application
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import android.widget.SeekBar
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.ejooyoung.pdf_reader.R
+import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.databinding.LayoutScrollHandlerBinding
 import com.ejooyoung.pdf_reader.model.Book
 import com.github.barteksc.pdfviewer.PDFView
@@ -13,12 +16,16 @@ import com.github.barteksc.pdfviewer.scroll.ScrollHandle
 
 @SuppressLint("ViewConstructor")
 class ScrollHandler constructor(
-    context: Context,
+    fragment: Fragment,
     private val book: Book
-) : RelativeLayout(context), ScrollHandle {
+) : RelativeLayout(fragment.requireContext()), ScrollHandle {
 
     private lateinit var binding: LayoutScrollHandlerBinding
+    private val viewModel by fragment.viewModels<ScrollHandlerViewModel> {
+        ViewModelFactories.of(context.applicationContext as Application, fragment)
+    }
     private lateinit var pdfView: PDFView
+    private var isFirstExecution = true
     private val onSeekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
             setCurrentPage(p1, toSeekBarFromPdfView = false)
@@ -38,9 +45,11 @@ class ScrollHandler constructor(
         addView(binding.root)
     }
 
+
     private fun setupView() {
         binding = LayoutScrollHandlerBinding.inflate(LayoutInflater.from(context)).apply {
             book = this@ScrollHandler.book
+            viewModel = this@ScrollHandler.viewModel
         }
         binding.seekBar.setOnSeekBarChangeListener(onSeekBarChangeListener)
     }
@@ -57,6 +66,7 @@ class ScrollHandler constructor(
 
     override fun destroyLayout() {
         pdfView.removeView(this)
+        viewModel.showContents()
     }
 
     override fun setPageNum(pageNum: Int) {
@@ -80,6 +90,10 @@ class ScrollHandler constructor(
     }
 
     private fun setCurrentPage(currentPage: Int, toSeekBarFromPdfView: Boolean) {
+        if (isFirstExecution) {
+            isFirstExecution = false
+            return
+        }
         binding.tvSeekBar.text = context.getString(R.string.seek_bar, currentPage.toString(), book.lastPage.toString())
         if (toSeekBarFromPdfView) {
             binding.seekBar.setOnSeekBarChangeListener(null)
