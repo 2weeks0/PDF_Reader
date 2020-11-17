@@ -18,12 +18,8 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/layToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:background="@color/bg_scroll_handler"
-            app:contentInsetStart="0dp">
+            style="@style/defaultToolbar"
+            android:background="@color/bg_scroll_handler">
 
             <RelativeLayout
                 android:id="@+id/layTop"
