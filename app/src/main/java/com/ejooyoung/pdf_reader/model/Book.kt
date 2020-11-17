@@ -40,4 +40,8 @@ data class Book(
                 thumbnailGuid = thumbnailGuid
             )
     }
+
+    fun getReadingPercentage(): Int {
+        return 100 * (currentPage + 1) / lastPage
+    }
 }
