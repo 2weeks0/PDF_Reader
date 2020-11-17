@@ -8,6 +8,7 @@ import androidx.savedstate.SavedStateRegistryOwner
 import com.ejooyoung.pdf_reader.bookshelf.BookshelfViewModel
 import com.ejooyoung.pdf_reader.main.SettingViewModel
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
+import com.ejooyoung.pdf_reader.bookshelf.BookshelfRepositoryImpl
 import com.ejooyoung.pdf_reader.model.Book
 import com.ejooyoung.pdf_reader.viewer.ViewerViewModel
 
@@ -33,7 +34,7 @@ class ViewModelFactories private constructor(
     ) = with(modelClass) {
         when {
             isAssignableFrom(BookshelfViewModel::class.java) ->
-                BookshelfViewModel.newInstance(application)
+                BookshelfViewModel.newInstance(application, BookshelfRepositoryImpl.newInstance(application))
 
             isAssignableFrom(SettingViewModel::class.java) ->
                 SettingViewModel.newInstance(application, BookRepositoryImpl.getInstance(application))

@@ -17,15 +17,18 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class BookshelfViewModel private constructor(
-    application: Application
+    application: Application,
+    private val repository: BookshelfRepository
 ) : AndroidViewModel(application), OnClickBookListener {
 
-    private val repository = BookshelfRepositoryImpl.newInstance(application)
     private val compositeDisposable = CompositeDisposable()
     val bookList = MutableLiveData(listOf<Book>())
 
     companion object {
-        fun newInstance(application: Application) = BookshelfViewModel(application)
+        fun newInstance(
+            application: Application,
+            repository: BookshelfRepository
+        ) = BookshelfViewModel(application, repository)
     }
 
     init {

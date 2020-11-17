@@ -10,7 +10,7 @@ class BookshelfRepositoryImpl private constructor(
     application: Application
 ) : BookshelfRepository {
 
-    private var bookRepository: BookRepository = BookRepositoryImpl.getInstance(application)
+    private val bookRepository: BookRepository = BookRepositoryImpl.getInstance(application)
 
     companion object {
         fun newInstance(application: Application) = BookshelfRepositoryImpl(application)
