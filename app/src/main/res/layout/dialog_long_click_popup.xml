@@ -8,7 +8,7 @@
             name="book"
             type="com.ejooyoung.pdf_reader.model.Book" />
         <variable
-            name="onClickListener"
+            name="dialog"
             type="com.ejooyoung.pdf_reader.bookshelf.dialog.LongClickPopupDialog" />
     </data>
 
@@ -38,7 +38,7 @@
             style="@style/textInPopupDialog"
             android:text="@string/txt_renaming_book"
             android:background="?attr/selectableItemBackground"
-            android:onClick="@{(v) -> onClickListener.onClickHandler(v)}"/>
+            android:onClick="@{(v) -> dialog.onClickHandler(v)}"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvBookmark"
@@ -47,7 +47,7 @@
             style="@style/textInPopupDialog"
             android:text="@string/txt_bookmark_book"
             android:background="?attr/selectableItemBackground"
-            android:onClick="@{(v) -> onClickListener.onClickHandler(v)}" />
+            android:onClick="@{(v) -> dialog.onClickHandler(v)}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvDelete"
@@ -56,6 +56,6 @@
             style="@style/textInPopupDialog"
             android:text="@string/txt_delete_book"
             android:background="?attr/selectableItemBackground"
-            android:onClick="@{(v) -> onClickListener.onClickHandler(v)}"/>
+            android:onClick="@{(v) -> dialog.onClickHandler(v)}"/>
     </LinearLayout>
 </layout>

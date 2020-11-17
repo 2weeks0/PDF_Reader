@@ -3,6 +3,8 @@
     <string name="progress_reading" translatable="false">%s%%</string>
     <string name="seek_bar" translatable="false">%s / %s</string>
 
+    <string name="btn_cancel">취소</string>
+    <string name="btn_confirm">확인</string>
     <string name="txt_renaming_book">문서 이름 변경</string>
     <string name="txt_bookmark_book">즐겨찾기에 추가</string>
     <string name="txt_delete_book">문서 삭제</string>

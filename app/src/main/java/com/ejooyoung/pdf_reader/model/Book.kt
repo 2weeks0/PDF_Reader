@@ -16,7 +16,7 @@ data class Book(
     @ColumnInfo(name = Const.DB.Book.COLUMN_GUID)
     val guid: String = UUID.randomUUID().toString(),
     @ColumnInfo(name = Const.DB.Book.COLUMN_FILE_NAME)
-    val fileName: String,
+    var fileName: String,
     @ColumnInfo(name = Const.DB.Book.COLUMN_URI)
     val uriString: String,
     @ColumnInfo(name = Const.DB.Book.COLUMN_THUMBNAIL_GUID)

@@ -7,9 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.base.Const
-import com.ejooyoung.pdf_reader.base.utils.Logger
 import com.ejooyoung.pdf_reader.bookshelf.dialog.LongClickPopupDialog
-import com.ejooyoung.pdf_reader.bookshelf.dialog.LongClickPopupListener
 import com.ejooyoung.pdf_reader.bookshelf.listener.OnClickBookListener
 import com.ejooyoung.pdf_reader.model.Book
 import com.ejooyoung.pdf_reader.viewer.ViewerActivity
@@ -19,7 +17,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class BookshelfViewModel private constructor(
     application: Application
-) : AndroidViewModel(application), OnClickBookListener, LongClickPopupListener {
+) : AndroidViewModel(application), OnClickBookListener {
 
     private val repository = BookshelfRepositoryImpl.newInstance(application)
     private val compositeDisposable = CompositeDisposable()
@@ -51,24 +49,8 @@ class BookshelfViewModel private constructor(
     }
 
     override fun onLongClickBook(view: View, book: Book): Boolean {
-        LongClickPopupDialog.newInstance(
-            book = book,
-            longClickPopupListener = this
-        ).show(
-            (view.context as AppCompatActivity).supportFragmentManager,
-            null)
+        LongClickPopupDialog.newInstance(book)
+            .show((view.context as AppCompatActivity).supportFragmentManager, null)
         return true
-    }
-
-    override fun renameBook(book: Book) {
-        Logger.i()
-    }
-
-    override fun bookMarkBook(book: Book) {
-        Logger.i()
-    }
-
-    override fun deleteBook(book: Book) {
-        Logger.i()
     }
 }
