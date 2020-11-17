@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.base.Const
+import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 import com.ejooyoung.pdf_reader.bookshelf.dialog.LongClickPopupDialog
 import com.ejooyoung.pdf_reader.bookshelf.listener.OnClickBookListener
 import com.ejooyoung.pdf_reader.model.Book
@@ -49,7 +50,7 @@ class BookshelfViewModel private constructor(
     }
 
     override fun onLongClickBook(view: View, book: Book): Boolean {
-        LongClickPopupDialog.newInstance(book)
+        LongClickPopupDialog.newInstance(book, BookRepositoryImpl.getInstance(getApplication()))
             .show((view.context as AppCompatActivity).supportFragmentManager, null)
         return true
     }

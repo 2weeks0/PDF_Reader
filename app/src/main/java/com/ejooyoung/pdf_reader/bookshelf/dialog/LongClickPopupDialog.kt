@@ -4,9 +4,9 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.ejooyoung.pdf_reader.R
+import com.ejooyoung.pdf_reader.base.repository.BookRepository
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.Logger
 import com.ejooyoung.pdf_reader.databinding.DialogLongClickPopupBinding
@@ -15,14 +15,15 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class LongClickPopupDialog private constructor(
-    private val book: Book
+    val book: Book,
+    private val bookRepository: BookRepository
 ): AppCompatDialogFragment() {
 
     private lateinit var binding: DialogLongClickPopupBinding
 
     companion object {
-        fun newInstance(book: Book): LongClickPopupDialog {
-            return LongClickPopupDialog(book)
+        fun newInstance(book: Book, bookRepository: BookRepository): LongClickPopupDialog {
+            return LongClickPopupDialog(book, bookRepository)
         }
     }
 
@@ -39,7 +40,6 @@ class LongClickPopupDialog private constructor(
 
         val view = inflater.inflate(R.layout.dialog_long_click_popup, container, false)
         binding = DialogLongClickPopupBinding.bind(view).apply {
-            book = this@LongClickPopupDialog.book
             dialog = this@LongClickPopupDialog
         }
         return view
@@ -47,11 +47,13 @@ class LongClickPopupDialog private constructor(
 
     fun onClickHandler(view: View) {
         when (view.id) {
-            R.id.tvRenaming -> RenameDialog.newInstance(book)
+            R.id.tvRenaming -> RenameDialog.newInstance(
+                book,
+                BookRepositoryImpl.getInstance(requireActivity().application)
+            )
                 .show(requireActivity().supportFragmentManager, null)
             R.id.tvBookmark -> Logger.i()
-            R.id.tvDelete -> BookRepositoryImpl.getInstance(requireActivity().application)
-                .deleteBooks(book)
+            R.id.tvDelete -> bookRepository.deleteBooks(book)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()

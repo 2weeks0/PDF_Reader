@@ -5,9 +5,8 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatDialogFragment
-import androidx.databinding.ObservableField
 import com.ejooyoung.pdf_reader.R
-import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
+import com.ejooyoung.pdf_reader.base.repository.BookRepository
 import com.ejooyoung.pdf_reader.base.utils.Logger
 import com.ejooyoung.pdf_reader.databinding.DialogRenameBinding
 import com.ejooyoung.pdf_reader.model.Book
@@ -15,15 +14,15 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class RenameDialog private constructor(
-    val book: Book
+    val book: Book,
+    private val bookRepository: BookRepository
 ): AppCompatDialogFragment() {
 
     private lateinit var binding: DialogRenameBinding
-    val bookName = ObservableField<String>(book.fileName)
 
     companion object {
-        fun newInstance(book: Book): RenameDialog {
-            return RenameDialog(book)
+        fun newInstance(book: Book, bookRepository: BookRepository): RenameDialog {
+            return RenameDialog(book, bookRepository)
         }
     }
 
@@ -47,8 +46,7 @@ class RenameDialog private constructor(
 
     fun onClickHandler(view: View) {
         when (view.id) {
-            R.id.tvConfirm -> BookRepositoryImpl.getInstance(requireActivity().application)
-                .updateBook(book)
+            R.id.tvConfirm -> bookRepository.updateBook(book)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()

@@ -5,9 +5,6 @@
 
     <data>
         <variable
-            name="book"
-            type="com.ejooyoung.pdf_reader.model.Book" />
-        <variable
             name="dialog"
             type="com.ejooyoung.pdf_reader.bookshelf.dialog.LongClickPopupDialog" />
     </data>
@@ -28,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/titleInPopupDialog"
-            android:text="@{book.fileName}"
+            android:text="@{dialog.book.fileName}"
             tools:text="fileName.xxx"/>
 
         <androidx.appcompat.widget.AppCompatTextView
