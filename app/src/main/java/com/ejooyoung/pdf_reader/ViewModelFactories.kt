@@ -10,7 +10,6 @@ import com.ejooyoung.pdf_reader.main.SettingViewModel
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 import com.ejooyoung.pdf_reader.model.Book
 import com.ejooyoung.pdf_reader.viewer.ViewerViewModel
-import com.ejooyoung.pdf_reader.viewer.scroll.ScrollHandlerViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactories private constructor(
@@ -41,9 +40,6 @@ class ViewModelFactories private constructor(
 
             isAssignableFrom(ViewerViewModel::class.java) ->
                 ViewerViewModel.newInstance(application, BookRepositoryImpl.getInstance(application), arg as Book)
-
-            isAssignableFrom(ScrollHandlerViewModel::class.java) ->
-                ScrollHandlerViewModel.newInstance(application)
 
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

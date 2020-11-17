@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ejooyoung.pdf_reader.R
@@ -12,7 +13,6 @@ import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.base.utils.Logger
 import com.ejooyoung.pdf_reader.databinding.FragmentViewerBinding
 import com.ejooyoung.pdf_reader.model.Book
-import com.ejooyoung.pdf_reader.viewer.scroll.ScrollHandler
 import com.github.barteksc.pdfviewer.util.FitPolicy
 
 class ViewerFragment : Fragment() {
@@ -24,7 +24,9 @@ class ViewerFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(book: Book) = ViewerFragment().apply { this.book = book }
+        fun newInstance(book: Book) = ViewerFragment().apply {
+            this.book = book
+        }
     }
 
     override fun onCreateView(
@@ -36,7 +38,8 @@ class ViewerFragment : Fragment() {
         binding = FragmentViewerBinding.bind(view).apply {
             viewModel = this@ViewerFragment.viewModel
         }
-        setupPdfView(book)
+        setupPdfView()
+        setupSeekBar()
         return view
     }
 
@@ -45,24 +48,46 @@ class ViewerFragment : Fragment() {
         viewModel.updateBook()
     }
 
-    private fun setupPdfView(book: Book) {
-        Uri.parse(book.uriString)?.let {
-            binding.viewPdf.fromUri(it)
-                .swipeHorizontal(true)
-                .enableSwipe(true)
-                .pageFling(true)
-                .defaultPage(book.currentPage)
-                .pageFitPolicy(FitPolicy.WIDTH)
-                .enableAnnotationRendering(true)
-                .scrollHandle(ScrollHandler(this, viewModel.visibilityScrollHandler, book))
-                .autoSpacing(true)
-                .nightMode(false)
-                .onPageChange { page, pageCount ->
-                    Logger.d("${(page + 1)} / $pageCount")
-                    if (book.lastPage == 0) book.lastPage = pageCount
-                    book.currentPage = page
+    private fun setupPdfView() {
+        val uri = Uri.parse(viewModel.book.uriString)
+        binding.viewPdf.fromUri(uri)
+            .swipeHorizontal(true)
+            .enableSwipe(true)
+            .pageFling(true)
+            .defaultPage(viewModel.book.currentPage)
+            .pageFitPolicy(FitPolicy.WIDTH)
+            .enableAnnotationRendering(true)
+            .autoSpacing(true)
+            .nightMode(false)
+            .onTap {
+                viewModel.visibilityScrollHandler.set(!viewModel.visibilityScrollHandler.get())
+                return@onTap true
+            }
+            .onPageChange { page, pageCount ->
+                Logger.d("${(page + 1)} / $pageCount")
+                if (viewModel.book.lastPage == 0) viewModel.book.lastPage = pageCount
+                viewModel.book.currentPage = page
+            }
+            .load()
+    }
+
+    private fun setupSeekBar() {
+        binding.scrollHandler.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                Logger.d("fromUser: $fromUser")
+                if (fromUser) {
+                    binding.viewPdf.jumpTo(progress)
+                    viewModel.currentPage.set(progress)
                 }
-                .load()
-        }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+            }
+        })
     }
 }

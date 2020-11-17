@@ -6,18 +6,14 @@
     <data>
         <import type="android.app.Activity"/>
         <variable
-            name="book"
-            type="com.ejooyoung.pdf_reader.model.Book" />
-        <variable
             name="viewModel"
-            type="com.ejooyoung.pdf_reader.viewer.scroll.ScrollHandlerViewModel" />
+            type="com.ejooyoung.pdf_reader.viewer.ViewerViewModel" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/layRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@android:color/transparent">
 
         <androidx.appcompat.widget.Toolbar
@@ -51,7 +47,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
                     android:textColor="@android:color/white"
-                    android:text="@{book.fileName}"
+                    android:text="@{viewModel.book.fileName}"
                     tools:text="파일 이름"/>
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -67,45 +63,23 @@
         </androidx.appcompat.widget.Toolbar>
 
         <RelativeLayout
-            android:id="@+id/layTouchZone"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <View
-                android:id="@+id/leftTouchZone"
-                android:layout_width="@dimen/touch_zone_width"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:background="#11ff0000"/>
-
-            <View
-                android:id="@+id/rightTouchZone"
-                android:layout_width="@dimen/touch_zone_width"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:background="#110000ff"/>
-        </RelativeLayout>
-
-        <RelativeLayout
             android:id="@+id/layBottom"
             android:layout_width="match_parent"
             android:layout_height="@dimen/scroll_handler_bottom_height"
             android:background="@color/bg_scroll_handler"
+            android:layout_alignParentBottom="true"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:focusable="true"
-            android:clickable="true">
+            android:paddingBottom="10dp">
 
             <androidx.appcompat.widget.AppCompatSeekBar
                 android:id="@+id/seekBar"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:layout_marginTop="10dp"
-                android:max="@{book.lastPage - 1}"
-                android:progress="@{book.currentPage}" />
+                android:max="@{viewModel.book.lastPage - 1}"
+                android:progress="@{viewModel.book.currentPage}" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvSeekBar"
@@ -114,6 +88,7 @@
                 android:layout_below="@id/seekBar"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
+                android:text="@{@string/seek_bar(viewModel.currentPage + 1, viewModel.book.lastPage)}"
                 tools:text="1 / 200"/>
 
             <LinearLayout
@@ -161,5 +136,5 @@
                     app:srcCompat="@drawable/ic_setting"/>
             </LinearLayout>
         </RelativeLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </layout>
