@@ -2,4 +2,5 @@
 <resources>
     <dimen name="touch_zone_width">100dp</dimen>
     <dimen name="scroll_handler_bottom_height">130dp</dimen>
+    <dimen name="width_popup_dialog_min">300dp</dimen>
 </resources>

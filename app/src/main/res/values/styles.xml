@@ -13,4 +13,21 @@
         <item name="contentInsetStartWithNavigation">0dp</item>
         <item name="contentInsetEndWithActions">0dp</item>
     </style>
+
+    <style name="titleInPopupDialog" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="textInPopupDialog" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">14dp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+    </style>
 </resources>

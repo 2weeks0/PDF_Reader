@@ -12,49 +12,66 @@
             type="com.ejooyoung.pdf_reader.bookshelf.listener.OnClickBookListener" />
     </data>
 
-    <LinearLayout
-        android:id="@+id/layItem"
+    <FrameLayout
+        android:id="@+id/layRoot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:onClick="@{(v) -> onClickListener.onClickBook(v, book)}">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivThumb"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="20dp"
-            app:thumbGuid="@{book.thumbnailGuid}"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvName"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@{book.fileName}"
-            tools:text="가나다라마"/>
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_card">
 
         <LinearLayout
-            android:id="@+id/layProgress"
-            android:layout_width="wrap_content"
+            android:id="@+id/layItem"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:gravity="center_vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{(v) -> onClickListener.onClickBook(v, book)}"
+            android:onLongClick="@{(v) -> onClickListener.onLongClickBook(v, book)}">
 
-            <ProgressBar
-                android:id="@+id/progress"
-                style="@android:style/Widget.ProgressBar.Horizontal"
-                android:layout_width="100dp"
-                android:layout_height="10dp"
-                android:progress="@{book.lastPage == 0 ? 0 : 100 * book.currentPage / book.lastPage}" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivThumb"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                app:thumbGuid="@{book.thumbnailGuid}"
+                tools:src="#000000"/>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvProgress"
+                android:id="@+id/tvName"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@{book.fileName}"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                tools:text="가나다라마"/>
+
+            <LinearLayout
+                android:id="@+id/layProgress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{@string/progress_reading(book.lastPage == 0 ? 0 : 100 * book.currentPage / book.lastPage)}"
-                tools:text="50%"/>
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/progress"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_width="100dp"
+                    android:layout_height="10dp"
+                    android:progress="@{book.lastPage == 0 ? 0 : 100 * book.currentPage / book.lastPage}"
+                    tools:progress="50"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/progress_reading(book.lastPage == 0 ? 0 : 100 * book.currentPage / book.lastPage)}"
+                    tools:text="50%"/>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </FrameLayout>
 </layout>

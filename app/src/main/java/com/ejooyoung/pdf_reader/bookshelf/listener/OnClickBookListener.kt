@@ -5,4 +5,5 @@ import com.ejooyoung.pdf_reader.model.Book
 
 interface OnClickBookListener {
     fun onClickBook(view: View, book: Book)
+    fun onLongClickBook(view: View, book: Book): Boolean
 }

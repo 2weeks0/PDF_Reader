@@ -9,7 +9,9 @@ import com.ejooyoung.pdf_reader.databinding.ItemBookBinding
 import com.ejooyoung.pdf_reader.model.Book
 import com.ejooyoung.pdf_reader.base.widget.ViewHolder
 
-class BookshelfAdapter(private val clickListener: OnClickBookListener) : RecyclerView.Adapter<ViewHolder<ViewDataBinding>>() {
+class BookshelfAdapter(
+    private val clickListener: OnClickBookListener
+) : RecyclerView.Adapter<ViewHolder<ViewDataBinding>>() {
 
     private val itemList: ArrayList<Book> = arrayListOf()
 
