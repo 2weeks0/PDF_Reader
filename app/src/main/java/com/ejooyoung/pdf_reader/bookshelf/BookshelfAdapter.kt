@@ -28,6 +28,10 @@ class BookshelfAdapter(
 
     override fun getItemCount() = itemList.size
 
+    override fun getItemId(position: Int): Long {
+        return itemList[position].guid.hashCode().toLong()
+    }
+
     fun setItem(itemList: List<Book>) {
         this.itemList.clear()
         this.itemList.addAll(itemList)

@@ -49,7 +49,7 @@ class BookshelfFragment : Fragment() {
             false
         )
         bookshelfAdapter = BookshelfAdapter(viewModel).apply {
-//            setHasStableIds(true)
+            setHasStableIds(true)
         }
         binding.rv.adapter = bookshelfAdapter
     }
