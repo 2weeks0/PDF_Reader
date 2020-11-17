@@ -14,7 +14,11 @@
         <item name="contentInsetEndWithActions">0dp</item>
     </style>
 
-    <style name="titleInPopupDialog" parent="Widget.AppCompat.TextView">
+    <style name="baseTextStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="titleInPopupDialog" parent="baseTextStyle">
         <item name="android:textSize">18dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:paddingStart">10dp</item>
@@ -23,7 +27,7 @@
         <item name="android:paddingBottom">10dp</item>
     </style>
 
-    <style name="textInPopupDialog" parent="Widget.AppCompat.TextView">
+    <style name="textInPopupDialog" parent="baseTextStyle">
         <item name="android:textSize">14dp</item>
         <item name="android:paddingStart">10dp</item>
         <item name="android:paddingEnd">10dp</item>
