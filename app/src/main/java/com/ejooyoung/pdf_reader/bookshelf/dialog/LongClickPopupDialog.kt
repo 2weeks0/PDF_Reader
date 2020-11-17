@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.base.repository.BookRepository
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
-import com.ejooyoung.pdf_reader.base.utils.Logger
+import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.databinding.DialogLongClickPopupBinding
 import com.ejooyoung.pdf_reader.model.Book
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -32,7 +32,7 @@ class LongClickPopupDialog private constructor(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Logger.i()
+        DevLogger.i()
         dialog?.window?.let {
             it.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             it.requestFeature(Window.FEATURE_NO_TITLE)
@@ -52,7 +52,7 @@ class LongClickPopupDialog private constructor(
                 BookRepositoryImpl.getInstance(requireActivity().application)
             )
                 .show(requireActivity().supportFragmentManager, null)
-            R.id.tvBookmark -> Logger.i()
+            R.id.tvBookmark -> DevLogger.i()
             R.id.tvDelete -> bookRepository.deleteBooks(book)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -63,6 +63,6 @@ class LongClickPopupDialog private constructor(
 
     override fun onDestroy() {
         super.onDestroy()
-        Logger.i()
+        DevLogger.i()
     }
 }

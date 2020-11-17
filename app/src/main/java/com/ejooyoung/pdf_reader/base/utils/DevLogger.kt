@@ -2,7 +2,7 @@ package com.ejooyoung.pdf_reader.base.utils
 
 import android.util.Log
 
-object Logger {
+object DevLogger {
 
     private const val TAG = "devLog"
     private const val NAME_BASE_PACKAGE = "com.ejooyoung.pdf_reader"

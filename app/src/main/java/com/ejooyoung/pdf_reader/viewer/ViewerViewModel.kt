@@ -7,7 +7,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.AndroidViewModel
 import com.ejooyoung.pdf_reader.base.repository.BookRepository
 import com.ejooyoung.pdf_reader.base.utils.DateUtils
-import com.ejooyoung.pdf_reader.base.utils.Logger
+import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.databinding.LayoutScrollHandlerBinding
 import com.ejooyoung.pdf_reader.model.Book
 import com.github.barteksc.pdfviewer.PDFView
@@ -48,7 +48,7 @@ class ViewerViewModel private constructor(
 
     fun previousPage(pdfView: PDFView, binding: ViewDataBinding) {
         val target = pdfView.currentPage - 1
-        Logger.d("target: $target, pageCount: ${pdfView.pageCount}")
+        DevLogger.d("target: $target, pageCount: ${pdfView.pageCount}")
         if (target < 0) return
         pdfView.jumpTo(target, true)
         currentPage.set(target)
@@ -57,7 +57,7 @@ class ViewerViewModel private constructor(
 
     fun nextPage(pdfView: PDFView, binding: ViewDataBinding) {
         val target = pdfView.currentPage + 1
-        Logger.d("target: $target, pageCount: ${pdfView.pageCount}")
+        DevLogger.d("target: $target, pageCount: ${pdfView.pageCount}")
         if (target >= pdfView.pageCount) return
         pdfView.jumpTo(target, true)
         currentPage.set(target)
@@ -65,27 +65,27 @@ class ViewerViewModel private constructor(
     }
 
     fun showInfo() {
-        Logger.i()
+        DevLogger.i()
     }
 
     fun performUndo() {
-        Logger.i()
+        DevLogger.i()
     }
 
     fun showContents() {
-        Logger.i()
+        DevLogger.i()
     }
 
     fun showBookmark() {
-        Logger.i()
+        DevLogger.i()
     }
 
     fun showSetting() {
-        Logger.i()
+        DevLogger.i()
     }
 
     override fun onCleared() {
         super.onCleared()
-        Logger.i()
+        DevLogger.i()
     }
 }

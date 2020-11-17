@@ -7,7 +7,7 @@ import android.view.*
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.base.repository.BookRepository
-import com.ejooyoung.pdf_reader.base.utils.Logger
+import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.databinding.DialogRenameBinding
 import com.ejooyoung.pdf_reader.model.Book
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -31,7 +31,7 @@ class RenameDialog private constructor(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Logger.i()
+        DevLogger.i()
         dialog?.window?.let {
             it.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             it.requestFeature(Window.FEATURE_NO_TITLE)
@@ -56,6 +56,6 @@ class RenameDialog private constructor(
 
     override fun onDestroy() {
         super.onDestroy()
-        Logger.i()
+        DevLogger.i()
     }
 }

@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
-import com.ejooyoung.pdf_reader.base.utils.Logger
+import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.databinding.FragmentViewerBinding
 import com.ejooyoung.pdf_reader.model.Book
 import com.github.barteksc.pdfviewer.util.FitPolicy
@@ -64,7 +64,7 @@ class ViewerFragment : Fragment() {
                 return@onTap true
             }
             .onPageChange { page, pageCount ->
-                Logger.d("${(page + 1)} / $pageCount")
+                DevLogger.d("${(page + 1)} / $pageCount")
                 if (viewModel.book.lastPage == 0) viewModel.book.lastPage = pageCount
                 viewModel.book.currentPage = page
             }
@@ -74,7 +74,7 @@ class ViewerFragment : Fragment() {
     private fun setupSeekBar() {
         binding.scrollHandler.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                Logger.d("fromUser: $fromUser")
+                DevLogger.d("fromUser: $fromUser")
                 if (fromUser) {
                     binding.viewPdf.jumpTo(progress)
                     viewModel.currentPage.set(progress)
