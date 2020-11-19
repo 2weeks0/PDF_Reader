@@ -109,7 +109,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.showContents()}"
+                    android:onClick="@{(v) -> viewModel.showContents(v)}"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/ic_contents"/>
 

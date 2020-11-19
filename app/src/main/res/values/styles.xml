@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="bottomSheetDialogTheme">@style/PDF_BottomSheetTheme</item>
     </style>
 
     <style name="defaultToolbar" parent="Widget.AppCompat.Toolbar">
@@ -17,7 +18,7 @@
     </style>
 
     <style name="baseTextStyle" parent="Widget.AppCompat.TextView">
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">#4d4d4d</item>
     </style>
 
     <style name="titleInPopupDialog" parent="baseTextStyle">
@@ -35,5 +36,13 @@
         <item name="android:paddingEnd">10dp</item>
         <item name="android:paddingTop">6dp</item>
         <item name="android:paddingBottom">6dp</item>
+    </style>
+
+    <style name="PDF_BottomSheetTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/PDF_BottomSheetStyle</item>
+    </style>
+
+    <style name="PDF_BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_half_rounded_dialog</item>
     </style>
 </resources>

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
+import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.databinding.FragmentViewerBinding
 import com.ejooyoung.pdf_reader.model.Book
@@ -46,6 +47,7 @@ class ViewerFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.updateBook()
+        PdfDocumentRepositoryImpl.getInstance().clearContentsList()
     }
 
     private fun setupPdfView() {
@@ -67,6 +69,9 @@ class ViewerFragment : Fragment() {
                 DevLogger.d("${(page + 1)} / $pageCount")
                 if (viewModel.book.lastPage == 0) viewModel.book.lastPage = pageCount
                 viewModel.book.currentPage = page
+            }
+            .onLoad {
+                PdfDocumentRepositoryImpl.getInstance().saveContentsList(binding.viewPdf.tableOfContents)
             }
             .load()
     }

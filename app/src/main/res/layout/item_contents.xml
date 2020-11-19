@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="content"
+            type="com.shockwave.pdfium.PdfDocument.Bookmark" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/layRoot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="?attr/selectableItemBackground"
+        android:padding="15dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            style="@style/baseTextStyle"
+            android:text="@{content.title}"
+            tools:text="content.title"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPageNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/baseTextStyle"
+            android:text="@{String.valueOf(content.pageIdx + 1)}"
+            tools:text="content.pageIdx"/>
+    </LinearLayout>
+</layout>
