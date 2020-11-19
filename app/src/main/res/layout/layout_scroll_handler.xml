@@ -8,6 +8,9 @@
         <variable
             name="viewModel"
             type="com.ejooyoung.pdf_reader.viewer.ViewerViewModel" />
+        <variable
+            name="pdfView"
+            type="com.github.barteksc.pdfviewer.PDFView" />
     </data>
 
     <RelativeLayout
@@ -109,7 +112,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:onClick="@{(v) -> viewModel.showContents(v)}"
+                    android:onClick="@{(v) -> viewModel.showContents(pdfView)}"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/ic_contents"/>
 

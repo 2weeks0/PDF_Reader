@@ -6,6 +6,9 @@
         <variable
             name="content"
             type="com.shockwave.pdfium.PdfDocument.Bookmark" />
+        <variable
+            name="clickListener"
+            type="kotlin.jvm.functions.Function1" />
     </data>
 
     <LinearLayout
@@ -14,7 +17,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="?attr/selectableItemBackground"
-        android:padding="15dp">
+        android:padding="15dp"
+        android:onClick="@{() -> clickListener.invoke(content.pageIdx)}">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"

@@ -76,12 +76,13 @@ class ViewerViewModel private constructor(
         DevLogger.i()
     }
 
-    fun showContents(view: View) {
+    fun showContents(pdfView: PDFView) {
         ContentsDialog.newInstance(
+            pdfView,
             PdfDocumentRepositoryImpl.getInstance().contentsList,
             book
         ).show(
-            (view.context as AppCompatActivity).supportFragmentManager,
+            (pdfView.context as AppCompatActivity).supportFragmentManager,
             null
         )
     }

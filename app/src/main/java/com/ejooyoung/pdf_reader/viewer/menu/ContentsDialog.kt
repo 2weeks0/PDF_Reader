@@ -9,10 +9,12 @@ import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.databinding.DialogContentsBinding
 import com.ejooyoung.pdf_reader.model.Book
+import com.github.barteksc.pdfviewer.PDFView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.shockwave.pdfium.PdfDocument
 
 class ContentsDialog private constructor(
+    private val pdfView: PDFView,
     private val contentsList: MutableList<PdfDocument.Bookmark>,
     private val book: Book
 ) : BottomSheetDialogFragment() {
@@ -21,10 +23,11 @@ class ContentsDialog private constructor(
 
     companion object {
         fun newInstance(
+            pdfView: PDFView,
             contentsList: MutableList<PdfDocument.Bookmark>,
             book: Book
         ): ContentsDialog {
-            return ContentsDialog(contentsList, book)
+            return ContentsDialog(pdfView, contentsList, book)
         }
     }
 
@@ -49,8 +52,11 @@ class ContentsDialog private constructor(
 
     private fun setupRecyclerView() {
         binding.recycler.let {
-            it.adapter = ContentsAdapter(contentsList)
             it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            it.adapter = ContentsAdapter(contentsList) { pageIdx ->
+                pdfView.jumpTo(pageIdx, true)
+                dismiss()
+            }
         }
     }
 }

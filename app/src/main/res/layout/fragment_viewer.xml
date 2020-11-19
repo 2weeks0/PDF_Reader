@@ -48,6 +48,7 @@
             android:id="@+id/scrollHandler"
             layout="@layout/layout_scroll_handler"
             android:visibility="@{viewModel.visibilityScrollHandler ? View.VISIBLE : View.GONE}"
-            app:viewModel="@{viewModel}"/>
+            app:viewModel="@{viewModel}"
+            app:pdfView="@{viewPdf}"/>
     </FrameLayout>
 </layout>
