@@ -9,6 +9,9 @@
             name="viewModel"
             type="com.ejooyoung.pdf_reader.viewer.ViewerViewModel" />
         <variable
+            name="clickListener"
+            type="com.ejooyoung.pdf_reader.viewer.ViewerMenuClickListener" />
+        <variable
             name="pdfView"
             type="com.github.barteksc.pdfviewer.PDFView" />
     </data>
@@ -55,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    android:onClick="@{() -> viewModel.showInfo()}"
+                    android:onClick="@{() -> clickListener.showInfo()}"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/ic_info"/>
             </RelativeLayout>
@@ -103,7 +106,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.performUndo()}"
+                    android:onClick="@{() -> clickListener.performUndo()}"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/ic_undo"/>
 
@@ -112,7 +115,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:onClick="@{(v) -> viewModel.showContents(pdfView)}"
+                    android:onClick="@{(v) -> clickListener.showContents(pdfView)}"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/ic_contents"/>
 
@@ -121,7 +124,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.showBookmark()}"
+                    android:onClick="@{() -> clickListener.showBookmark()}"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/ic_bookmark"/>
 
@@ -130,7 +133,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.showSetting()}"
+                    android:onClick="@{() -> clickListener.showSetting()}"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/ic_setting"/>
             </LinearLayout>

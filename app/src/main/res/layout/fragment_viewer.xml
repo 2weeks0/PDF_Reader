@@ -8,6 +8,9 @@
         <variable
             name="viewModel"
             type="com.ejooyoung.pdf_reader.viewer.ViewerViewModel" />
+        <variable
+            name="clickListener"
+            type="com.ejooyoung.pdf_reader.viewer.ViewerMenuClickListener" />
     </data>
 
     <FrameLayout
@@ -31,7 +34,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:background="@{viewModel.visibilityScrollHandler ? @color/bg_previous_page : @android:color/transparent}"
-                android:onClick="@{() -> viewModel.previousPage(viewPdf, scrollHandler)}"
+                android:onClick="@{() -> clickListener.previousPage(viewPdf, scrollHandler)}"
                 tools:background="@color/bg_previous_page"/>
 
             <View
@@ -40,7 +43,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:background="@{viewModel.visibilityScrollHandler ? @color/bg_next_page : @android:color/transparent}"
-                android:onClick="@{() -> viewModel.nextPage(viewPdf, scrollHandler)}"
+                android:onClick="@{() -> clickListener.nextPage(viewPdf, scrollHandler)}"
                 tools:background="@color/bg_next_page"/>
         </RelativeLayout>
 
@@ -49,6 +52,7 @@
             layout="@layout/layout_scroll_handler"
             android:visibility="@{viewModel.visibilityScrollHandler ? View.VISIBLE : View.GONE}"
             app:viewModel="@{viewModel}"
-            app:pdfView="@{viewPdf}"/>
+            app:pdfView="@{viewPdf}"
+            app:clickListener="@{clickListener}"/>
     </FrameLayout>
 </layout>

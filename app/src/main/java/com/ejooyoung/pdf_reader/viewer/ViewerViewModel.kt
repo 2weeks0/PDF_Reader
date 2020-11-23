@@ -22,7 +22,7 @@ class ViewerViewModel private constructor(
     application: Application,
     private val bookRepository: BookRepository,
     val book: Book
-) : AndroidViewModel(application) {
+) : AndroidViewModel(application), ViewerMenuClickListener {
 
     val visibilityScrollHandler = ObservableBoolean(false)
     val currentPage = ObservableInt(book.currentPage)
@@ -50,7 +50,7 @@ class ViewerViewModel private constructor(
             .subscribe()
     }
 
-    fun previousPage(pdfView: PDFView, binding: ViewDataBinding) {
+    override fun previousPage(pdfView: PDFView, binding: ViewDataBinding) {
         val target = pdfView.currentPage - 1
         DevLogger.d("target: $target, pageCount: ${pdfView.pageCount}")
         if (target < 0) return
@@ -59,7 +59,7 @@ class ViewerViewModel private constructor(
         (binding as LayoutScrollHandlerBinding).seekBar.progress = target
     }
 
-    fun nextPage(pdfView: PDFView, binding: ViewDataBinding) {
+    override fun nextPage(pdfView: PDFView, binding: ViewDataBinding) {
         val target = pdfView.currentPage + 1
         DevLogger.d("target: $target, pageCount: ${pdfView.pageCount}")
         if (target >= pdfView.pageCount) return
@@ -68,15 +68,15 @@ class ViewerViewModel private constructor(
         (binding as LayoutScrollHandlerBinding).seekBar.progress = target
     }
 
-    fun showInfo() {
+    override fun showInfo() {
         DevLogger.i()
     }
 
-    fun performUndo() {
+    override fun performUndo() {
         DevLogger.i()
     }
 
-    fun showContents(pdfView: PDFView) {
+    override fun showContents(pdfView: PDFView) {
         ContentsDialog.newInstance(
             pdfView,
             PdfDocumentRepositoryImpl.getInstance().contentsList,
@@ -87,11 +87,11 @@ class ViewerViewModel private constructor(
         )
     }
 
-    fun showBookmark() {
+    override fun showBookmark() {
         DevLogger.i()
     }
 
-    fun showSetting() {
+    override fun showSetting() {
         DevLogger.i()
     }
 
