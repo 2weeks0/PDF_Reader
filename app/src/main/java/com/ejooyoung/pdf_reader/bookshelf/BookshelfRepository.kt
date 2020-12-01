@@ -1,6 +1,6 @@
 package com.ejooyoung.pdf_reader.bookshelf
 
-import com.ejooyoung.pdf_reader.model.Book
+import com.ejooyoung.pdf_reader.database.model.Book
 import io.reactivex.rxjava3.core.Flowable
 
 interface BookshelfRepository {

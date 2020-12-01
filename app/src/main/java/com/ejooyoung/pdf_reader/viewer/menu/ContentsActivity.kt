@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.databinding.ActivityContentsBinding
-import com.ejooyoung.pdf_reader.model.Book
+import com.ejooyoung.pdf_reader.database.model.Book
 
 class ContentsActivity : AppCompatActivity() {
 

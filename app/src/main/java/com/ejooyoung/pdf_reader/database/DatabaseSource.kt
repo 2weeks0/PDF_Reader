@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.ejooyoung.pdf_reader.model.Book
-import com.ejooyoung.pdf_reader.model.Thumbnail
+import com.ejooyoung.pdf_reader.database.model.Book
+import com.ejooyoung.pdf_reader.database.model.Thumbnail
 import com.ejooyoung.pdf_reader.base.Const
 
 @Database(entities = [Book::class, Thumbnail::class], version = Const.DB.VERSION, exportSchema = false)

@@ -13,7 +13,7 @@ import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.databinding.FragmentViewerBinding
-import com.ejooyoung.pdf_reader.model.Book
+import com.ejooyoung.pdf_reader.database.model.Book
 import com.github.barteksc.pdfviewer.util.FitPolicy
 
 class ViewerFragment : Fragment() {

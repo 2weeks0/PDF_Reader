@@ -12,7 +12,7 @@ import com.ejooyoung.pdf_reader.base.repository.BookRepository
 import com.ejooyoung.pdf_reader.base.utils.DateUtils
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.databinding.LayoutScrollHandlerBinding
-import com.ejooyoung.pdf_reader.model.Book
+import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.viewer.menu.ContentsActivity
 import com.github.barteksc.pdfviewer.PDFView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

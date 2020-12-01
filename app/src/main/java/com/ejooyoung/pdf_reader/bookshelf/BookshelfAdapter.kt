@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ejooyoung.pdf_reader.bookshelf.listener.OnClickBookListener
 import com.ejooyoung.pdf_reader.databinding.ItemBookBinding
-import com.ejooyoung.pdf_reader.model.Book
+import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.base.widget.ViewHolder
 
 class BookshelfAdapter(

@@ -10,7 +10,7 @@ import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 import com.ejooyoung.pdf_reader.bookshelf.dialog.LongClickPopupDialog
 import com.ejooyoung.pdf_reader.bookshelf.listener.OnClickBookListener
-import com.ejooyoung.pdf_reader.model.Book
+import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.viewer.ViewerActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable

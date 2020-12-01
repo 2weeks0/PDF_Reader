@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.model
+package com.ejooyoung.pdf_reader.database.model
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

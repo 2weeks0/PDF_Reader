@@ -1,7 +1,7 @@
 package com.ejooyoung.pdf_reader.database
 
 import androidx.room.*
-import com.ejooyoung.pdf_reader.model.Book
+import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.base.Const
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable

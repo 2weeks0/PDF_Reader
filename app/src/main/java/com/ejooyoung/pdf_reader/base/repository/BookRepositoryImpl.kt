@@ -3,12 +3,10 @@ package com.ejooyoung.pdf_reader.base.repository
 import android.app.Application
 import com.ejooyoung.pdf_reader.database.BookDataSource
 import com.ejooyoung.pdf_reader.database.DatabaseProvider
-import com.ejooyoung.pdf_reader.model.Book
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.ejooyoung.pdf_reader.database.model.Book
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Maybe
-import io.reactivex.rxjava3.schedulers.Schedulers
 
 class BookRepositoryImpl private constructor(
     private val bookDataSource: BookDataSource

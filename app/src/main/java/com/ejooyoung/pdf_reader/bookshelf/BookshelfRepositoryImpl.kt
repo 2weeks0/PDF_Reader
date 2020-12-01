@@ -3,7 +3,7 @@ package com.ejooyoung.pdf_reader.bookshelf
 import android.app.Application
 import com.ejooyoung.pdf_reader.base.repository.BookRepository
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
-import com.ejooyoung.pdf_reader.model.Book
+import com.ejooyoung.pdf_reader.database.model.Book
 import io.reactivex.rxjava3.core.Flowable
 
 class BookshelfRepositoryImpl private constructor(

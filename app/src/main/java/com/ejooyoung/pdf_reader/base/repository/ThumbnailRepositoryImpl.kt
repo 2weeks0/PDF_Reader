@@ -3,7 +3,7 @@ package com.ejooyoung.pdf_reader.base.repository
 import android.app.Application
 import com.ejooyoung.pdf_reader.database.DatabaseProvider
 import com.ejooyoung.pdf_reader.database.ThumbnailDataSource
-import com.ejooyoung.pdf_reader.model.Thumbnail
+import com.ejooyoung.pdf_reader.database.model.Thumbnail
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 

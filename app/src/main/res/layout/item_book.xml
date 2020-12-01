@@ -6,7 +6,7 @@
     <data>
         <variable
             name="book"
-            type="com.ejooyoung.pdf_reader.model.Book" />
+            type="com.ejooyoung.pdf_reader.database.model.Book" />
         <variable
             name="onClickListener"
             type="com.ejooyoung.pdf_reader.bookshelf.listener.OnClickBookListener" />

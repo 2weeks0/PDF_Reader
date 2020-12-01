@@ -3,8 +3,8 @@ package com.ejooyoung.pdf_reader.base.utils
 import android.graphics.Bitmap
 import android.net.Uri
 import com.ejooyoung.pdf_reader.MainApplication
-import com.ejooyoung.pdf_reader.model.Book
-import com.ejooyoung.pdf_reader.model.Thumbnail
+import com.ejooyoung.pdf_reader.database.model.Book
+import com.ejooyoung.pdf_reader.database.model.Thumbnail
 import com.ejooyoung.pdf_reader.base.repository.ThumbnailRepositoryImpl
 import com.shockwave.pdfium.PdfiumCore
 import java.io.File
