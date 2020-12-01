@@ -71,7 +71,7 @@ class ViewerFragment : Fragment() {
                 viewModel.book.currentPage = page
             }
             .onLoad {
-                PdfDocumentRepositoryImpl.getInstance().loadContentsList(binding.viewPdf.tableOfContents)
+                PdfDocumentRepositoryImpl.getInstance().savePdfDocumentBookmarkList(binding.viewPdf.tableOfContents)
             }
             .load()
     }

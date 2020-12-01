@@ -5,7 +5,8 @@ import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
-import com.ejooyoung.pdf_reader.model.Book
+import com.ejooyoung.pdf_reader.database.model.Book
+import com.ejooyoung.pdf_reader.database.model.Contents
 import com.shockwave.pdfium.PdfDocument
 
 class ContentsViewModel(
@@ -19,7 +20,7 @@ class ContentsViewModel(
         }
     }
 
-    val contentsLiveData: MutableLiveData<List<PdfDocument.Bookmark>> = MutableLiveData()
+    val contentsLiveData: MutableLiveData<List<Contents>> = MutableLiveData()
     val visibilityOfEmptyView: ObservableBoolean = ObservableBoolean(false)
 
     init {
@@ -28,7 +29,7 @@ class ContentsViewModel(
 
     private fun loadContentsList() {
         val repository = PdfDocumentRepositoryImpl.getInstance()
-        contentsLiveData.value = repository.contentsList
+        contentsLiveData.value = repository.pdfDocumentBookmarkList
         visibilityOfEmptyView.set(contentsLiveData.value!!.isEmpty())
     }
 }

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="content"
-            type="com.shockwave.pdfium.PdfDocument.Bookmark" />
+            type="com.ejooyoung.pdf_reader.database.model.Contents" />
         <variable
             name="clickListener"
             type="kotlin.jvm.functions.Function1" />

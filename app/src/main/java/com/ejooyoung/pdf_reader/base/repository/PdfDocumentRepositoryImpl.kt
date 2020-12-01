@@ -1,10 +1,11 @@
 package com.ejooyoung.pdf_reader.base.repository
 
+import com.ejooyoung.pdf_reader.database.model.PdfDocumentBookmark
 import com.shockwave.pdfium.PdfDocument
 
 class PdfDocumentRepositoryImpl : PdfDocumentRepository {
 
-    override lateinit var contentsList: List<PdfDocument.Bookmark>
+    override lateinit var pdfDocumentBookmarkList: List<PdfDocumentBookmark>
 
     companion object {
         private var INSTANCE: PdfDocumentRepository? = null
@@ -17,7 +18,11 @@ class PdfDocumentRepositoryImpl : PdfDocumentRepository {
         }
     }
 
-    override fun loadContentsList(contentsList: List<PdfDocument.Bookmark>) {
-        this.contentsList = contentsList
+    override fun savePdfDocumentBookmarkList(itemList: List<PdfDocument.Bookmark>) {
+        pdfDocumentBookmarkList = itemList.asSequence()
+            .map {
+                PdfDocumentBookmark(it.title, it.pageIdx)
+            }
+            .toList()
     }
 }
