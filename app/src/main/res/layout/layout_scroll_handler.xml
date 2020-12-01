@@ -115,7 +115,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:onClick="@{(v) -> clickListener.showContents(pdfView)}"
+                    android:onClick="@{(v) -> clickListener.showContents(v)}"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/ic_contents"/>
 

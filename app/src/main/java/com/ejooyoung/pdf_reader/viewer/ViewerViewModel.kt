@@ -1,19 +1,19 @@
 package com.ejooyoung.pdf_reader.viewer
 
 import android.app.Application
+import android.content.Intent
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableInt
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.AndroidViewModel
+import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.repository.BookRepository
-import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.DateUtils
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.databinding.LayoutScrollHandlerBinding
 import com.ejooyoung.pdf_reader.model.Book
-import com.ejooyoung.pdf_reader.viewer.menu.ContentsDialog
+import com.ejooyoung.pdf_reader.viewer.menu.ContentsActivity
 import com.github.barteksc.pdfviewer.PDFView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -76,15 +76,12 @@ class ViewerViewModel private constructor(
         DevLogger.i()
     }
 
-    override fun showContents(pdfView: PDFView) {
-        ContentsDialog.newInstance(
-            pdfView,
-            PdfDocumentRepositoryImpl.getInstance().contentsList,
-            book
-        ).show(
-            (pdfView.context as AppCompatActivity).supportFragmentManager,
-            null
-        )
+    override fun showContents(view: View) {
+        DevLogger.i()
+        val intent = Intent(view.context, ContentsActivity::class.java).apply {
+            putExtra(Const.KEY_BUNDLE_BOOK, book)
+        }
+        view.context.startActivity(intent)
     }
 
     override fun showBookmark() {

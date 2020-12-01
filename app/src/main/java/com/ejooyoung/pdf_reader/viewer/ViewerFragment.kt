@@ -38,6 +38,7 @@ class ViewerFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_viewer, container, false)
         binding = FragmentViewerBinding.bind(view).apply {
             viewModel = this@ViewerFragment.viewModel
+            clickListener = this@ViewerFragment.viewModel
         }
         setupPdfView()
         setupSeekBar()
@@ -47,7 +48,6 @@ class ViewerFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.updateBook()
-        PdfDocumentRepositoryImpl.getInstance().clearContentsList()
     }
 
     private fun setupPdfView() {
@@ -71,7 +71,7 @@ class ViewerFragment : Fragment() {
                 viewModel.book.currentPage = page
             }
             .onLoad {
-                PdfDocumentRepositoryImpl.getInstance().saveContentsList(binding.viewPdf.tableOfContents)
+                PdfDocumentRepositoryImpl.getInstance().loadContentsList(binding.viewPdf.tableOfContents)
             }
             .load()
     }

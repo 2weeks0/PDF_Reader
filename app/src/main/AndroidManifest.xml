@@ -22,5 +22,8 @@
 
         <activity android:name=".viewer.ViewerActivity"
             android:launchMode="singleTop" />
+
+        <activity android:name=".viewer.menu.ContentsActivity"
+            android:launchMode="singleTop" />
     </application>
 </manifest>

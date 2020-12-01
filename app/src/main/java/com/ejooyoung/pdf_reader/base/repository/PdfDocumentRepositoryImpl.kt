@@ -4,7 +4,7 @@ import com.shockwave.pdfium.PdfDocument
 
 class PdfDocumentRepositoryImpl : PdfDocumentRepository {
 
-    override val contentsList: MutableList<PdfDocument.Bookmark> = mutableListOf()
+    override lateinit var contentsList: List<PdfDocument.Bookmark>
 
     companion object {
         private var INSTANCE: PdfDocumentRepository? = null
@@ -17,11 +17,7 @@ class PdfDocumentRepositoryImpl : PdfDocumentRepository {
         }
     }
 
-    override fun saveContentsList(contentsList: List<PdfDocument.Bookmark>) {
-        this.contentsList.addAll(contentsList)
-    }
-
-    override fun clearContentsList() {
-        this.contentsList.clear()
+    override fun loadContentsList(contentsList: List<PdfDocument.Bookmark>) {
+        this.contentsList = contentsList
     }
 }

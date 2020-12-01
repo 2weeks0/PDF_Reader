@@ -7,10 +7,11 @@ import com.ejooyoung.pdf_reader.base.widget.ViewHolder
 import com.ejooyoung.pdf_reader.databinding.ItemContentsBinding
 import com.shockwave.pdfium.PdfDocument
 
-class ContentsAdapter(
-    private val itemList: MutableList<PdfDocument.Bookmark>,
+class ContentsListAdapter(
     private val clickListener: (pageIdx: Int) -> Unit
 ) : RecyclerView.Adapter<ViewHolder>() {
+
+    private val itemList: MutableList<PdfDocument.Bookmark> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemContentsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -23,4 +24,10 @@ class ContentsAdapter(
     }
 
     override fun getItemCount() = itemList.size
+
+    fun setItem(itemList: List<PdfDocument.Bookmark>) {
+        this.itemList.clear()
+        this.itemList.addAll(itemList)
+        notifyDataSetChanged()
+    }
 }
