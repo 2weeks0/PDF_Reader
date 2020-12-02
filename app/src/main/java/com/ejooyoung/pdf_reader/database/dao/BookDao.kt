@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.database
+package com.ejooyoung.pdf_reader.database.dao
 
 import androidx.room.*
 import com.ejooyoung.pdf_reader.database.model.Book
@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Maybe
 
 @Dao
-interface BookDataSource {
+interface BookDao {
 
     @Query("SELECT * FROM ${Const.DB_BOOK_TABLE}")
     fun selectAllBooks(): Flowable<List<Book>>

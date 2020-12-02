@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.database
+package com.ejooyoung.pdf_reader.database.dao
 
 import androidx.room.*
 import com.ejooyoung.pdf_reader.database.model.Thumbnail
@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.core.Maybe
 
 
 @Dao
-interface ThumbnailDataSource {
+interface ThumbnailDao {
 
     @Query("SELECT * FROM ${Const.DB_THUMBNAIL_TABLE}" +
             " WHERE ${Const.DB_THUMBNAIL_COLUMN_GUID} = :thumbGuid")
