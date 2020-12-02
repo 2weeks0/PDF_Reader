@@ -21,7 +21,10 @@ class PdfDocumentRepositoryImpl : PdfDocumentRepository {
     override fun savePdfDocumentBookmarkList(itemList: List<PdfDocument.Bookmark>) {
         pdfDocumentBookmarkList = itemList.asSequence()
             .map {
-                PdfDocumentBookmark(it.title, it.pageIdx)
+                PdfDocumentBookmark(
+                    title = it.title,
+                    pageIdx = it.pageIdx
+                )
             }
             .toList()
     }

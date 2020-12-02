@@ -6,14 +6,14 @@ import androidx.room.PrimaryKey
 import com.ejooyoung.pdf_reader.base.Const
 import java.util.*
 
-@Entity(tableName = Const.DB.Thumbnail.TABLE)
+@Entity(tableName = Const.DB_THUMBNAIL_TABLE)
 data class Thumbnail(
     @PrimaryKey(autoGenerate = false)
-    @ColumnInfo(name = Const.DB.Thumbnail.COLUMN_GUID)
+    @ColumnInfo(name = Const.DB_THUMBNAIL_COLUMN_GUID)
     val guid: String = UUID.randomUUID().toString(),
-    @ColumnInfo(name = Const.DB.Thumbnail.COLUMN_DIR_PATH)
+    @ColumnInfo(name = Const.DB_THUMBNAIL_COLUMN_DIR_PATH)
     val dirPath: String,
-    @ColumnInfo(name = Const.DB.Thumbnail.COLUMN_BOOK_GUID)
+    @ColumnInfo(name = Const.DB_THUMBNAIL_COLUMN_BOOK_GUID)
     val bookGuid: String
 ) {
     companion object {

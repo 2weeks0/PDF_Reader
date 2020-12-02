@@ -41,7 +41,7 @@ class SettingViewModel private constructor(
             putExtra(Intent.EXTRA_LOCAL_ONLY, true)
         }
 
-        activity.startActivityForResult(intent, Const.Request.OPEN_PDF)
+        activity.startActivityForResult(intent, Const.KEY_REQUEST_OPEN_PDF)
     }
 
     fun insertBookToDB(data: Intent) {

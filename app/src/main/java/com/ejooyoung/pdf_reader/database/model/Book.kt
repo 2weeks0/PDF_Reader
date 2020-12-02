@@ -10,22 +10,22 @@ import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 @Parcelize
-@Entity(tableName = Const.DB.Book.TABLE)
+@Entity(tableName = Const.DB_BOOK_TABLE)
 data class Book(
     @PrimaryKey(autoGenerate = false)
-    @ColumnInfo(name = Const.DB.Book.COLUMN_GUID)
+    @ColumnInfo(name = Const.DB_BOOK_COLUMN_GUID)
     val guid: String = UUID.randomUUID().toString(),
-    @ColumnInfo(name = Const.DB.Book.COLUMN_FILE_NAME)
+    @ColumnInfo(name = Const.DB_BOOK_COLUMN_FILE_NAME)
     var fileName: String,
-    @ColumnInfo(name = Const.DB.Book.COLUMN_URI)
+    @ColumnInfo(name = Const.DB_BOOK_COLUMN_URI)
     val uriString: String,
-    @ColumnInfo(name = Const.DB.Book.COLUMN_THUMBNAIL_GUID)
+    @ColumnInfo(name = Const.DB_BOOK_COLUMN_THUMBNAIL_GUID)
     var thumbnailGuid: String,
-    @ColumnInfo(name = Const.DB.Book.COLUMN_LAST_PAGE)
+    @ColumnInfo(name = Const.DB_BOOK_COLUMN_LAST_PAGE)
     var lastPage: Int = 0,
-    @ColumnInfo(name = Const.DB.Book.COLUMN_CURRENT_PAGE)
+    @ColumnInfo(name = Const.DB_BOOK_COLUMN_CURRENT_PAGE)
     var currentPage: Int = 0,
-    @ColumnInfo(name = Const.DB.Book.COLUMN_READ_TIME)
+    @ColumnInfo(name = Const.DB_BOOK_COLUMN_READ_TIME)
     var readTime: String = DateUtils.getCurrentTimeToDate()
 ) : Parcelable {
     companion object {

@@ -8,7 +8,7 @@ import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Thumbnail
 import com.ejooyoung.pdf_reader.base.Const
 
-@Database(entities = [Book::class, Thumbnail::class], version = Const.DB.VERSION, exportSchema = false)
+@Database(entities = [Book::class, Thumbnail::class], version = Const.DB_VERSION, exportSchema = false)
 abstract class DatabaseSource : RoomDatabase() {
 
     abstract fun thumbnailDataSource(): ThumbnailDataSource
@@ -25,7 +25,7 @@ abstract class DatabaseSource : RoomDatabase() {
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(
                 context.applicationContext,
-                DatabaseSource::class.java, Const.DB.FILE_NAME
+                DatabaseSource::class.java, Const.DB_FILE_NAME
             ).build()
     }
 }

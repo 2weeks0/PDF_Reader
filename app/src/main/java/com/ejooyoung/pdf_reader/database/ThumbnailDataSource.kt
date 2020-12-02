@@ -10,8 +10,8 @@ import io.reactivex.rxjava3.core.Maybe
 @Dao
 interface ThumbnailDataSource {
 
-    @Query("SELECT * FROM ${Const.DB.Thumbnail.TABLE}" +
-            " WHERE ${Const.DB.Thumbnail.COLUMN_GUID} = :thumbGuid")
+    @Query("SELECT * FROM ${Const.DB_THUMBNAIL_TABLE}" +
+            " WHERE ${Const.DB_THUMBNAIL_COLUMN_GUID} = :thumbGuid")
     fun selectThumbnail(thumbGuid: String): Maybe<Thumbnail>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

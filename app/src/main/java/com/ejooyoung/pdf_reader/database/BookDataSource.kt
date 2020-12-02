@@ -10,7 +10,7 @@ import io.reactivex.rxjava3.core.Maybe
 @Dao
 interface BookDataSource {
 
-    @Query("SELECT * FROM ${Const.DB.Book.TABLE}")
+    @Query("SELECT * FROM ${Const.DB_BOOK_TABLE}")
     fun selectAllBooks(): Flowable<List<Book>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -19,9 +19,9 @@ interface BookDataSource {
     @Delete
     fun deleteBooks(vararg book: Book): Completable
 
-    @Query("SELECT * FROM ${Const.DB.Book.TABLE}" +
-            " WHERE ${Const.DB.Book.COLUMN_FILE_NAME} = :fileName" +
-            " AND ${Const.DB.Book.COLUMN_URI} = :uri")
+    @Query("SELECT * FROM ${Const.DB_BOOK_TABLE}" +
+            " WHERE ${Const.DB_BOOK_COLUMN_FILE_NAME} = :fileName" +
+            " AND ${Const.DB_BOOK_COLUMN_URI} = :uri")
     fun selectBook(fileName: String, uri: String): Maybe<Book?>
 
     @Update

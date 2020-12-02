@@ -2,36 +2,24 @@ package com.ejooyoung.pdf_reader.base
 
 object Const {
 
-    object Permission {
-        const val STORAGE = 1000
-    }
+    const val DB_VERSION = 1
+    const val DB_FILE_NAME = "db.db"
 
-    object DB {
-        const val VERSION = 1
-        const val FILE_NAME = "db.db"
+    const val DB_BOOK_TABLE = "Book"
+    const val DB_BOOK_COLUMN_GUID = "guid"
+    const val DB_BOOK_COLUMN_FILE_NAME = "fileName"
+    const val DB_BOOK_COLUMN_URI = "uri"
+    const val DB_BOOK_COLUMN_THUMBNAIL_GUID = "thumbnailGuid"
+    const val DB_BOOK_COLUMN_LAST_PAGE = "lastPage"
+    const val DB_BOOK_COLUMN_CURRENT_PAGE = "currentPage"
+    const val DB_BOOK_COLUMN_READ_TIME = "readTime"
 
-        object Book {
-            const val TABLE = "Book"
-            const val COLUMN_GUID = "guid"
-            const val COLUMN_FILE_NAME = "fileName"
-            const val COLUMN_URI = "uri"
-            const val COLUMN_THUMBNAIL_GUID = "thumbnailGuid"
-            const val COLUMN_LAST_PAGE = "lastPage"
-            const val COLUMN_CURRENT_PAGE = "currentPage"
-            const val COLUMN_READ_TIME = "readTime"
-        }
+    const val DB_THUMBNAIL_TABLE = "Thumbnail"
+    const val DB_THUMBNAIL_COLUMN_GUID = "guid"
+    const val DB_THUMBNAIL_COLUMN_DIR_PATH = "dirPath"
+    const val DB_THUMBNAIL_COLUMN_BOOK_GUID = "bookGuid"
 
-        object Thumbnail {
-            const val TABLE = "Thumbnail"
-            const val COLUMN_GUID = "guid"
-            const val COLUMN_DIR_PATH = "dirPath"
-            const val COLUMN_BOOK_GUID = "bookGuid"
-        }
-    }
-
-    object Request {
-        const val OPEN_PDF = 1000
-    }
-
+    const val KEY_PERMISSION_STORAGE = 1000
+    const val KEY_REQUEST_OPEN_PDF = 1000
     const val KEY_BUNDLE_BOOK = "bundleKeyBook"
 }

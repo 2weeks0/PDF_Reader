@@ -53,13 +53,13 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(READ_EXTERNAL_STORAGE),
-                Const.Permission.STORAGE
+                Const.KEY_PERMISSION_STORAGE
             )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == Const.Request.OPEN_PDF && resultCode == Activity.RESULT_OK) {
+        if (requestCode == Const.KEY_REQUEST_OPEN_PDF && resultCode == Activity.RESULT_OK) {
             settingViewModel.insertBookToDB(data!!)
         }
     }
