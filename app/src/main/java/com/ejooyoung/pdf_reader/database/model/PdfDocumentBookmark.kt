@@ -9,6 +9,12 @@ data class PdfDocumentBookmark(
     private val pageIdx: Long
 ) : Contents {
 
+    companion object {
+        fun valueOf(title: String, pageIdx: Long): PdfDocumentBookmark {
+            return PdfDocumentBookmark(title = title, pageIdx = pageIdx)
+        }
+    }
+
     override fun getGuid(): String {
         return guid
     }
