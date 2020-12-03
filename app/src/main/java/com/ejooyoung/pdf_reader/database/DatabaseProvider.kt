@@ -2,6 +2,7 @@ package com.ejooyoung.pdf_reader.database
 
 import android.content.Context
 import com.ejooyoung.pdf_reader.database.dao.BookDao
+import com.ejooyoung.pdf_reader.database.dao.BookmarkDao
 import com.ejooyoung.pdf_reader.database.dao.ThumbnailDao
 
 object DatabaseProvider {
@@ -16,5 +17,8 @@ object DatabaseProvider {
         return database.thumbnailDao()
     }
 
-
+    fun provideBookmarkSource(context: Context): BookmarkDao {
+        val database = DatabaseSource.getInstance(context)
+        return database.bookmarkDao()
+    }
 }

@@ -19,6 +19,13 @@ object Const {
     const val DB_THUMBNAIL_COLUMN_DIR_PATH = "dirPath"
     const val DB_THUMBNAIL_COLUMN_BOOK_GUID = "bookGuid"
 
+    const val DB_BOOKMARK_TABLE = "Bookmark"
+    const val DB_BOOKMARK_COLUMN_GUID = "guid"
+    const val DB_BOOKMARK_COLUMN_TITLE = "title"
+    const val DB_BOOKMARK_COLUMN_PAGE_INDEX = "pageIndex"
+    const val DB_BOOKMARK_COLUMN_BOOK_GUID = "bookGuid"
+    const val DB_BOOKMARK_COLUMN_BOOKMARKED_TIME = "bookmarkedTime"
+
     const val KEY_PERMISSION_STORAGE = 1000
     const val KEY_REQUEST_OPEN_PDF = 1000
     const val KEY_BUNDLE_BOOK = "bundleKeyBook"

@@ -8,13 +8,16 @@ import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Thumbnail
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.database.dao.BookDao
+import com.ejooyoung.pdf_reader.database.dao.BookmarkDao
 import com.ejooyoung.pdf_reader.database.dao.ThumbnailDao
+import com.ejooyoung.pdf_reader.database.model.Bookmark
 
-@Database(entities = [Book::class, Thumbnail::class], version = Const.DB_VERSION, exportSchema = false)
+@Database(entities = [Book::class, Thumbnail::class, Bookmark::class], version = Const.DB_VERSION, exportSchema = false)
 abstract class DatabaseSource : RoomDatabase() {
 
     abstract fun thumbnailDao(): ThumbnailDao
     abstract fun bookDao(): BookDao
+    abstract fun bookmarkDao(): BookmarkDao
 
     companion object {
         @Volatile private var INSTANCE: DatabaseSource? = null
