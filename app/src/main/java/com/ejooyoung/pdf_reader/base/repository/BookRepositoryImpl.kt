@@ -1,6 +1,6 @@
 package com.ejooyoung.pdf_reader.base.repository
 
-import android.app.Application
+import android.content.Context
 import com.ejooyoung.pdf_reader.database.dao.BookDao
 import com.ejooyoung.pdf_reader.database.DatabaseProvider
 import com.ejooyoung.pdf_reader.database.model.Book
@@ -15,9 +15,9 @@ class BookRepositoryImpl private constructor(
     companion object {
         private var INSTANCE: BookRepository? = null
 
-        fun getInstance(application: Application): BookRepository {
+        fun getInstance(context: Context): BookRepository {
             if (INSTANCE == null) {
-                INSTANCE = BookRepositoryImpl(DatabaseProvider.provideBookSource(application))
+                INSTANCE = BookRepositoryImpl(DatabaseProvider.provideBookSource(context))
             }
             return INSTANCE!!
         }

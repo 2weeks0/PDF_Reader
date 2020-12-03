@@ -1,6 +1,6 @@
 package com.ejooyoung.pdf_reader.base.repository
 
-import android.app.Application
+import android.content.Context
 import com.ejooyoung.pdf_reader.database.DatabaseProvider
 import com.ejooyoung.pdf_reader.database.dao.ThumbnailDao
 import com.ejooyoung.pdf_reader.database.model.Thumbnail
@@ -14,9 +14,9 @@ class ThumbnailRepositoryImpl private constructor(
     companion object {
         private var INSTANCE: ThumbnailRepository? = null
 
-        fun getInstance(application: Application): ThumbnailRepository {
+        fun getInstance(context: Context): ThumbnailRepository {
             if (INSTANCE == null) {
-                INSTANCE = ThumbnailRepositoryImpl(DatabaseProvider.provideThumbnailSource(application))
+                INSTANCE = ThumbnailRepositoryImpl(DatabaseProvider.provideThumbnailSource(context))
             }
             return INSTANCE!!
         }
