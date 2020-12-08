@@ -15,13 +15,15 @@ interface BookmarkDao {
     fun selectAllBookmarks(bookGuid: String): Flowable<List<Bookmark>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertBookmark(bookmark: Bookmark): Completable
+    fun insertBookmarks(vararg bookmark: Bookmark): Completable
 
-    @Query("DELETE FROM ${Const.DB_BOOKMARK_TABLE} WHERE ${Const.DB_BOOKMARK_COLUMN_GUID} = :bookmarkGuid")
-    fun deleteBookmark(bookmarkGuid: String): Completable
+    @Query("DELETE FROM ${Const.DB_BOOKMARK_TABLE}" +
+            " WHERE ${Const.DB_BOOKMARK_COLUMN_PAGE_INDEX} = :pageIdx" +
+            " AND ${Const.DB_BOOKMARK_COLUMN_GUID} = :bookGuid")
+    fun deleteBookmark(pageIdx: Long, bookGuid: String): Completable
 
     @Query("DELETE FROM ${Const.DB_BOOKMARK_TABLE} WHERE ${Const.DB_BOOKMARK_COLUMN_BOOK_GUID} = :bookGuid")
-    fun deleteBookmarks(bookGuid: String): Completable
+    fun deleteBookmark(bookGuid: String): Completable
 
     @Update
     fun updateBookmark(bookmark: Bookmark): Completable

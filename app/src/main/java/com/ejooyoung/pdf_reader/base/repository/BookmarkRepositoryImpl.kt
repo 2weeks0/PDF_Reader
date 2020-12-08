@@ -27,15 +27,15 @@ class BookmarkRepositoryImpl private constructor(
     }
 
     override fun insertBookmark(pageIdx: Long, bookGuid: String): Completable {
-        return bookmarkDao.insertBookmark(Bookmark.valueOf(pageIdx, bookGuid))
+        return bookmarkDao.insertBookmarks(Bookmark.valueOf(pageIdx, bookGuid))
     }
 
-    override fun deleteBookmark(bookmarkGuid: String): Completable {
-        return bookmarkDao.deleteBookmark(bookmarkGuid)
+    override fun deleteBookmark(pageIdx: Long, bookGuid: String): Completable {
+        return bookmarkDao.deleteBookmark(pageIdx, bookGuid)
     }
 
-    override fun deleteBookmarks(bookGuid: String): Completable {
-        return bookmarkDao.deleteBookmarks(bookGuid)
+    override fun deleteBookmark(bookGuid: String): Completable {
+        return bookmarkDao.deleteBookmark(bookGuid)
     }
 
     override fun updateBookmark(bookmark: Bookmark): Completable {
