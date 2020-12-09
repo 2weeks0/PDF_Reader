@@ -15,7 +15,7 @@ data class Bookmark(
     @ColumnInfo(name = Const.DB_BOOKMARK_COLUMN_TITLE)
     private val title: String = "",
     @ColumnInfo(name = Const.DB_BOOKMARK_COLUMN_PAGE_INDEX)
-    private val pageIdx: Long,
+    private val pageIdx: Int,
     @ColumnInfo(name = Const.DB_BOOKMARK_COLUMN_BOOK_GUID)
     val bookGuid: String,
     @ColumnInfo(name = Const.DB_BOOKMARK_COLUMN_BOOKMARKED_TIME)
@@ -23,7 +23,7 @@ data class Bookmark(
 ): Contents {
 
     companion object {
-        fun valueOf(pageIdx: Long, bookGuid: String): Bookmark {
+        fun valueOf(pageIdx: Int, bookGuid: String): Bookmark {
             return Bookmark(pageIdx = pageIdx, bookGuid = bookGuid)
         }
     }
@@ -35,7 +35,7 @@ data class Bookmark(
         return title
     }
 
-    override fun getPageIdx(): Long {
+    override fun getPageIdx(): Int {
         return pageIdx
     }
 }

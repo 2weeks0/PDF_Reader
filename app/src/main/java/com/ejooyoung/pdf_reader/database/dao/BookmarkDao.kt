@@ -19,8 +19,8 @@ interface BookmarkDao {
 
     @Query("DELETE FROM ${Const.DB_BOOKMARK_TABLE}" +
             " WHERE ${Const.DB_BOOKMARK_COLUMN_PAGE_INDEX} = :pageIdx" +
-            " AND ${Const.DB_BOOKMARK_COLUMN_GUID} = :bookGuid")
-    fun deleteBookmark(pageIdx: Long, bookGuid: String): Completable
+            " AND ${Const.DB_BOOKMARK_COLUMN_BOOK_GUID} = :bookGuid")
+    fun deleteBookmark(pageIdx: Int, bookGuid: String): Completable
 
     @Query("DELETE FROM ${Const.DB_BOOKMARK_TABLE} WHERE ${Const.DB_BOOKMARK_COLUMN_BOOK_GUID} = :bookGuid")
     fun deleteBookmark(bookGuid: String): Completable
@@ -32,5 +32,5 @@ interface BookmarkDao {
             " FROM ${Const.DB_BOOKMARK_TABLE}" +
             " WHERE ${Const.DB_BOOKMARK_COLUMN_BOOK_GUID} = :bookGuid" +
             " AND ${Const.DB_BOOKMARK_COLUMN_PAGE_INDEX} = :pageIdx")
-    fun selectIsBookmarkedPage(bookGuid: String, pageIdx: Long): Flowable<Boolean>
+    fun selectIsBookmarkedPage(bookGuid: String, pageIdx: Int): Flowable<Boolean>
 }

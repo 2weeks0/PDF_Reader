@@ -26,11 +26,11 @@ class BookmarkRepositoryImpl private constructor(
         return bookmarkDao.selectAllBookmarks(bookGuid)
     }
 
-    override fun insertBookmark(pageIdx: Long, bookGuid: String): Completable {
+    override fun insertBookmark(pageIdx: Int, bookGuid: String): Completable {
         return bookmarkDao.insertBookmarks(Bookmark.valueOf(pageIdx, bookGuid))
     }
 
-    override fun deleteBookmark(pageIdx: Long, bookGuid: String): Completable {
+    override fun deleteBookmark(pageIdx: Int, bookGuid: String): Completable {
         return bookmarkDao.deleteBookmark(pageIdx, bookGuid)
     }
 
@@ -42,7 +42,7 @@ class BookmarkRepositoryImpl private constructor(
         return bookmarkDao.updateBookmark(bookmark)
     }
 
-    override fun isBookmarkedPage(bookGuid: String, pageIdx: Long): Flowable<Boolean> {
+    override fun isBookmarkedPage(bookGuid: String, pageIdx: Int): Flowable<Boolean> {
         return bookmarkDao.selectIsBookmarkedPage(bookGuid, pageIdx)
     }
 }

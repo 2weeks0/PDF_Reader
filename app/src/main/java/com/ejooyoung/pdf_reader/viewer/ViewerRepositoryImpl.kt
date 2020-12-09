@@ -32,11 +32,11 @@ class ViewerRepositoryImpl private constructor(
         return bookmarkRepository.selectAllBookmarks(bookGuid)
     }
 
-    override fun insertBookmark(pageIdx: Long, bookGuid: String): Completable {
+    override fun insertBookmark(pageIdx: Int, bookGuid: String): Completable {
         return bookmarkRepository.insertBookmark(pageIdx, bookGuid)
     }
 
-    override fun deleteBookmark(pageIdx: Long, bookGuid: String): Completable {
+    override fun deleteBookmark(pageIdx: Int, bookGuid: String): Completable {
         return bookmarkRepository.deleteBookmark(pageIdx, bookGuid)
     }
 
@@ -48,7 +48,7 @@ class ViewerRepositoryImpl private constructor(
         return bookmarkRepository.updateBookmark(bookmark)
     }
 
-    override fun isBookmarkedPage(bookGuid: String, pageIdx: Long): Flowable<Boolean> {
+    override fun isBookmarkedPage(bookGuid: String, pageIdx: Int): Flowable<Boolean> {
         return bookmarkRepository.isBookmarkedPage(bookGuid, pageIdx)
     }
 }

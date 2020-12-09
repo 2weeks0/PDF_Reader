@@ -6,11 +6,11 @@ import java.util.*
 data class PdfDocumentBookmark(
     private val guid: String = UUID.randomUUID().toString(),
     private val title: String,
-    private val pageIdx: Long
+    private val pageIdx: Int
 ) : Contents {
 
     companion object {
-        fun valueOf(title: String, pageIdx: Long): PdfDocumentBookmark {
+        fun valueOf(title: String, pageIdx: Int): PdfDocumentBookmark {
             return PdfDocumentBookmark(title = title, pageIdx = pageIdx)
         }
     }
@@ -23,7 +23,7 @@ data class PdfDocumentBookmark(
         return title
     }
 
-    override fun getPageIdx(): Long {
+    override fun getPageIdx(): Int {
         return pageIdx
     }
 }
