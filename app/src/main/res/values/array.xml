@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="CONTENTS_TAB_NAME">
-        <item>목차</item>
-        <item>북마크</item>
+        <item>@string/menu_contents</item>
+        <item>@string/menu_bookmark</item>
     </string-array>
 </resources>
