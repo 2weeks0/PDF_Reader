@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.viewer.menu
+package com.ejooyoung.pdf_reader.viewer.menu.bookmark
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ejooyoung.pdf_reader.base.widget.ViewHolder
 import com.ejooyoung.pdf_reader.database.model.Contents
 import com.ejooyoung.pdf_reader.databinding.ItemContentsBinding
-import com.shockwave.pdfium.PdfDocument
 
-class ContentsListAdapter(
+class BookmarkListAdapter(
     private val clickListener: (pageIdx: Int) -> Unit
 ) : RecyclerView.Adapter<ViewHolder>() {
 

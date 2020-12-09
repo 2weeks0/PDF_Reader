@@ -8,11 +8,14 @@ import androidx.savedstate.SavedStateRegistryOwner
 import com.ejooyoung.pdf_reader.bookshelf.BookshelfViewModel
 import com.ejooyoung.pdf_reader.main.SettingViewModel
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
+import com.ejooyoung.pdf_reader.base.repository.BookmarkRepositoryImpl
+import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepository
 import com.ejooyoung.pdf_reader.bookshelf.BookshelfRepositoryImpl
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.viewer.ViewerRepositoryImpl
 import com.ejooyoung.pdf_reader.viewer.ViewerViewModel
-import com.ejooyoung.pdf_reader.viewer.menu.ContentsViewModel
+import com.ejooyoung.pdf_reader.viewer.menu.bookmark.BookmarkListViewModel
+import com.ejooyoung.pdf_reader.viewer.menu.contents.ContentsListViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactories private constructor(
@@ -44,8 +47,11 @@ class ViewModelFactories private constructor(
             isAssignableFrom(ViewerViewModel::class.java) ->
                 ViewerViewModel.newInstance(application, ViewerRepositoryImpl.newInstance(application), arg as Book)
 
-            isAssignableFrom(ContentsViewModel::class.java) ->
-                ContentsViewModel.newInstance(application, arg as Book)
+            isAssignableFrom(BookmarkListViewModel::class.java) ->
+                BookmarkListViewModel.newInstance(application, BookmarkRepositoryImpl.getInstance(application), arg as Book)
+
+            isAssignableFrom(ContentsListViewModel::class.java) ->
+                ContentsListViewModel.newInstance(application, arg as PdfDocumentRepository)
 
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

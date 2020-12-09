@@ -1,29 +1,36 @@
-package com.ejooyoung.pdf_reader.viewer.menu
+package com.ejooyoung.pdf_reader.viewer.menu.bookmark
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ejooyoung.pdf_reader.R
+import com.ejooyoung.pdf_reader.ViewModelFactories
+import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
+import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.databinding.FragmentContentsListBinding
 
-class ContentsListFragment : Fragment() {
+class BookmarkListFragment : Fragment() {
 
     companion object {
-        fun newInstance(contentsType: ContentsType): ContentsListFragment {
-            return ContentsListFragment().apply {
-                this.contentsType = contentsType
+        fun newInstance(book: Book): BookmarkListFragment {
+            return BookmarkListFragment().apply {
+                this.book = book
             }
         }
     }
 
-    private lateinit var contentsType: ContentsType
+    private lateinit var book: Book
     private lateinit var binding: FragmentContentsListBinding
+    private val viewModel by viewModels<BookmarkListViewModel> {
+        ViewModelFactories.of(requireActivity().application, this, book)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,16 +52,13 @@ class ContentsListFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        binding.recyclerView.adapter = ContentsListAdapter { DevLogger.i() }
+        binding.recyclerView.adapter = BookmarkListAdapter { DevLogger.i() }
     }
 
     private fun setupObserver() {
-        (parentFragment as ContentsFragment).viewModel.contentsLiveData.observe(
-            viewLifecycleOwner,
-            Observer {
-                (binding.recyclerView.adapter as ContentsListAdapter).setItem(it)
-                binding.emptyView.visibility = it.isEmpty()
-            }
-        )
+        viewModel.contentsItemList.observe(viewLifecycleOwner, Observer {
+            (binding.recyclerView.adapter as BookmarkListAdapter).setItem(it)
+            viewModel.visibilityOfEmptyView.set(it.isEmpty())
+        })
     }
 }
