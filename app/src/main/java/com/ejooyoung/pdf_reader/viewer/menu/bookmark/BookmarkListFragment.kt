@@ -14,6 +14,7 @@ import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.database.model.Book
+import com.ejooyoung.pdf_reader.databinding.FragmentBookmarkListBinding
 import com.ejooyoung.pdf_reader.databinding.FragmentContentsListBinding
 
 class BookmarkListFragment : Fragment() {
@@ -27,7 +28,7 @@ class BookmarkListFragment : Fragment() {
     }
 
     private lateinit var book: Book
-    private lateinit var binding: FragmentContentsListBinding
+    private lateinit var binding: FragmentBookmarkListBinding
     private val viewModel by viewModels<BookmarkListViewModel> {
         ViewModelFactories.of(requireActivity().application, this, book)
     }
@@ -37,7 +38,7 @@ class BookmarkListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_contents_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_bookmark_list, container, false)
         setupDataBinding(view)
         setupRecyclerView()
         setupObserver()
@@ -45,8 +46,8 @@ class BookmarkListFragment : Fragment() {
     }
 
     private fun setupDataBinding(view: View) {
-        binding = FragmentContentsListBinding.bind(view).apply {
-
+        binding = FragmentBookmarkListBinding.bind(view).apply {
+            viewModel = this@BookmarkListFragment.viewModel
         }
     }
 

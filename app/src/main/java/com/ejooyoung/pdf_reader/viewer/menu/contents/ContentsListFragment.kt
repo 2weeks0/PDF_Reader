@@ -42,7 +42,7 @@ class ContentsListFragment : Fragment() {
 
     private fun setupDataBinding(view: View) {
         binding = FragmentContentsListBinding.bind(view).apply {
-
+            viewModel = this@ContentsListFragment.viewModel
         }
     }
 

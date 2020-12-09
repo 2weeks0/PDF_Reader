@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.ejooyoung.pdf_reader.viewer.menu.contents.ContentsListViewModel" />
+            type="com.ejooyoung.pdf_reader.viewer.menu.bookmark.BookmarkListViewModel" />
     </data>
 
     <FrameLayout
@@ -21,7 +21,7 @@
         <include
             android:id="@+id/emptyView"
             layout="@layout/layout_empty"
-            app:message="@{@string/msg_empty_contents}"
+            app:message="@{@string/msg_empty_bookmark}"
             app:visibility="@{viewModel.visibilityOfEmptyView}"/>
     </FrameLayout>
 </layout>
