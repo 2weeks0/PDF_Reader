@@ -28,7 +28,7 @@ interface BookmarkDao {
     @Update
     fun updateBookmark(bookmark: Bookmark): Completable
 
-    @Query("SELECT CASE WHEN ${Const.DB_BOOKMARK_COLUMN_GUID} IS NOT NULL THEN 1 ELSE 0 END" +
+    @Query("SELECT CASE WHEN count(${Const.DB_BOOKMARK_COLUMN_GUID}) > 0 THEN 1 ELSE 0 END" +
             " FROM ${Const.DB_BOOKMARK_TABLE}" +
             " WHERE ${Const.DB_BOOKMARK_COLUMN_BOOK_GUID} = :bookGuid" +
             " AND ${Const.DB_BOOKMARK_COLUMN_PAGE_INDEX} = :pageIdx")

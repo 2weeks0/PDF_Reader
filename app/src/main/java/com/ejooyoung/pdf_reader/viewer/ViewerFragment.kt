@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.databinding.FragmentViewerBinding
 import com.ejooyoung.pdf_reader.database.model.Book
+import com.ejooyoung.pdf_reader.databinding.LayoutScrollHandlerBinding
 import com.github.barteksc.pdfviewer.util.FitPolicy
 
 class ViewerFragment : Fragment() {
@@ -42,12 +44,23 @@ class ViewerFragment : Fragment() {
         }
         setupPdfView()
         setupSeekBar()
+        setupObserver()
         return view
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.updateBook()
+    }
+
+    private fun setupObserver() {
+        viewModel.currentPage.observe(viewLifecycleOwner, Observer {
+            DevLogger.i()
+            viewModel.updateIsBookmarkedPage()
+            binding.scrollHandler.seekBar.progress = it
+            binding.scrollHandler.tvSeekBar.text =
+                    resources.getString(R.string.seek_bar, (it + 1).toString(), viewModel.book.lastPage.toString())
+        })
     }
 
     private fun setupPdfView() {
@@ -67,8 +80,11 @@ class ViewerFragment : Fragment() {
             }
             .onPageChange { page, pageCount ->
                 DevLogger.d("${(page + 1)} / $pageCount")
-                if (viewModel.book.lastPage == 0) viewModel.book.lastPage = pageCount
-                viewModel.book.currentPage = page
+                    if (viewModel.book.lastPage == 0) {
+                        viewModel.book.lastPage = pageCount
+                        binding.scrollHandler.seekBar.max = pageCount - 1
+                    }
+                viewModel.currentPage.value = page
             }
             .onLoad {
                 PdfDocumentRepositoryImpl.getInstance().savePdfDocumentBookmarkList(binding.viewPdf.tableOfContents)
@@ -77,12 +93,12 @@ class ViewerFragment : Fragment() {
     }
 
     private fun setupSeekBar() {
+        binding.scrollHandler.seekBar.max = viewModel.book.lastPage - 1
         binding.scrollHandler.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 DevLogger.d("fromUser: $fromUser")
                 if (fromUser) {
                     binding.viewPdf.jumpTo(progress)
-                    viewModel.currentPage.set(progress)
                 }
             }
 

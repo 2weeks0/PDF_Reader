@@ -10,6 +10,7 @@ interface ViewerMenuClickListener {
     fun showInfo()
     fun performUndo()
     fun showContents(view: View)
-    fun showBookmark()
+    fun addBookmark()
+    fun deleteBookmark()
     fun showSetting()
 }

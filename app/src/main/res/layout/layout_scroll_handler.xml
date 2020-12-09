@@ -79,9 +79,7 @@
                 android:id="@+id/seekBar"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginTop="10dp"
-                android:max="@{viewModel.book.lastPage - 1}"
-                android:progress="@{viewModel.book.currentPage}" />
+                android:layout_marginTop="10dp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvSeekBar"
@@ -90,7 +88,6 @@
                 android:layout_below="@id/seekBar"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
-                android:text="@{@string/seek_bar(viewModel.currentPage + 1, viewModel.book.lastPage)}"
                 tools:text="1 / 200"/>
 
             <LinearLayout
@@ -124,9 +121,10 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> clickListener.showBookmark()}"
+                    android:onClick="@{() -> viewModel.isBookmarkedPage() ? clickListener.deleteBookmark() : clickListener.addBookmark()}"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    app:srcCompat="@drawable/ic_bookmark"/>
+                    android:src="@{viewModel.isBookmarkedPage() ? @drawable/ic_bookmark : @drawable/ic_bookmark_border}"
+                    tools:src="@drawable/ic_bookmark"/>
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivSetting"

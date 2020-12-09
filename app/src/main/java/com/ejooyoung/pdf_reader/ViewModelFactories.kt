@@ -10,6 +10,7 @@ import com.ejooyoung.pdf_reader.main.SettingViewModel
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 import com.ejooyoung.pdf_reader.bookshelf.BookshelfRepositoryImpl
 import com.ejooyoung.pdf_reader.database.model.Book
+import com.ejooyoung.pdf_reader.viewer.ViewerRepositoryImpl
 import com.ejooyoung.pdf_reader.viewer.ViewerViewModel
 import com.ejooyoung.pdf_reader.viewer.menu.ContentsViewModel
 
@@ -41,7 +42,7 @@ class ViewModelFactories private constructor(
                 SettingViewModel.newInstance(application, BookRepositoryImpl.getInstance(application))
 
             isAssignableFrom(ViewerViewModel::class.java) ->
-                ViewerViewModel.newInstance(application, BookRepositoryImpl.getInstance(application), arg as Book)
+                ViewerViewModel.newInstance(application, ViewerRepositoryImpl.newInstance(application), arg as Book)
 
             isAssignableFrom(ContentsViewModel::class.java) ->
                 ContentsViewModel.newInstance(application, arg as Book)
