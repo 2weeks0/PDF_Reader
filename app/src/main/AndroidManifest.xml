@@ -25,5 +25,8 @@
 
         <activity android:name=".viewer.menu.ContentsActivity"
             android:launchMode="singleTop" />
+
+        <activity android:name=".rename.RenameActivity"
+            android:launchMode="singleTop" />
     </application>
 </manifest>

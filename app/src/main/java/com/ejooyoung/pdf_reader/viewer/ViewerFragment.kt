@@ -1,5 +1,7 @@
 package com.ejooyoung.pdf_reader.viewer
 
+import android.app.Activity
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,11 +13,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
+import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.databinding.FragmentViewerBinding
 import com.ejooyoung.pdf_reader.database.model.Book
-import com.ejooyoung.pdf_reader.databinding.LayoutScrollHandlerBinding
+import com.ejooyoung.pdf_reader.database.model.Bookmark
 import com.github.barteksc.pdfviewer.util.FitPolicy
 
 class ViewerFragment : Fragment() {
@@ -110,5 +113,18 @@ class ViewerFragment : Fragment() {
 
             }
         })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                Const.KEY_REQUEST_RENAME -> {
+                    data?.getParcelableExtra<Bookmark>(Const.KEY_BUNDLE_RENAMABLE)?.let {
+                        viewModel.updateRenamedBookmark(it)
+                    }
+                }
+            }
+        }
     }
 }

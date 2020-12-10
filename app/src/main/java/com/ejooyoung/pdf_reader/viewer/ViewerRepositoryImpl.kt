@@ -32,8 +32,8 @@ class ViewerRepositoryImpl private constructor(
         return bookmarkRepository.selectAllBookmarks(bookGuid)
     }
 
-    override fun insertBookmark(pageIdx: Int, bookGuid: String): Completable {
-        return bookmarkRepository.insertBookmark(pageIdx, bookGuid)
+    override fun insertBookmark(bookmark: Bookmark): Completable {
+        return bookmarkRepository.insertBookmark(bookmark)
     }
 
     override fun deleteBookmark(pageIdx: Int, bookGuid: String): Completable {

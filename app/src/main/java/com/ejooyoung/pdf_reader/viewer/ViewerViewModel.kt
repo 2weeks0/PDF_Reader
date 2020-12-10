@@ -4,18 +4,19 @@ import android.app.Application
 import android.content.Intent
 import android.view.View
 import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableInt
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.findFragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.base.Const
+import com.ejooyoung.pdf_reader.base.ext.makeSnack
 import com.ejooyoung.pdf_reader.base.ext.makeToast
+import com.ejooyoung.pdf_reader.base.utils.ActivityUtils
 import com.ejooyoung.pdf_reader.base.utils.DateUtils
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
-import com.ejooyoung.pdf_reader.databinding.LayoutScrollHandlerBinding
 import com.ejooyoung.pdf_reader.database.model.Book
+import com.ejooyoung.pdf_reader.database.model.Bookmark
 import com.ejooyoung.pdf_reader.viewer.menu.ContentsActivity
 import com.github.barteksc.pdfviewer.PDFView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -56,7 +57,7 @@ class ViewerViewModel private constructor(
     }
 
     fun updateIsBookmarkedPage() {
-        viewerRepository.isBookmarkedPage(book.guid, currentPage.value!!.toLong())
+        viewerRepository.isBookmarkedPage(book.guid, currentPage.value!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
@@ -83,11 +84,11 @@ class ViewerViewModel private constructor(
         pdfView.jumpTo(target, true)
     }
 
-    override fun showInfo() {
+    override fun showInfo(view: View) {
         DevLogger.i()
     }
 
-    override fun performUndo() {
+    override fun performUndo(view: View) {
         DevLogger.i()
     }
 
@@ -99,18 +100,25 @@ class ViewerViewModel private constructor(
         view.context.startActivity(intent)
     }
 
-    override fun addBookmark() {
-        viewerRepository.insertBookmark(currentPage.value!!.toLong(), book.guid)
+    override fun addBookmark(view: View) {
+        val bookmark = Bookmark.valueOf(currentPage.value!!, book.guid)
+        viewerRepository.insertBookmark(bookmark)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 isBookmarkedPage.set(true)
-                makeToast(R.string.msg_toast_add_bookmark)
+                makeSnack(view, R.string.msg_toast_add_bookmark, R.string.btn_change) {
+                    ActivityUtils.startRenameActivity<ViewerFragment>(
+                            view.findFragment(),
+                            R.string.txt_rename_bookmark,
+                            bookmark
+                    )
+                }
             }
     }
 
-    override fun deleteBookmark() {
-        viewerRepository.deleteBookmark(currentPage.value!!.toLong(), book.guid)
+    override fun deleteBookmark(view: View) {
+        viewerRepository.deleteBookmark(currentPage.value!!, book.guid)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
@@ -119,12 +127,21 @@ class ViewerViewModel private constructor(
             }
     }
 
-    override fun showSetting() {
+    override fun showSetting(view: View) {
         DevLogger.i()
     }
 
     override fun onCleared() {
         super.onCleared()
         DevLogger.i()
+    }
+
+    fun updateRenamedBookmark(bookmark: Bookmark) {
+        viewerRepository.updateBookmark(bookmark)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                makeToast(R.string.msg_success_rename_bookmark)
+            }
     }
 }

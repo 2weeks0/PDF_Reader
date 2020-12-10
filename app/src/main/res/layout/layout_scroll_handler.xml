@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    android:onClick="@{() -> clickListener.showInfo()}"
+                    android:onClick="@{(v) -> clickListener.showInfo(v)}"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/ic_info"/>
             </RelativeLayout>
@@ -103,7 +103,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> clickListener.performUndo()}"
+                    android:onClick="@{(v) -> clickListener.performUndo(v)}"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/ic_undo"/>
 
@@ -121,7 +121,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.isBookmarkedPage() ? clickListener.deleteBookmark() : clickListener.addBookmark()}"
+                    android:onClick="@{(v) -> viewModel.isBookmarkedPage() ? clickListener.deleteBookmark(v) : clickListener.addBookmark(v)}"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@{viewModel.isBookmarkedPage() ? @drawable/ic_bookmark : @drawable/ic_bookmark_border}"
                     tools:src="@drawable/ic_bookmark"/>
@@ -131,7 +131,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> clickListener.showSetting()}"
+                    android:onClick="@{(v) -> clickListener.showSetting(v)}"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/ic_setting"/>
             </LinearLayout>

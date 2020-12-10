@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.app.Activity"/>
+        <variable
+            name="title"
+            type="java.lang.String" />
+        <variable
+            name="renamable"
+            type="com.ejooyoung.pdf_reader.rename.Renamable" />
+        <variable
+            name="onRenameListener"
+            type="com.ejooyoung.pdf_reader.rename.OnRenameListener" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/layRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/defaultToolbar">
+
+            <LinearLayout
+                android:id="@+id/layToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/ic_back"
+                    android:onClick="@{(v) -> ((Activity) v.context).finish()}"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvName"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    style="@style/titleInPopupDialog"
+                    android:layout_marginStart="10dp"
+                    android:text="@{title}"
+                    tools:text="Title"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivSave"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/ic_save"
+                    android:onClick="@{(v) -> onRenameListener.onRename()}"/>
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <FrameLayout
+            android:id="@+id/layContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/PDF_editText"
+                android:text="@{renamable.initialName}"
+                tools:text="edt"/>
+        </FrameLayout>
+    </LinearLayout>
+</layout>

@@ -7,10 +7,10 @@ import com.github.barteksc.pdfviewer.PDFView
 interface ViewerMenuClickListener {
     fun previousPage(pdfView: PDFView, binding: ViewDataBinding)
     fun nextPage(pdfView: PDFView, binding: ViewDataBinding)
-    fun showInfo()
-    fun performUndo()
+    fun showInfo(view: View)
+    fun performUndo(view: View)
     fun showContents(view: View)
-    fun addBookmark()
-    fun deleteBookmark()
-    fun showSetting()
+    fun addBookmark(view: View)
+    fun deleteBookmark(view: View)
+    fun showSetting(view: View)
 }
