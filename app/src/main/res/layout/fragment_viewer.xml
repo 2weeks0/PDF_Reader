@@ -34,7 +34,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:background="@{viewModel.visibilityScrollHandler ? @color/bg_previous_page : @android:color/transparent}"
-                android:onClick="@{() -> clickListener.previousPage(viewPdf, scrollHandler)}"
+                android:onClick="@{() -> clickListener.previousPage(viewPdf)}"
                 tools:background="@color/bg_previous_page"/>
 
             <View
@@ -43,7 +43,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:background="@{viewModel.visibilityScrollHandler ? @color/bg_next_page : @android:color/transparent}"
-                android:onClick="@{() -> clickListener.nextPage(viewPdf, scrollHandler)}"
+                android:onClick="@{() -> clickListener.nextPage(viewPdf)}"
                 tools:background="@color/bg_next_page"/>
         </RelativeLayout>
 

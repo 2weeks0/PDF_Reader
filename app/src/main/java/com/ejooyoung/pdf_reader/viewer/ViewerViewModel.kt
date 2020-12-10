@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Intent
 import android.view.View
 import androidx.databinding.ObservableBoolean
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.findFragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -66,7 +65,7 @@ class ViewerViewModel private constructor(
                 }
     }
 
-    override fun previousPage(pdfView: PDFView, binding: ViewDataBinding) {
+    override fun previousPage(pdfView: PDFView) {
         DevLogger.w("currentPage.value: ${currentPage.value!!}")
         val target = currentPage.value!! - 1
         if (target < 0) {
@@ -75,7 +74,7 @@ class ViewerViewModel private constructor(
         pdfView.jumpTo(target, true)
     }
 
-    override fun nextPage(pdfView: PDFView, binding: ViewDataBinding) {
+    override fun nextPage(pdfView: PDFView) {
         DevLogger.w("currentPage.value: ${currentPage.value!!}")
         val target = currentPage.value!! + 1
         if (target >= pdfView.pageCount) {
