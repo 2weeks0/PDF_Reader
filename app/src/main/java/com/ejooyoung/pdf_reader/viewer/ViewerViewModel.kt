@@ -1,22 +1,20 @@
 package com.ejooyoung.pdf_reader.viewer
 
 import android.app.Application
-import android.content.Intent
 import android.view.View
 import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.findFragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.R
-import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.ext.makeSnack
 import com.ejooyoung.pdf_reader.base.ext.makeToast
-import com.ejooyoung.pdf_reader.base.utils.ActivityUtils
+import com.ejooyoung.pdf_reader.base.ext.startContentsActivity
+import com.ejooyoung.pdf_reader.base.ext.startRenameActivity
 import com.ejooyoung.pdf_reader.base.utils.DateUtils
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Bookmark
-import com.ejooyoung.pdf_reader.viewer.menu.ContentsActivity
 import com.github.barteksc.pdfviewer.PDFView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -93,10 +91,7 @@ class ViewerViewModel private constructor(
 
     override fun showContents(view: View) {
         DevLogger.i()
-        val intent = Intent(view.context, ContentsActivity::class.java).apply {
-            putExtra(Const.KEY_BUNDLE_BOOK, book)
-        }
-        view.context.startActivity(intent)
+        view.findFragment<ViewerFragment>().startContentsActivity(book)
     }
 
     override fun addBookmark(view: View) {
@@ -107,10 +102,9 @@ class ViewerViewModel private constructor(
             .subscribe {
                 isBookmarkedPage.set(true)
                 makeSnack(view, R.string.msg_toast_add_bookmark, R.string.btn_change) {
-                    ActivityUtils.startRenameActivity<ViewerFragment>(
-                            view.findFragment(),
-                            R.string.txt_rename_bookmark,
-                            bookmark
+                    view.findFragment<ViewerFragment>().startRenameActivity(
+                        R.string.txt_rename_bookmark,
+                        bookmark
                     )
                 }
             }
