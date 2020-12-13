@@ -11,11 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
-import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
-import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.databinding.FragmentBookmarkListBinding
-import com.ejooyoung.pdf_reader.databinding.FragmentContentsListBinding
 import com.ejooyoung.pdf_reader.viewer.menu.ContentsClickListener
 
 class BookmarkListFragment : Fragment() {

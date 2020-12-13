@@ -25,6 +25,9 @@ interface BookmarkDao {
     @Query("DELETE FROM ${Const.DB_BOOKMARK_TABLE} WHERE ${Const.DB_BOOKMARK_COLUMN_BOOK_GUID} = :bookGuid")
     fun deleteBookmark(bookGuid: String): Completable
 
+    @Delete
+    fun deleteBookmark(bookmark: Bookmark): Completable
+
     @Update
     fun updateBookmark(bookmark: Bookmark): Completable
 

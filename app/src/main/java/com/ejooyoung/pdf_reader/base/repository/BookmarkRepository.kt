@@ -9,6 +9,7 @@ interface BookmarkRepository {
     fun insertBookmark(bookmark: Bookmark): Completable
     fun deleteBookmark(pageIdx: Int, bookGuid: String): Completable
     fun deleteBookmark(bookGuid: String): Completable
+    fun deleteBookmark(bookmark: Bookmark): Completable
     fun updateBookmark(bookmark: Bookmark): Completable
     fun isBookmarkedPage(bookGuid: String, pageIdx: Int): Flowable<Boolean>
 }

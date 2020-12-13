@@ -9,8 +9,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.base.Const
+import com.ejooyoung.pdf_reader.base.dialog.BookmarkPopupDialog
+import com.ejooyoung.pdf_reader.base.repository.BookmarkRepositoryImpl
 import com.ejooyoung.pdf_reader.databinding.FragmentContentsBinding
 import com.ejooyoung.pdf_reader.database.model.Book
+import com.ejooyoung.pdf_reader.database.model.Bookmark
+import com.ejooyoung.pdf_reader.database.model.Contents
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -58,6 +62,14 @@ class ContentsFragment : Fragment() {
                         setResult(Activity.RESULT_OK, intent)
                         finish()
                     }
+                }
+
+                override fun onLongClickContents(contents: Contents): Boolean {
+                    if (contents is Bookmark) {
+                        BookmarkPopupDialog.newInstance(contents, BookmarkRepositoryImpl.getInstance(requireContext()))
+                            .show(childFragmentManager, null)
+                    }
+                    return true
                 }
             }
         )

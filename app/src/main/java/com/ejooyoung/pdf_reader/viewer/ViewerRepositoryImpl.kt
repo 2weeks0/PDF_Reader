@@ -44,6 +44,10 @@ class ViewerRepositoryImpl private constructor(
         return bookmarkRepository.deleteBookmark(bookGuid)
     }
 
+    override fun deleteBookmark(bookmark: Bookmark): Completable {
+        return bookmarkRepository.deleteBookmark(bookmark)
+    }
+
     override fun updateBookmark(bookmark: Bookmark): Completable {
         return bookmarkRepository.updateBookmark(bookmark)
     }

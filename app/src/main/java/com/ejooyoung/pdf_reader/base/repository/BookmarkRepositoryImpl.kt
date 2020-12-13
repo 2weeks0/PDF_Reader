@@ -38,6 +38,10 @@ class BookmarkRepositoryImpl private constructor(
         return bookmarkDao.deleteBookmark(bookGuid)
     }
 
+    override fun deleteBookmark(bookmark: Bookmark): Completable {
+        return bookmarkDao.deleteBookmark(bookmark)
+    }
+
     override fun updateBookmark(bookmark: Bookmark): Completable {
         return bookmarkDao.updateBookmark(bookmark)
     }

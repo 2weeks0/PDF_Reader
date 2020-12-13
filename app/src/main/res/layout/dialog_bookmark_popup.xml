@@ -6,7 +6,7 @@
     <data>
         <variable
             name="dialog"
-            type="com.ejooyoung.pdf_reader.base.dialog.LongClickPopupDialog" />
+            type="com.ejooyoung.pdf_reader.base.dialog.BookmarkPopupDialog" />
     </data>
 
     <LinearLayout
@@ -25,33 +25,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/titleInPopupDialog"
-            android:text="@{dialog.book.fileName}"
-            tools:text="fileName.xxx"/>
+            android:text="@{dialog.bookmark.title}"
+            tools:text="책갈피"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvRenaming"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/textInPopupDialog"
-            android:text="@string/txt_renaming_book"
+            android:text="@string/txt_renaming_bookmark"
             android:background="?attr/selectableItemBackground"
             android:onClick="@{(v) -> dialog.onClickHandler(v)}"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvBookmark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/textInPopupDialog"
-            android:text="@string/txt_bookmark_book"
-            android:background="?attr/selectableItemBackground"
-            android:onClick="@{(v) -> dialog.onClickHandler(v)}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvDelete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/textInPopupDialog"
-            android:text="@string/txt_delete_book"
+            android:text="@string/txt_delete_bookmark"
             android:background="?attr/selectableItemBackground"
             android:onClick="@{(v) -> dialog.onClickHandler(v)}"/>
     </LinearLayout>

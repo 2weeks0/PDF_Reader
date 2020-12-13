@@ -1,12 +1,17 @@
 package com.ejooyoung.pdf_reader.base.ext
 
 import android.content.Intent
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.rename.Renamable
 import com.ejooyoung.pdf_reader.rename.RenameActivity
 import com.ejooyoung.pdf_reader.viewer.menu.ContentsActivity
+
+fun Fragment.makeToast(stringId: Int) {
+    Toast.makeText(requireContext(), stringId, Toast.LENGTH_SHORT).show()
+}
 
 fun Fragment.startContentsActivity(book: Book) {
     val intent = Intent(requireContext(), ContentsActivity::class.java).apply {

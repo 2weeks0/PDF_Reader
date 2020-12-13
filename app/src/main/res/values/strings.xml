@@ -19,5 +19,8 @@
     <string name="msg_toast_del_bookmark">책갈피를 삭제하였습니다.</string>
 
     <string name="txt_rename_bookmark">책갈피 이름 변경</string>
-    <string name="msg_success_rename_bookmark">책갈피 이름 변경을 성공하였습니다.</string>
+    <string name="msg_success_rename_bookmark">책갈피 이름을 변경하였습니다.</string>
+
+    <string name="txt_renaming_bookmark">책갈피 이름 변경</string>
+    <string name="txt_delete_bookmark">책갈피 삭제</string>
 </resources>

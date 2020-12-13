@@ -18,7 +18,8 @@
         android:orientation="horizontal"
         android:background="?attr/selectableItemBackground"
         android:padding="15dp"
-        android:onClick="@{() -> contentsClickListener.onClickContents(content.pageIdx)}">
+        android:onClick="@{() -> contentsClickListener.onClickContents(content.pageIdx)}"
+        android:onLongClick="@{() -> contentsClickListener.onLongClickContents(content)}">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"
