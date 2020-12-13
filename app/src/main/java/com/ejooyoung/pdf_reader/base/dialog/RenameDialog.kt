@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.bookshelf.dialog
+package com.ejooyoung.pdf_reader.base.dialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
