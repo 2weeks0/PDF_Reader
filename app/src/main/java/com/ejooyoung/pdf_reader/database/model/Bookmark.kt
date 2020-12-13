@@ -1,8 +1,10 @@
 package com.ejooyoung.pdf_reader.database.model
 
+import android.content.res.Resources
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.utils.DateUtils
 import com.ejooyoung.pdf_reader.rename.Renamable
@@ -16,7 +18,7 @@ data class Bookmark(
     @ColumnInfo(name = Const.DB_BOOKMARK_COLUMN_GUID)
     private val guid: String = UUID.randomUUID().toString(),
     @ColumnInfo(name = Const.DB_BOOKMARK_COLUMN_TITLE)
-    private var title: String = "",
+    private var title: String,
     @ColumnInfo(name = Const.DB_BOOKMARK_COLUMN_PAGE_INDEX)
     private val pageIdx: Int,
     @ColumnInfo(name = Const.DB_BOOKMARK_COLUMN_BOOK_GUID)
@@ -26,8 +28,12 @@ data class Bookmark(
 ): Contents, Renamable {
 
     companion object {
-        fun valueOf(pageIdx: Int, bookGuid: String): Bookmark {
-            return Bookmark(pageIdx = pageIdx, bookGuid = bookGuid)
+        fun valueOf(title: String, pageIdx: Int, bookGuid: String): Bookmark {
+            return Bookmark(
+                title = title,
+                pageIdx = pageIdx,
+                bookGuid = bookGuid
+            )
         }
     }
     override fun getGuid(): String {

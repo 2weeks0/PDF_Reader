@@ -23,4 +23,5 @@
 
     <string name="txt_renaming_bookmark">책갈피 이름 변경</string>
     <string name="txt_delete_bookmark">책갈피 삭제</string>
+    <string name="txt_unknown_name">이름 없음</string>
 </resources>

@@ -95,7 +95,11 @@ class ViewerViewModel private constructor(
     }
 
     override fun addBookmark(view: View) {
-        val bookmark = Bookmark.valueOf(currentPage.value!!, book.guid)
+        val bookmark = Bookmark.valueOf(
+            getApplication<Application>().resources.getString(R.string.txt_unknown_name),
+            currentPage.value!!,
+            book.guid
+        )
         viewerRepository.insertBookmark(bookmark)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
