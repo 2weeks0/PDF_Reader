@@ -14,12 +14,15 @@ import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.databinding.FragmentContentsListBinding
+import com.ejooyoung.pdf_reader.viewer.menu.ContentsClickListener
 
 class ContentsListFragment : Fragment() {
 
     companion object {
-        fun newInstance(): ContentsListFragment {
-            return ContentsListFragment()
+        fun newInstance(contentsClickListener: ContentsClickListener): ContentsListFragment {
+            return ContentsListFragment().apply {
+                this.contentsClickListener = contentsClickListener
+            }
         }
     }
 
@@ -27,6 +30,7 @@ class ContentsListFragment : Fragment() {
     private val viewModel by viewModels<ContentsListViewModel> {
         ViewModelFactories.of(requireActivity().application, this, PdfDocumentRepositoryImpl.getInstance())
     }
+    private lateinit var contentsClickListener: ContentsClickListener
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,8 +51,9 @@ class ContentsListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
+        DevLogger.i()
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        binding.recyclerView.adapter = ContentsListAdapter { DevLogger.i() }
+        binding.recyclerView.adapter = ContentsListAdapter(contentsClickListener)
     }
 
     private fun setupObserver() {

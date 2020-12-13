@@ -6,9 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ejooyoung.pdf_reader.base.widget.ViewHolder
 import com.ejooyoung.pdf_reader.database.model.Contents
 import com.ejooyoung.pdf_reader.databinding.ItemContentsBinding
+import com.ejooyoung.pdf_reader.viewer.menu.ContentsClickListener
 
 class BookmarkListAdapter(
-    private val clickListener: (pageIdx: Int) -> Unit
+    private val contentsClickListener: ContentsClickListener
 ) : RecyclerView.Adapter<ViewHolder>() {
 
     private val itemList: MutableList<Contents> = mutableListOf()
@@ -20,7 +21,7 @@ class BookmarkListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         (holder.binding as ItemContentsBinding).content = itemList[position]
-        holder.binding.clickListener = clickListener
+        holder.binding.contentsClickListener = contentsClickListener
     }
 
     override fun getItemCount() = itemList.size

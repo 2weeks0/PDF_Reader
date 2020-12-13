@@ -13,15 +13,16 @@ import java.lang.Exception
 class ContentsPagerAdapter(
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle,
-    private val book: Book
+    private val book: Book,
+    private val contentsClickListener: ContentsClickListener
 ): FragmentStateAdapter(fragmentManager, lifecycle) {
 
     override fun getItemCount() = ContentsType.size()
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            ContentsType.CONTENT.type -> ContentsListFragment.newInstance()
-            ContentsType.BOOKMARK.type -> BookmarkListFragment.newInstance(book)
+            ContentsType.CONTENT.type -> ContentsListFragment.newInstance(contentsClickListener)
+            ContentsType.BOOKMARK.type -> BookmarkListFragment.newInstance(book, contentsClickListener)
             else -> throw Exception("unknown type")
         }
     }

@@ -16,13 +16,15 @@ import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.databinding.FragmentBookmarkListBinding
 import com.ejooyoung.pdf_reader.databinding.FragmentContentsListBinding
+import com.ejooyoung.pdf_reader.viewer.menu.ContentsClickListener
 
 class BookmarkListFragment : Fragment() {
 
     companion object {
-        fun newInstance(book: Book): BookmarkListFragment {
+        fun newInstance(book: Book, contentsClickListener: ContentsClickListener): BookmarkListFragment {
             return BookmarkListFragment().apply {
                 this.book = book
+                this.contentsClickListener = contentsClickListener
             }
         }
     }
@@ -32,6 +34,7 @@ class BookmarkListFragment : Fragment() {
     private val viewModel by viewModels<BookmarkListViewModel> {
         ViewModelFactories.of(requireActivity().application, this, book)
     }
+    private lateinit var contentsClickListener: ContentsClickListener
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,7 +56,7 @@ class BookmarkListFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        binding.recyclerView.adapter = BookmarkListAdapter { DevLogger.i() }
+        binding.recyclerView.adapter = BookmarkListAdapter(contentsClickListener)
     }
 
     private fun setupObserver() {

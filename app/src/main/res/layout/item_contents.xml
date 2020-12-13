@@ -7,8 +7,8 @@
             name="content"
             type="com.ejooyoung.pdf_reader.database.model.Contents" />
         <variable
-            name="clickListener"
-            type="kotlin.jvm.functions.Function1" />
+            name="contentsClickListener"
+            type="com.ejooyoung.pdf_reader.viewer.menu.ContentsClickListener" />
     </data>
 
     <LinearLayout
@@ -18,7 +18,7 @@
         android:orientation="horizontal"
         android:background="?attr/selectableItemBackground"
         android:padding="15dp"
-        android:onClick="@{() -> clickListener.invoke(content.pageIdx)}">
+        android:onClick="@{() -> contentsClickListener.onClickContents(content.pageIdx)}">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"

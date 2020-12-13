@@ -119,11 +119,16 @@ class ViewerFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                Const.KEY_REQUEST_RENAME -> {
+                Const.KEY_REQUEST_RENAME ->
                     data?.getParcelableExtra<Bookmark>(Const.KEY_BUNDLE_RENAMABLE)?.let {
                         viewModel.updateRenamedBookmark(it)
                     }
-                }
+                Const.KEY_REQUEST_OPEN_CONTENTS ->
+                    data?.getIntExtra(Const.KEY_BUNDLE_PAGE_INDEX, -1)?.let {
+                        if (0 <= it) {
+                            binding.viewPdf.jumpTo(it)
+                        }
+                    }
             }
         }
     }
