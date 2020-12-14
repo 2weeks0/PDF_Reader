@@ -7,10 +7,7 @@ import androidx.fragment.app.findFragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.R
-import com.ejooyoung.pdf_reader.base.ext.makeSnack
-import com.ejooyoung.pdf_reader.base.ext.makeToast
-import com.ejooyoung.pdf_reader.base.ext.startContentsActivity
-import com.ejooyoung.pdf_reader.base.ext.startRenameActivity
+import com.ejooyoung.pdf_reader.base.ext.*
 import com.ejooyoung.pdf_reader.base.utils.DateUtils
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.database.model.Book
@@ -125,7 +122,7 @@ class ViewerViewModel private constructor(
     }
 
     override fun showSetting(view: View) {
-        DevLogger.i()
+        view.findFragment<ViewerFragment>().startViewerSettingActivity()
     }
 
     override fun onCleared() {

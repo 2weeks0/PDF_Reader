@@ -7,7 +7,8 @@ import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.rename.Renamable
 import com.ejooyoung.pdf_reader.rename.RenameActivity
-import com.ejooyoung.pdf_reader.viewer.menu.ContentsActivity
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.ContentsActivity
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingActivity
 
 fun Fragment.makeToast(stringId: Int) {
     Toast.makeText(requireContext(), stringId, Toast.LENGTH_SHORT).show()
@@ -26,4 +27,9 @@ fun Fragment.startRenameActivity(titleResId: Int, renamable: Renamable) {
         putExtra(Const.KEY_BUNDLE_RENAMABLE, renamable)
     }
     startActivityForResult(intent, Const.KEY_REQUEST_RENAME)
+}
+
+fun Fragment.startViewerSettingActivity() {
+    val intent = Intent(requireContext(), ViewerSettingActivity::class.java)
+    startActivity(intent)
 }
