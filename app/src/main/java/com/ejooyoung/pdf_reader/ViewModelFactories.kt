@@ -14,8 +14,8 @@ import com.ejooyoung.pdf_reader.bookshelf.BookshelfRepositoryImpl
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.viewer.ViewerRepositoryImpl
 import com.ejooyoung.pdf_reader.viewer.ViewerViewModel
-import com.ejooyoung.pdf_reader.viewer.menu.bookmark.BookmarkListViewModel
-import com.ejooyoung.pdf_reader.viewer.menu.contents.ContentsListViewModel
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.bookmark.BookmarkListViewModel
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.contents.ContentsListViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactories private constructor(

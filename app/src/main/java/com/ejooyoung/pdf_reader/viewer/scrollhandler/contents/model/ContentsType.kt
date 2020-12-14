@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.viewer.menu.model
+package com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.model
 
 enum class ContentsType(
     val type: Int

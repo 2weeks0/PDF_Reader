@@ -23,7 +23,7 @@
         <activity android:name=".viewer.ViewerActivity"
             android:launchMode="singleTop" />
 
-        <activity android:name=".viewer.menu.ContentsActivity"
+        <activity android:name=".viewer.scrollhandler.contents.ContentsActivity"
             android:launchMode="singleTop" />
 
         <activity android:name=".rename.RenameActivity"

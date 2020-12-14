@@ -1,13 +1,13 @@
-package com.ejooyoung.pdf_reader.viewer.menu
+package com.ejooyoung.pdf_reader.viewer.scrollhandler.contents
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ejooyoung.pdf_reader.database.model.Book
-import com.ejooyoung.pdf_reader.viewer.menu.bookmark.BookmarkListFragment
-import com.ejooyoung.pdf_reader.viewer.menu.contents.ContentsListFragment
-import com.ejooyoung.pdf_reader.viewer.menu.model.ContentsType
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.bookmark.BookmarkListFragment
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.contents.ContentsListFragment
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.model.ContentsType
 import java.lang.Exception
 
 class ContentsPagerAdapter(

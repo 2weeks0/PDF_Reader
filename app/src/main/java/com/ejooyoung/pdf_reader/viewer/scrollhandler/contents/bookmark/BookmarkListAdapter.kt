@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.viewer.menu.bookmark
+package com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.bookmark
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ejooyoung.pdf_reader.base.widget.ViewHolder
 import com.ejooyoung.pdf_reader.database.model.Contents
 import com.ejooyoung.pdf_reader.databinding.ItemContentsBinding
-import com.ejooyoung.pdf_reader.viewer.menu.ContentsClickListener
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.ContentsClickListener
 
 class BookmarkListAdapter(
     private val contentsClickListener: ContentsClickListener

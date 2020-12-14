@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.ejooyoung.pdf_reader.viewer.menu.bookmark.BookmarkListViewModel" />
+            type="com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.bookmark.BookmarkListViewModel" />
     </data>
 
     <FrameLayout

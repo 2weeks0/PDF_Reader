@@ -1,17 +1,14 @@
-package com.ejooyoung.pdf_reader.viewer.menu.bookmark
+package com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.bookmark
 
 import android.app.Application
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.base.repository.BookmarkRepository
-import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Contents
-import com.ejooyoung.pdf_reader.viewer.menu.model.ContentsType
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.*
 
 class BookmarkListViewModel(
         application: Application,

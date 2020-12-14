@@ -8,7 +8,7 @@
             type="com.ejooyoung.pdf_reader.database.model.Contents" />
         <variable
             name="contentsClickListener"
-            type="com.ejooyoung.pdf_reader.viewer.menu.ContentsClickListener" />
+            type="com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.ContentsClickListener" />
     </data>
 
     <LinearLayout

@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.viewer.menu
+package com.ejooyoung.pdf_reader.viewer.scrollhandler.contents
 
 import android.app.Activity
 import android.content.Intent
@@ -22,7 +22,8 @@ class ContentsFragment : Fragment() {
 
     companion object {
         fun newInstance(book: Book): ContentsFragment {
-            return ContentsFragment().apply {
+            return ContentsFragment()
+                .apply {
                 this.book = book
             }
         }
@@ -49,30 +50,35 @@ class ContentsFragment : Fragment() {
     }
 
     private fun setupViewPager() {
-        binding.viewPager2.adapter = ContentsPagerAdapter(
-            childFragmentManager,
-            lifecycle,
-            book,
-            object : ContentsClickListener {
-                override fun onClickContents(pageIdx: Int) {
-                    val intent = Intent().apply {
-                        putExtra(Const.KEY_BUNDLE_PAGE_INDEX, pageIdx)
+        binding.viewPager2.adapter =
+            ContentsPagerAdapter(
+                childFragmentManager,
+                lifecycle,
+                book,
+                object :
+                    ContentsClickListener {
+                    override fun onClickContents(pageIdx: Int) {
+                        val intent = Intent().apply {
+                            putExtra(Const.KEY_BUNDLE_PAGE_INDEX, pageIdx)
+                        }
+                        with(requireActivity()) {
+                            setResult(Activity.RESULT_OK, intent)
+                            finish()
+                        }
                     }
-                    with(requireActivity()) {
-                        setResult(Activity.RESULT_OK, intent)
-                        finish()
-                    }
-                }
 
-                override fun onLongClickContents(contents: Contents): Boolean {
-                    if (contents is Bookmark) {
-                        BookmarkPopupDialog.newInstance(contents, BookmarkRepositoryImpl.getInstance(requireContext()))
-                            .show(childFragmentManager, null)
+                    override fun onLongClickContents(contents: Contents): Boolean {
+                        if (contents is Bookmark) {
+                            BookmarkPopupDialog.newInstance(
+                                contents,
+                                BookmarkRepositoryImpl.getInstance(requireContext())
+                            )
+                                .show(childFragmentManager, null)
+                        }
+                        return true
                     }
-                    return true
                 }
-            }
-        )
+            )
         val tabNameArray = resources.getStringArray(R.array.CONTENTS_TAB_NAME)
         TabLayoutMediator(binding.layTab, binding.viewPager2) { tab: TabLayout.Tab, position: Int ->
             tab.text = tabNameArray[position]

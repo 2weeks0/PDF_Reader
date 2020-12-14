@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.viewer.menu.bookmark
+package com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.bookmark
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.databinding.FragmentBookmarkListBinding
-import com.ejooyoung.pdf_reader.viewer.menu.ContentsClickListener
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.ContentsClickListener
 
 class BookmarkListFragment : Fragment() {
 

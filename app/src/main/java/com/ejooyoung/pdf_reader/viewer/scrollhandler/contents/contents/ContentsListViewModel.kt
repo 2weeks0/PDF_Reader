@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.viewer.menu.contents
+package com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.contents
 
 import android.app.Application
 import androidx.databinding.ObservableBoolean

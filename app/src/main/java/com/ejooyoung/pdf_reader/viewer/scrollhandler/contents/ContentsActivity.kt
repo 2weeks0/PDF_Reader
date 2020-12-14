@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.viewer.menu
+package com.ejooyoung.pdf_reader.viewer.scrollhandler.contents
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +25,11 @@ class ContentsActivity : AppCompatActivity() {
     private fun setupFragment() {
         val book: Book = intent.getParcelableExtra(Const.KEY_BUNDLE_BOOK)
         supportFragmentManager.beginTransaction()
-            .add(R.id.layRoot, ContentsFragment.newInstance(book))
+            .add(R.id.layRoot,
+                ContentsFragment.newInstance(
+                    book
+                )
+            )
             .commit()
     }
 }

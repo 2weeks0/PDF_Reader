@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.viewer.menu.contents
+package com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.contents
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.databinding.FragmentContentsListBinding
-import com.ejooyoung.pdf_reader.viewer.menu.ContentsClickListener
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.ContentsClickListener
 
 class ContentsListFragment : Fragment() {
 
