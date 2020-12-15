@@ -3,7 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="com.ejooyoung.pdf_reader.application.PreferenceType"/>
         <import type="android.app.Activity"/>
+        <variable
+            name="viewModel"
+            type="com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingViewModel" />
     </data>
 
     <LinearLayout
@@ -37,6 +41,8 @@
             android:id="@+id/layDarkTheme"
             layout="@layout/layout_setting_menu_with_switch"
             app:title="@{@string/menu_dark_theme}"
-            app:check="@{true}"/>
+            app:check="@{viewModel.preferenceMap.get(PreferenceType.VIEWER_DARK_THEME)}"
+            app:preferenceType="@{PreferenceType.VIEWER_DARK_THEME}"
+            app:clickListener="@{viewModel}"/>
     </LinearLayout>
 </layout>

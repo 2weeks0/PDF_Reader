@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
+import com.ejooyoung.pdf_reader.application.PreferenceType
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
@@ -20,6 +21,7 @@ import com.ejooyoung.pdf_reader.databinding.FragmentViewerBinding
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Bookmark
 import com.github.barteksc.pdfviewer.util.FitPolicy
+import java.util.*
 
 class ViewerFragment : Fragment() {
 
@@ -45,10 +47,14 @@ class ViewerFragment : Fragment() {
             viewModel = this@ViewerFragment.viewModel
             clickListener = this@ViewerFragment.viewModel
         }
-        setupPdfView()
         setupSeekBar()
         setupObserver()
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.onResume()
     }
 
     override fun onDestroyView() {
@@ -62,13 +68,23 @@ class ViewerFragment : Fragment() {
             viewModel.updateIsBookmarkedPage()
             binding.scrollHandler.seekBar.progress = it
             binding.scrollHandler.tvSeekBar.text =
-                    resources.getString(R.string.seek_bar, (it + 1).toString(), viewModel.book.lastPage.toString())
+                resources.getString(
+                    R.string.seek_bar,
+                    (it + 1).toString(),
+                    viewModel.book.lastPage.toString()
+                )
+        })
+        viewModel.preferenceMap.observe(viewLifecycleOwner, Observer {
+            DevLogger.e()
+            setupPdfView(it)
         })
     }
 
-    private fun setupPdfView() {
+    private fun setupPdfView(preferenceMap: EnumMap<PreferenceType, Boolean>) {
+        DevLogger.i()
         val uri = Uri.parse(viewModel.book.uriString)
         binding.viewPdf.fromUri(uri)
+            .nightMode(preferenceMap[PreferenceType.VIEWER_DARK_THEME]?: false)
             .swipeHorizontal(true)
             .enableSwipe(true)
             .pageFling(true)
@@ -76,7 +92,6 @@ class ViewerFragment : Fragment() {
             .pageFitPolicy(FitPolicy.WIDTH)
             .enableAnnotationRendering(true)
             .autoSpacing(true)
-            .nightMode(false)
             .onTap {
                 viewModel.visibilityScrollHandler.set(!viewModel.visibilityScrollHandler.get())
                 return@onTap true

@@ -8,7 +8,13 @@
             type="java.lang.String" />
         <variable
             name="check"
-            type="java.lang.Boolean" />
+            type="androidx.databinding.ObservableBoolean" />
+        <variable
+            name="preferenceType"
+            type="com.ejooyoung.pdf_reader.application.PreferenceType" />
+        <variable
+            name="clickListener"
+            type="com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.OnClickMenuListener" />
     </data>
 
     <LinearLayout
@@ -33,6 +39,7 @@
             android:id="@+id/btnSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="@{check}"/>
+            android:checked="@{check}"
+            android:onClick="@{(v) -> clickListener.onClickMenu(v, preferenceType)}"/>
     </LinearLayout>
 </layout>

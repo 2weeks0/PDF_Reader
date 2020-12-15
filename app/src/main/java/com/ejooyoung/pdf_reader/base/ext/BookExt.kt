@@ -3,7 +3,7 @@ package com.ejooyoung.pdf_reader.base.ext
 import android.content.Intent
 import android.net.Uri
 import android.provider.OpenableColumns
-import com.ejooyoung.pdf_reader.MainApplication
+import com.ejooyoung.pdf_reader.application.MainApplication
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.ThumbnailUtils

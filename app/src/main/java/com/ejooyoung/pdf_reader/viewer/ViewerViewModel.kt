@@ -7,6 +7,7 @@ import androidx.fragment.app.findFragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.R
+import com.ejooyoung.pdf_reader.application.PreferenceType
 import com.ejooyoung.pdf_reader.base.ext.*
 import com.ejooyoung.pdf_reader.base.utils.DateUtils
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
@@ -15,6 +16,7 @@ import com.ejooyoung.pdf_reader.database.model.Bookmark
 import com.github.barteksc.pdfviewer.PDFView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.*
 
 class ViewerViewModel private constructor(
     application: Application,
@@ -25,6 +27,7 @@ class ViewerViewModel private constructor(
     val visibilityScrollHandler = ObservableBoolean(false)
     val currentPage = MutableLiveData<Int>(book.currentPage)
     val isBookmarkedPage = ObservableBoolean(false)
+    val preferenceMap = MutableLiveData(EnumMap<PreferenceType, Boolean>(PreferenceType::class.java))
 
     companion object {
         fun newInstance(
@@ -36,6 +39,20 @@ class ViewerViewModel private constructor(
 
     init {
         updateReadTime()
+    }
+
+    fun onResume() {
+        loadPreference()
+    }
+
+    private fun loadPreference() {
+        DevLogger.i()
+        viewerRepository.loadAllPreference()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                preferenceMap.value = it
+            }
     }
 
     private fun updateReadTime() {

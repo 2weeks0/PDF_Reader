@@ -16,6 +16,9 @@ import com.ejooyoung.pdf_reader.viewer.ViewerRepositoryImpl
 import com.ejooyoung.pdf_reader.viewer.ViewerViewModel
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.bookmark.BookmarkListViewModel
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.contents.ContentsListViewModel
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingRepository
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingRepositoryImpl
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactories private constructor(
@@ -52,6 +55,9 @@ class ViewModelFactories private constructor(
 
             isAssignableFrom(ContentsListViewModel::class.java) ->
                 ContentsListViewModel.newInstance(application, arg as PdfDocumentRepository)
+
+            isAssignableFrom(ViewerSettingViewModel::class.java) ->
+                ViewerSettingViewModel.newInstance(application, ViewerSettingRepositoryImpl.newInstance(application))
 
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
