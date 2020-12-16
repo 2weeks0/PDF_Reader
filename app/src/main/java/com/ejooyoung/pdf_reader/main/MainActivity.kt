@@ -4,41 +4,43 @@ import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import com.amitshekhar.DebugDB
 import com.discord.panels.OverlappingPanelsLayout
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
+import com.ejooyoung.pdf_reader.base.mvvm.BaseActivity
 import com.ejooyoung.pdf_reader.bookshelf.BookshelfFragment
 import com.ejooyoung.pdf_reader.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
-
-    private val settingViewModel by viewModels<SettingViewModel> {
-        ViewModelFactories.of(application, this) }
-    private lateinit var binding: ActivityMainBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        DebugDB.getAddressLog()
-        setupDataBinding()
-        setupFragment()
-    }
+class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun onResume() {
         super.onResume()
         checkStoragePermission()
     }
 
-    private fun setupDataBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.settingViewModel = settingViewModel
+    override fun setupViewModel() {
+        viewModel = ViewModelFactories.of(application, this)
+            .create(MainViewModel::class.java)
+    }
+
+    override fun setupDataBinding() {
+        binding = ActivityMainBinding.inflate(layoutInflater).apply {
+            viewModel = this@MainActivity.viewModel
+        }
+        setContentView(binding.root)
+    }
+
+    override fun setupObserver() {
+
+    }
+
+    override fun onBindingCreated() {
+        DebugDB.getAddressLog()
+        setupFragment()
     }
 
     private fun setupFragment() {
@@ -60,7 +62,7 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Const.KEY_REQUEST_OPEN_PDF && resultCode == Activity.RESULT_OK) {
-            settingViewModel.insertBookToDB(data!!)
+            viewModel.insertBookToDB(data!!)
         }
     }
 

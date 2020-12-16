@@ -6,8 +6,8 @@
     <data>
         <import type="androidx.core.view.GravityCompat"/>
         <variable
-            name="settingViewModel"
-            type="com.ejooyoung.pdf_reader.main.SettingViewModel" />
+            name="viewModel"
+            type="com.ejooyoung.pdf_reader.main.MainViewModel" />
     </data>
 
     <com.discord.panels.OverlappingPanelsLayout
@@ -75,6 +75,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            app:settingViewModel="@{settingViewModel}"/>
+            app:settingViewModel="@{viewModel}"/>
     </com.discord.panels.OverlappingPanelsLayout>
 </layout>
