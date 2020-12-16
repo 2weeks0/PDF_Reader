@@ -4,18 +4,17 @@ import android.app.Application
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
+import com.ejooyoung.pdf_reader.application.preference.ViewerPreferenceMap
 import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.*
 
 class ViewerSettingViewModel(
     application: Application,
     private val repository: ViewerSettingRepository
 ) : BaseAndroidViewModel(application), OnClickMenuListener {
 
-    val preferenceMap = MutableLiveData(EnumMap<ViewerPreference, Boolean>(
-        ViewerPreference::class.java))
+    val preferenceMap: MutableLiveData<ViewerPreferenceMap> = MutableLiveData()
 
     companion object {
         fun newInstance(

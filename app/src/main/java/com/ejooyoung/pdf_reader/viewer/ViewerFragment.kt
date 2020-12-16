@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
+import com.ejooyoung.pdf_reader.application.preference.ViewerPreferenceMap
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.mvvm.BaseFragment
 import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
@@ -18,7 +19,6 @@ import com.ejooyoung.pdf_reader.databinding.FragmentViewerBinding
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Bookmark
 import com.github.barteksc.pdfviewer.util.FitPolicy
-import java.util.*
 
 class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
 
@@ -67,11 +67,11 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
         setupSeekBar()
     }
 
-    private fun setupPdfView(preferenceMap: EnumMap<ViewerPreference, Boolean>) {
+    private fun setupPdfView(viewerPreferenceMap: ViewerPreferenceMap) {
         DevLogger.i()
         val uri = Uri.parse(viewModel.book.uriString)
         binding.viewPdf.fromUri(uri)
-            .nightMode(preferenceMap[ViewerPreference.DARK_THEME]?: false)
+            .nightMode(viewerPreferenceMap[ViewerPreference.DARK_THEME])
             .swipeHorizontal(true)
             .enableSwipe(true)
             .pageFling(true)

@@ -3,9 +3,9 @@ package com.ejooyoung.pdf_reader.viewer.scrollhandler.setting
 import android.app.Application
 import com.ejooyoung.pdf_reader.application.MainApplication
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
+import com.ejooyoung.pdf_reader.application.preference.ViewerPreferenceMap
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
-import java.util.*
 
 @Suppress("UNCHECKED_CAST")
 class ViewerSettingRepositoryImpl private constructor(
@@ -24,13 +24,12 @@ class ViewerSettingRepositoryImpl private constructor(
         }
     }
 
-    override fun loadAllPreference(): Observable<EnumMap<ViewerPreference, Boolean>> {
+    override fun loadAllPreference(): Observable<ViewerPreferenceMap> {
         val observableList = ViewerPreference.values().asSequence()
             .map { loadPreference(it, it.defValue) }
             .toList()
         return Observable.zip(observableList) {
-            EnumMap<ViewerPreference, Boolean>(
-                ViewerPreference::class.java).apply {
+            ViewerPreferenceMap.newInstance().apply {
                 it.forEach { pair -> put((pair as Pair<ViewerPreference, Boolean>).first, pair.second) }
             }
         }

@@ -3,6 +3,7 @@ package com.ejooyoung.pdf_reader.viewer
 import android.app.Application
 import android.content.Context
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
+import com.ejooyoung.pdf_reader.application.preference.ViewerPreferenceMap
 import com.ejooyoung.pdf_reader.base.repository.BookRepository
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 import com.ejooyoung.pdf_reader.base.repository.BookmarkRepository
@@ -14,7 +15,6 @@ import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingReposi
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
-import java.util.*
 
 class ViewerRepositoryImpl private constructor(
     private val bookRepository: BookRepository,
@@ -68,7 +68,7 @@ class ViewerRepositoryImpl private constructor(
         return viewerSettingRepository.savePreference(viewerPreference, value)
     }
 
-    override fun loadAllPreference(): Observable<EnumMap<ViewerPreference, Boolean>> {
+    override fun loadAllPreference(): Observable<ViewerPreferenceMap> {
         return viewerSettingRepository.loadAllPreference()
     }
 }
