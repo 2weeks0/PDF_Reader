@@ -3,18 +3,15 @@ package com.ejooyoung.pdf_reader.viewer
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.application.PreferenceType
 import com.ejooyoung.pdf_reader.base.Const
+import com.ejooyoung.pdf_reader.base.mvvm.BaseFragment
 import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.databinding.FragmentViewerBinding
@@ -23,13 +20,9 @@ import com.ejooyoung.pdf_reader.database.model.Bookmark
 import com.github.barteksc.pdfviewer.util.FitPolicy
 import java.util.*
 
-class ViewerFragment : Fragment() {
+class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
 
     private lateinit var book: Book
-    private lateinit var binding: FragmentViewerBinding
-    private val viewModel by viewModels<ViewerViewModel> {
-        ViewModelFactories.of(requireActivity().application, this, book)
-    }
 
     companion object {
         fun newInstance(book: Book) = ViewerFragment().apply {
@@ -37,32 +30,22 @@ class ViewerFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_viewer, container, false)
-        binding = FragmentViewerBinding.bind(view).apply {
+    override fun setupViewModel() {
+        viewModel = ViewModelFactories.of(
+            requireActivity().application,
+    this,
+            book
+        ).create(ViewerViewModel::class.java)
+    }
+
+    override fun setupDataBinding(inflater: LayoutInflater, container: ViewGroup?) {
+        binding = FragmentViewerBinding.inflate(inflater, container, false).apply {
             viewModel = this@ViewerFragment.viewModel
             clickListener = this@ViewerFragment.viewModel
         }
-        setupSeekBar()
-        setupObserver()
-        return view
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.onResume()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewModel.updateBook()
-    }
-
-    private fun setupObserver() {
+    override fun setupObserver() {
         viewModel.currentPage.observe(viewLifecycleOwner, Observer {
             DevLogger.i()
             viewModel.updateIsBookmarkedPage()
@@ -80,7 +63,11 @@ class ViewerFragment : Fragment() {
         })
     }
 
-    private fun setupPdfView(preferenceMap: EnumMap<PreferenceType, Boolean>) {
+    override fun onBindingCreated() {
+        setupSeekBar()
+    }
+
+    fun setupPdfView(preferenceMap: EnumMap<PreferenceType, Boolean>) {
         DevLogger.i()
         val uri = Uri.parse(viewModel.book.uriString)
         binding.viewPdf.fromUri(uri)
@@ -128,6 +115,11 @@ class ViewerFragment : Fragment() {
 
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.updateBook()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

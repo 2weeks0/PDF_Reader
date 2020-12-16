@@ -5,25 +5,25 @@ import android.app.Application
 import android.content.Intent
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.AndroidViewModel
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.base.repository.BookRepository
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.ext.toBookList
+import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class SettingViewModel private constructor(
+class MainViewModel private constructor(
     application: Application,
     private val bookRepository: BookRepository
-) : AndroidViewModel(application) {
+) : BaseAndroidViewModel(application) {
 
     companion object {
         fun newInstance(
             application: Application,
             bookRepository: BookRepository
-        ) = SettingViewModel(application, bookRepository)
+        ) = MainViewModel(application, bookRepository)
     }
 
     fun onClick(view: View) {
@@ -45,12 +45,13 @@ class SettingViewModel private constructor(
     }
 
     fun insertBookToDB(data: Intent) {
-        Observable.fromCallable { data.toBookList(getApplication()).toTypedArray() }
+        val disposable = Observable.fromCallable { data.toBookList(getApplication()).toTypedArray() }
             .flatMapCompletable { bookRepository.insertBooks(*it) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 Log.d("LEEJY", "insertBookToDB complete")
             }
+        compositeDisposable.add(disposable)
     }
 }

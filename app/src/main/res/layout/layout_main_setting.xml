@@ -6,7 +6,7 @@
     <data>
         <variable
             name="settingViewModel"
-            type="com.ejooyoung.pdf_reader.main.SettingViewModel" />
+            type="com.ejooyoung.pdf_reader.main.MainViewModel" />
     </data>
 
     <LinearLayout

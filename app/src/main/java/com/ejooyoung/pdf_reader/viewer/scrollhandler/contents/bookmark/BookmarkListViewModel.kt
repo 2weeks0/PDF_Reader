@@ -2,8 +2,8 @@ package com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.bookmark
 
 import android.app.Application
 import androidx.databinding.ObservableBoolean
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
 import com.ejooyoung.pdf_reader.base.repository.BookmarkRepository
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Contents
@@ -14,7 +14,10 @@ class BookmarkListViewModel(
         application: Application,
         private val bookmarkRepository: BookmarkRepository,
         private val book: Book
-) : AndroidViewModel(application) {
+) : BaseAndroidViewModel(application) {
+
+    val contentsItemList: MutableLiveData<List<Contents>> = MutableLiveData()
+    val visibilityOfEmptyView: ObservableBoolean = ObservableBoolean(false)
 
     companion object {
         fun newInstance(
@@ -26,18 +29,18 @@ class BookmarkListViewModel(
         }
     }
 
-    val contentsItemList: MutableLiveData<List<Contents>> = MutableLiveData()
-    val visibilityOfEmptyView: ObservableBoolean = ObservableBoolean(false)
-
     init {
         loadContentsList()
     }
 
     private fun loadContentsList() {
-        bookmarkRepository.selectAllBookmarks(book.guid)
+        loadDisposable?.dispose()
+        visibilityOfProgressBar.set(true)
+        loadDisposable = bookmarkRepository.selectAllBookmarks(book.guid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
+                    visibilityOfProgressBar.set(false)
                     contentsItemList.value = it
                     visibilityOfEmptyView.set(it.isEmpty())
                 }

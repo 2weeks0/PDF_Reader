@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.bookmark.BookmarkListViewModel" />
+            type="com.ejooyoung.pdf_reader.bookshelf.BookshelfViewModel" />
     </data>
 
     <FrameLayout
         android:id="@+id/layRoot"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-
-        <include
-            android:id="@+id/emptyView"
-            layout="@layout/layout_empty"
-            app:message="@{@string/msg_empty_bookmark}"
-            app:visibility="@{viewModel.visibilityOfEmptyView}"/>
 
         <ProgressBar
             android:id="@+id/progress"
