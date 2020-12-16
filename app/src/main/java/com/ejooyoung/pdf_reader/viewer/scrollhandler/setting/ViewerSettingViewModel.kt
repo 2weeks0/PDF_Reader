@@ -2,21 +2,19 @@ package com.ejooyoung.pdf_reader.viewer.scrollhandler.setting
 
 import android.app.Application
 import android.view.View
-import androidx.databinding.ObservableBoolean
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.application.PreferenceType
+import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
 
 class ViewerSettingViewModel(
     application: Application,
     private val repository: ViewerSettingRepository
-) : AndroidViewModel(application), OnClickMenuListener {
+) : BaseAndroidViewModel(application), OnClickMenuListener {
 
-    val preferenceMap = EnumMap<PreferenceType, ObservableBoolean>(PreferenceType::class.java)
-    private val compositeDisposable = CompositeDisposable()
+    val preferenceMap = MutableLiveData(EnumMap<PreferenceType, Boolean>(PreferenceType::class.java))
 
     companion object {
         fun newInstance(
@@ -28,28 +26,23 @@ class ViewerSettingViewModel(
     }
 
     init {
-        initPreferenceMap()
         loadPreference()
     }
 
-    private fun initPreferenceMap() {
-        PreferenceType.values().asSequence()
-            .forEach { preferenceMap[it] = ObservableBoolean() }
-    }
-
     private fun loadPreference() {
-        val disposable = repository.loadAllPreference()
+        loadDisposable?.dispose()
+        visibilityOfProgressBar.set(true)
+        loadDisposable = repository.loadAllPreference()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                it.keys.asSequence()
-                    .forEach { key -> preferenceMap[key]?.set(it[key]?: key.defValue) }
+                visibilityOfProgressBar.set(false)
+                preferenceMap.value = it
             }
-        compositeDisposable.add(disposable)
     }
 
     override fun onClickMenu(view: View, preferenceType: PreferenceType) {
-        val beforeStatus = preferenceMap[preferenceType]?.get()?: preferenceType.defValue
+        val beforeStatus = preferenceMap.value?.get(preferenceType)?: preferenceType.defValue
         val disposable = repository.savePreference(preferenceType, !beforeStatus)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

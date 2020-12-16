@@ -1,18 +1,14 @@
 package com.ejooyoung.pdf_reader.viewer.scrollhandler.setting
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.ejooyoung.pdf_reader.R
+import androidx.lifecycle.Observer
 import com.ejooyoung.pdf_reader.ViewModelFactories
+import com.ejooyoung.pdf_reader.application.PreferenceType.*
+import com.ejooyoung.pdf_reader.base.mvvm.BaseFragment
 import com.ejooyoung.pdf_reader.databinding.FragmentViewerSettingBinding
 
-class ViewerSettingFragment : Fragment() {
-
-    private lateinit var binding: FragmentViewerSettingBinding
-    private lateinit var viewModel: ViewerSettingViewModel
+class ViewerSettingFragment : BaseFragment<ViewerSettingViewModel, FragmentViewerSettingBinding>() {
 
     companion object {
         fun newInstance(): ViewerSettingFragment {
@@ -20,25 +16,24 @@ class ViewerSettingFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_viewer_setting, container, false)
-        setupViewModel()
-        setupDataBinding(view)
-        return view
-    }
-
-    private fun setupViewModel() {
+    override fun setupViewModel() {
         viewModel = ViewModelFactories.of(requireActivity().application, this)
             .create(ViewerSettingViewModel::class.java)
     }
 
-    private fun setupDataBinding(view: View) {
-        binding = FragmentViewerSettingBinding.bind(view).apply {
+    override fun setupDataBinding(inflater: LayoutInflater, container: ViewGroup?) {
+        binding = FragmentViewerSettingBinding.inflate(inflater, container, false).apply {
             viewModel = this@ViewerSettingFragment.viewModel
         }
+    }
+
+    override fun setupObserver() {
+        viewModel.preferenceMap.observe(viewLifecycleOwner, Observer {
+            binding.layDarkTheme.btnSwitch.isChecked = it.getOrDefault(VIEWER_DARK_THEME, VIEWER_DARK_THEME.defValue)
+        })
+    }
+
+    override fun onBindingCreated() {
+
     }
 }

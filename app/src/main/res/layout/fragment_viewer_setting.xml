@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <import type="com.ejooyoung.pdf_reader.application.PreferenceType"/>
         <import type="android.app.Activity"/>
         <variable
@@ -10,39 +11,50 @@
             type="com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingViewModel" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/layRoot"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            style="@style/defaultToolbar">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivBack"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                app:srcCompat="@drawable/ic_back"
-                android:onClick="@{(v) -> ((Activity) v.context).finish()}"/>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/defaultToolbar">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/titleInPopupDialog"
-                android:layout_marginStart="10dp"
-                android:text="@string/menu_viewer_setting" />
-        </androidx.appcompat.widget.Toolbar>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/ic_back"
+                    android:onClick="@{(v) -> ((Activity) v.context).finish()}"/>
 
-        <include
-            android:id="@+id/layDarkTheme"
-            layout="@layout/layout_setting_menu_with_switch"
-            app:title="@{@string/menu_dark_theme}"
-            app:check="@{viewModel.preferenceMap.get(PreferenceType.VIEWER_DARK_THEME)}"
-            app:preferenceType="@{PreferenceType.VIEWER_DARK_THEME}"
-            app:clickListener="@{viewModel}"/>
-    </LinearLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/titleInPopupDialog"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/menu_viewer_setting" />
+            </androidx.appcompat.widget.Toolbar>
+
+            <include
+                android:id="@+id/layDarkTheme"
+                layout="@layout/layout_setting_menu_with_switch"
+                app:title="@{@string/menu_dark_theme}"
+                app:preferenceType="@{PreferenceType.VIEWER_DARK_THEME}"
+                app:clickListener="@{viewModel}"/>
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{viewModel.visibilityOfProgressBar ? View.VISIBLE : View.GONE}"/>
+    </FrameLayout>
 </layout>
