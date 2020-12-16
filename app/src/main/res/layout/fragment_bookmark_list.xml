@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.bookmark.BookmarkListViewModel" />
@@ -23,5 +24,12 @@
             layout="@layout/layout_empty"
             app:message="@{@string/msg_empty_bookmark}"
             app:visibility="@{viewModel.visibilityOfEmptyView}"/>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{viewModel.visibilityOfProgressBar ? View.VISIBLE : View.GONE}"/>
     </FrameLayout>
 </layout>
