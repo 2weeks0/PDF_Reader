@@ -4,11 +4,11 @@ import android.app.Application
 import android.view.View
 import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.findFragment
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.application.PreferenceType
 import com.ejooyoung.pdf_reader.base.ext.*
+import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
 import com.ejooyoung.pdf_reader.base.utils.DateUtils
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.database.model.Book
@@ -22,7 +22,7 @@ class ViewerViewModel private constructor(
     application: Application,
     private val viewerRepository: ViewerRepository,
     val book: Book
-) : AndroidViewModel(application), ViewerMenuClickListener {
+) : BaseAndroidViewModel(application), ViewerMenuClickListener {
 
     val visibilityScrollHandler = ObservableBoolean(false)
     val currentPage = MutableLiveData<Int>(book.currentPage)
@@ -41,16 +41,19 @@ class ViewerViewModel private constructor(
         updateReadTime()
     }
 
-    fun onResume() {
+    override fun onResume() {
         loadPreference()
     }
 
     private fun loadPreference() {
         DevLogger.i()
-        viewerRepository.loadAllPreference()
+        loadDisposable?.dispose()
+        visibilityOfProgressBar.set(true)
+        loadDisposable = viewerRepository.loadAllPreference()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
+                visibilityOfProgressBar.set(false)
                 preferenceMap.value = it
             }
     }
@@ -61,20 +64,22 @@ class ViewerViewModel private constructor(
 
     fun updateBook() {
         book.currentPage = currentPage.value!!
-        viewerRepository.updateBook(book)
+        val disposable = viewerRepository.updateBook(book)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())!!
             .subscribe()
+        compositeDisposable.add(disposable)
     }
 
     fun updateIsBookmarkedPage() {
-        viewerRepository.isBookmarkedPage(book.guid, currentPage.value!!)
+        val disposable = viewerRepository.isBookmarkedPage(book.guid, currentPage.value!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     DevLogger.d("isBookmarkedPage: $it")
                     isBookmarkedPage.set(it)
                 }
+        compositeDisposable.add(disposable)
     }
 
     override fun previousPage(pdfView: PDFView) {
@@ -114,7 +119,7 @@ class ViewerViewModel private constructor(
             currentPage.value!!,
             book.guid
         )
-        viewerRepository.insertBookmark(bookmark)
+        val disposable = viewerRepository.insertBookmark(bookmark)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
@@ -126,16 +131,18 @@ class ViewerViewModel private constructor(
                     )
                 }
             }
+        compositeDisposable.add(disposable)
     }
 
     override fun deleteBookmark(view: View) {
-        viewerRepository.deleteBookmark(currentPage.value!!, book.guid)
+        val disposable = viewerRepository.deleteBookmark(currentPage.value!!, book.guid)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 isBookmarkedPage.set(false)
                 makeToast(R.string.msg_toast_del_bookmark)
             }
+        compositeDisposable.add(disposable)
     }
 
     override fun showSetting(view: View) {
@@ -148,11 +155,12 @@ class ViewerViewModel private constructor(
     }
 
     fun updateRenamedBookmark(bookmark: Bookmark) {
-        viewerRepository.updateBookmark(bookmark)
+        val disposable = viewerRepository.updateBookmark(bookmark)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 makeToast(R.string.msg_success_rename_bookmark)
             }
+        compositeDisposable.add(disposable)
     }
 }
