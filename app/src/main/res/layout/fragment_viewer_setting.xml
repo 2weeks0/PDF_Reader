@@ -4,7 +4,7 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.ejooyoung.pdf_reader.application.PreferenceType"/>
+        <import type="com.ejooyoung.pdf_reader.application.preference.ViewerPreference"/>
         <import type="android.app.Activity"/>
         <variable
             name="viewModel"
@@ -46,7 +46,7 @@
                 android:id="@+id/layDarkTheme"
                 layout="@layout/layout_setting_menu_with_switch"
                 app:title="@{@string/menu_dark_theme}"
-                app:preferenceType="@{PreferenceType.VIEWER_DARK_THEME}"
+                app:preferenceType="@{ViewerPreference.DARK_THEME}"
                 app:clickListener="@{viewModel}"/>
         </LinearLayout>
 

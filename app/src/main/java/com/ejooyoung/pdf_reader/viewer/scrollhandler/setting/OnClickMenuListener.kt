@@ -1,8 +1,8 @@
 package com.ejooyoung.pdf_reader.viewer.scrollhandler.setting
 
 import android.view.View
-import com.ejooyoung.pdf_reader.application.PreferenceType
+import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
 
 interface OnClickMenuListener {
-    fun onClickMenu(view: View, preferenceType: PreferenceType)
+    fun onClickMenu(view: View, viewerPreference: ViewerPreference)
 }

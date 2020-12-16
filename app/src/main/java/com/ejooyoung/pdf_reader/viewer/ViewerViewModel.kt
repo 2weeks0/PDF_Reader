@@ -6,7 +6,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.findFragment
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.R
-import com.ejooyoung.pdf_reader.application.PreferenceType
+import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
 import com.ejooyoung.pdf_reader.base.ext.*
 import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
 import com.ejooyoung.pdf_reader.base.utils.DateUtils
@@ -27,7 +27,8 @@ class ViewerViewModel private constructor(
     val visibilityScrollHandler = ObservableBoolean(false)
     val currentPage = MutableLiveData<Int>(book.currentPage)
     val isBookmarkedPage = ObservableBoolean(false)
-    val preferenceMap = MutableLiveData(EnumMap<PreferenceType, Boolean>(PreferenceType::class.java))
+    val preferenceMap = MutableLiveData(EnumMap<ViewerPreference, Boolean>(
+        ViewerPreference::class.java))
 
     companion object {
         fun newInstance(

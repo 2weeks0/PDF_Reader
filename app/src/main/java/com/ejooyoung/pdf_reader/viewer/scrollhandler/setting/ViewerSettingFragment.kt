@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.ejooyoung.pdf_reader.ViewModelFactories
-import com.ejooyoung.pdf_reader.application.PreferenceType.*
+import com.ejooyoung.pdf_reader.application.preference.ViewerPreference.*
 import com.ejooyoung.pdf_reader.base.mvvm.BaseFragment
 import com.ejooyoung.pdf_reader.databinding.FragmentViewerSettingBinding
 
@@ -29,7 +29,7 @@ class ViewerSettingFragment : BaseFragment<ViewerSettingViewModel, FragmentViewe
 
     override fun setupObserver() {
         viewModel.preferenceMap.observe(viewLifecycleOwner, Observer {
-            binding.layDarkTheme.btnSwitch.isChecked = it.getOrDefault(VIEWER_DARK_THEME, VIEWER_DARK_THEME.defValue)
+            binding.layDarkTheme.btnSwitch.isChecked = it.getOrDefault(DARK_THEME, DARK_THEME.defValue)
         })
     }
 

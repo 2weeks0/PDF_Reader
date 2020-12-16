@@ -2,7 +2,7 @@ package com.ejooyoung.pdf_reader.viewer.scrollhandler.setting
 
 import android.app.Application
 import com.ejooyoung.pdf_reader.application.MainApplication
-import com.ejooyoung.pdf_reader.application.PreferenceType
+import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import java.util.*
@@ -18,29 +18,30 @@ class ViewerSettingRepositoryImpl private constructor(
         }
     }
 
-    override fun savePreference(preferenceType: PreferenceType, value: Boolean): Completable {
+    override fun savePreference(viewerPreference: ViewerPreference, value: Boolean): Completable {
         return Completable.fromAction {
-            mainApplication.putPreference(preferenceType, value)
+            mainApplication.putPreference(viewerPreference, value)
         }
     }
 
-    override fun loadAllPreference(): Observable<EnumMap<PreferenceType, Boolean>> {
-        val observableList = PreferenceType.values().asSequence()
+    override fun loadAllPreference(): Observable<EnumMap<ViewerPreference, Boolean>> {
+        val observableList = ViewerPreference.values().asSequence()
             .map { loadPreference(it, it.defValue) }
             .toList()
         return Observable.zip(observableList) {
-            EnumMap<PreferenceType, Boolean>(PreferenceType::class.java).apply {
-                it.forEach { pair -> put((pair as Pair<PreferenceType, Boolean>).first, pair.second) }
+            EnumMap<ViewerPreference, Boolean>(
+                ViewerPreference::class.java).apply {
+                it.forEach { pair -> put((pair as Pair<ViewerPreference, Boolean>).first, pair.second) }
             }
         }
     }
 
     private fun loadPreference(
-        preferenceType: PreferenceType,
+        viewerPreference: ViewerPreference,
         defValue: Boolean
-    ): Observable<Pair<PreferenceType, Boolean>> {
+    ): Observable<Pair<ViewerPreference, Boolean>> {
         return Observable.fromCallable {
-            Pair(preferenceType, mainApplication.getPreference(preferenceType, defValue))
+            Pair(viewerPreference, mainApplication.getPreference(viewerPreference, defValue))
         }
     }
 }

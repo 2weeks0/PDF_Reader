@@ -3,7 +3,7 @@ package com.ejooyoung.pdf_reader.viewer.scrollhandler.setting
 import android.app.Application
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import com.ejooyoung.pdf_reader.application.PreferenceType
+import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
 import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -14,7 +14,8 @@ class ViewerSettingViewModel(
     private val repository: ViewerSettingRepository
 ) : BaseAndroidViewModel(application), OnClickMenuListener {
 
-    val preferenceMap = MutableLiveData(EnumMap<PreferenceType, Boolean>(PreferenceType::class.java))
+    val preferenceMap = MutableLiveData(EnumMap<ViewerPreference, Boolean>(
+        ViewerPreference::class.java))
 
     companion object {
         fun newInstance(
@@ -41,9 +42,9 @@ class ViewerSettingViewModel(
             }
     }
 
-    override fun onClickMenu(view: View, preferenceType: PreferenceType) {
-        val beforeStatus = preferenceMap.value?.get(preferenceType)?: preferenceType.defValue
-        val disposable = repository.savePreference(preferenceType, !beforeStatus)
+    override fun onClickMenu(view: View, viewerPreference: ViewerPreference) {
+        val beforeStatus = preferenceMap.value?.get(viewerPreference)?: viewerPreference.defValue
+        val disposable = repository.savePreference(viewerPreference, !beforeStatus)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {

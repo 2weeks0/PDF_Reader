@@ -2,7 +2,7 @@ package com.ejooyoung.pdf_reader.viewer
 
 import android.app.Application
 import android.content.Context
-import com.ejooyoung.pdf_reader.application.PreferenceType
+import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
 import com.ejooyoung.pdf_reader.base.repository.BookRepository
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 import com.ejooyoung.pdf_reader.base.repository.BookmarkRepository
@@ -64,11 +64,11 @@ class ViewerRepositoryImpl private constructor(
         return bookmarkRepository.isBookmarkedPage(bookGuid, pageIdx)
     }
 
-    override fun savePreference(preferenceType: PreferenceType, value: Boolean): Completable {
-        return viewerSettingRepository.savePreference(preferenceType, value)
+    override fun savePreference(viewerPreference: ViewerPreference, value: Boolean): Completable {
+        return viewerSettingRepository.savePreference(viewerPreference, value)
     }
 
-    override fun loadAllPreference(): Observable<EnumMap<PreferenceType, Boolean>> {
+    override fun loadAllPreference(): Observable<EnumMap<ViewerPreference, Boolean>> {
         return viewerSettingRepository.loadAllPreference()
     }
 }

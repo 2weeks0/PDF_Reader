@@ -9,7 +9,7 @@ import android.widget.SeekBar
 import androidx.lifecycle.Observer
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
-import com.ejooyoung.pdf_reader.application.PreferenceType
+import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.mvvm.BaseFragment
 import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
@@ -67,11 +67,11 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
         setupSeekBar()
     }
 
-    fun setupPdfView(preferenceMap: EnumMap<PreferenceType, Boolean>) {
+    private fun setupPdfView(preferenceMap: EnumMap<ViewerPreference, Boolean>) {
         DevLogger.i()
         val uri = Uri.parse(viewModel.book.uriString)
         binding.viewPdf.fromUri(uri)
-            .nightMode(preferenceMap[PreferenceType.VIEWER_DARK_THEME]?: false)
+            .nightMode(preferenceMap[ViewerPreference.DARK_THEME]?: false)
             .swipeHorizontal(true)
             .enableSwipe(true)
             .pageFling(true)

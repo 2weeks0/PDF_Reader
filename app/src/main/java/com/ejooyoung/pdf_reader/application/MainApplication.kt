@@ -2,6 +2,7 @@ package com.ejooyoung.pdf_reader.application
 
 import android.app.Application
 import android.preference.PreferenceManager
+import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
 import java.io.File
 
 class MainApplication : Application() {
@@ -18,15 +19,15 @@ class MainApplication : Application() {
 
     fun getThumbDir() = getExternalFilesDir(null)!!.path + "/thumb"
 
-    fun putPreference(preferenceType: PreferenceType, value: Boolean) {
+    fun putPreference(viewerPreference: ViewerPreference, value: Boolean) {
         PreferenceManager.getDefaultSharedPreferences(this)
             .edit()
-            .putBoolean(preferenceType.toString(), value)
+            .putBoolean(viewerPreference.toString(), value)
             .apply()
     }
 
-    fun getPreference(preferenceType: PreferenceType, defValue: Boolean): Boolean {
+    fun getPreference(viewerPreference: ViewerPreference, defValue: Boolean): Boolean {
         return PreferenceManager.getDefaultSharedPreferences(this)
-            .getBoolean(preferenceType.toString(), defValue)
+            .getBoolean(viewerPreference.toString(), defValue)
     }
 }
