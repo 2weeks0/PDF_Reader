@@ -4,24 +4,22 @@ import android.app.Application
 import android.content.Intent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 import com.ejooyoung.pdf_reader.base.dialog.BookPopupDialog
+import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
 import com.ejooyoung.pdf_reader.bookshelf.listener.OnClickBookListener
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.viewer.ViewerActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class BookshelfViewModel private constructor(
     application: Application,
     private val repository: BookshelfRepository
-) : AndroidViewModel(application), OnClickBookListener {
+) : BaseAndroidViewModel(application), OnClickBookListener {
 
-    private val compositeDisposable = CompositeDisposable()
     val bookList = MutableLiveData(listOf<Book>())
 
     companion object {
