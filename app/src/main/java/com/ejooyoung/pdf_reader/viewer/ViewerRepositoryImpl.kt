@@ -68,7 +68,7 @@ class ViewerRepositoryImpl private constructor(
         return viewerSettingRepository.savePreference(preferenceType, value)
     }
 
-    override fun loadAllPreference(defValue: Boolean): Observable<EnumMap<PreferenceType, Boolean>> {
-        return viewerSettingRepository.loadAllPreference(defValue)
+    override fun loadAllPreference(): Observable<EnumMap<PreferenceType, Boolean>> {
+        return viewerSettingRepository.loadAllPreference()
     }
 }
