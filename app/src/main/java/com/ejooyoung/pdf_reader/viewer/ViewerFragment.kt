@@ -9,7 +9,7 @@ import android.widget.SeekBar
 import androidx.lifecycle.Observer
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
-import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
+import com.ejooyoung.pdf_reader.application.preference.ViewerPreference.*
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreferenceMap
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.mvvm.BaseFragment
@@ -71,12 +71,13 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
         DevLogger.i()
         val uri = Uri.parse(viewModel.book.uriString)
         binding.viewPdf.fromUri(uri)
-            .nightMode(viewerPreferenceMap[ViewerPreference.DARK_THEME])
-            .swipeHorizontal(true)
+            .nightMode(viewerPreferenceMap[DARK_THEME])
+            .swipeHorizontal(viewerPreferenceMap[SWIPE_HORIZONTAL])
+            .pageFling(viewerPreferenceMap[FLING])
+            .pageFitPolicy(if (viewerPreferenceMap[FIT_WIDTH]) FitPolicy.WIDTH else FitPolicy.HEIGHT)
+            .enableDoubletap(viewerPreferenceMap[ZOOM_BY_DOUBLE_TAP])
             .enableSwipe(true)
-            .pageFling(true)
             .defaultPage(viewModel.book.currentPage)
-            .pageFitPolicy(FitPolicy.WIDTH)
             .enableAnnotationRendering(true)
             .autoSpacing(true)
             .onTap {
@@ -85,10 +86,10 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
             }
             .onPageChange { page, pageCount ->
                 DevLogger.d("${(page + 1)} / $pageCount")
-                    if (viewModel.book.lastPage == 0) {
-                        viewModel.book.lastPage = pageCount
-                        binding.scrollHandler.seekBar.max = pageCount - 1
-                    }
+                if (viewModel.book.lastPage == 0) {
+                    viewModel.book.lastPage = pageCount
+                    binding.scrollHandler.seekBar.max = pageCount - 1
+                }
                 viewModel.currentPage.value = page
             }
             .onLoad {
