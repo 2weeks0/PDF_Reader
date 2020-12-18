@@ -31,4 +31,5 @@
     <string name="menu_fling">Fling 모드</string>
     <string name="menu_fit_width">가로 너비에 맞추기</string>
     <string name="menu_zoom_by_double_tap">더블 탭하여 확대하기</string>
+    <string name="menu_jump_by_volume_key">볼륨 버튼으로 페이지 이동</string>
 </resources>

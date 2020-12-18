@@ -1,6 +1,7 @@
 package com.ejooyoung.pdf_reader.viewer
 
 import android.app.Application
+import android.view.KeyEvent
 import android.view.View
 import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.findFragment
@@ -162,5 +163,16 @@ class ViewerViewModel private constructor(
                 makeToast(R.string.msg_success_rename_bookmark)
             }
         compositeDisposable.add(disposable)
+    }
+
+    fun onVolumeKeyDown(pdfView: PDFView, keyCode: Int): Boolean {
+        if (preferenceMap.value!![ViewerPreference.JUMP_BY_VOLUME_KEY]) {
+            when (keyCode) {
+                KeyEvent.KEYCODE_VOLUME_UP -> previousPage(pdfView)
+                KeyEvent.KEYCODE_VOLUME_DOWN -> nextPage(pdfView)
+            }
+            return true
+        }
+        return false
     }
 }

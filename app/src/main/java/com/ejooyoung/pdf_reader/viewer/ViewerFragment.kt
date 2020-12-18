@@ -140,4 +140,8 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
             }
         }
     }
+
+    fun onVolumeKeyDown(keyCode: Int): Boolean {
+        return viewModel.onVolumeKeyDown(binding.viewPdf, keyCode)
+    }
 }

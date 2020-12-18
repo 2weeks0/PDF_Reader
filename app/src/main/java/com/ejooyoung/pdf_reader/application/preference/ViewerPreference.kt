@@ -7,5 +7,6 @@ enum class ViewerPreference(
     SWIPE_HORIZONTAL(true),
     FLING(true),
     FIT_WIDTH(true),
-    ZOOM_BY_DOUBLE_TAP(true);
+    ZOOM_BY_DOUBLE_TAP(true),
+    JUMP_BY_VOLUME_KEY(true);
 }

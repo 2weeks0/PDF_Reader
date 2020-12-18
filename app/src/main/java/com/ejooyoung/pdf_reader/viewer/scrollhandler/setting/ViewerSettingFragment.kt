@@ -44,5 +44,6 @@ class ViewerSettingFragment : BaseFragment<ViewerSettingViewModel, FragmentViewe
         binding.layFling.btnSwitch.isChecked = viewerPreferenceMap[FLING]
         binding.layFitWidth.btnSwitch.isChecked = viewerPreferenceMap[FIT_WIDTH]
         binding.layZoomByDoubleTap.btnSwitch.isChecked = viewerPreferenceMap[ZOOM_BY_DOUBLE_TAP]
+        binding.layJumpByVolumeKey.btnSwitch.isChecked = viewerPreferenceMap[JUMP_BY_VOLUME_KEY]
     }
 }

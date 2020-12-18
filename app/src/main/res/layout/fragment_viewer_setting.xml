@@ -76,6 +76,13 @@
                 app:title="@{@string/menu_zoom_by_double_tap}"
                 app:preferenceType="@{ViewerPreference.ZOOM_BY_DOUBLE_TAP}"
                 app:clickListener="@{viewModel}"/>
+
+            <include
+                android:id="@+id/layJumpByVolumeKey"
+                layout="@layout/layout_setting_menu_with_switch"
+                app:title="@{@string/menu_jump_by_volume_key}"
+                app:preferenceType="@{ViewerPreference.JUMP_BY_VOLUME_KEY}"
+                app:clickListener="@{viewModel}"/>
         </LinearLayout>
 
         <ProgressBar
