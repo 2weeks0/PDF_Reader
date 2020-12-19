@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="touchZone"
+            type="com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model.TouchZone" />
     </data>
 
 
@@ -40,21 +42,21 @@
             </androidx.appcompat.widget.Toolbar>
 
             <include
-                android:id="@+id/settingZone"
+                android:id="@+id/settingWidth"
                 layout="@layout/layout_setting_seek_bar"
                 app:title="@{@string/menu_setting_touch_zone}"
                 app:left="@{@string/txt_smaller}"
                 app:right="@{@string/txt_bigger}"/>
 
             <include
-                android:id="@+id/settingSize"
+                android:id="@+id/settingHeight"
                 layout="@layout/layout_setting_seek_bar"
                 app:title="@{@string/menu_setting_touch_zone_size}"
                 app:left="@{@string/txt_smaller}"
                 app:right="@{@string/txt_bigger}"/>
 
             <include
-                android:id="@+id/settingPosition"
+                android:id="@+id/settingMarginTop"
                 layout="@layout/layout_setting_seek_bar"
                 app:title="@{@string/menu_setting_touch_zone_pos}"
                 app:left="@{@string/txt_lower}"
@@ -68,17 +70,27 @@
 
             <View
                 android:id="@+id/leftTouchZone"
-                android:layout_width="@dimen/touch_zone_width"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layoutWidth="@{touchZone.widthProgress}"
+                app:layoutHeight="@{touchZone.heightProgress}"
+                app:layoutMarginTop="@{touchZone.marginTopProgress}"
                 android:layout_alignParentStart="true"
-                android:background="@color/bg_previous_page"/>
+                android:background="@color/bg_previous_page"
+                tools:layout_width="@dimen/touch_zone_width"
+                tools:layout_height="match_parent"/>
 
             <View
                 android:id="@+id/rightTouchZone"
-                android:layout_width="@dimen/touch_zone_width"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layoutWidth="@{touchZone.widthProgress}"
+                app:layoutHeight="@{touchZone.heightProgress}"
+                app:layoutMarginTop="@{touchZone.marginTopProgress}"
                 android:layout_alignParentEnd="true"
-                android:background="@color/bg_next_page"/>
+                android:background="@color/bg_next_page"
+                tools:layout_width="@dimen/touch_zone_width"
+                tools:layout_height="match_parent"/>
         </RelativeLayout>
     </FrameLayout>
 </layout>
