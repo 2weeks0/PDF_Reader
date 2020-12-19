@@ -32,4 +32,13 @@
     <string name="menu_fit_width">가로 너비에 맞추기</string>
     <string name="menu_zoom_by_double_tap">더블 탭하여 확대하기</string>
     <string name="menu_jump_by_volume_key">볼륨 버튼으로 페이지 이동</string>
+    <string name="title_setting_touch">터치 설정</string>
+    <string name="menu_setting_touch_zone">터치 인식 영역</string>
+    <string name="menu_setting_touch_zone_size">크기</string>
+    <string name="menu_setting_touch_zone_pos">위치</string>
+    <string name="txt_smaller">작게</string>
+    <string name="txt_bigger">크게</string>
+    <string name="txt_higher">높게</string>
+    <string name="txt_lower">낮게</string>
+
 </resources>

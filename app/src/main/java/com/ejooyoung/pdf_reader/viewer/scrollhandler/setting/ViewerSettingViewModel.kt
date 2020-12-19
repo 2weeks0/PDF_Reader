@@ -1,11 +1,13 @@
 package com.ejooyoung.pdf_reader.viewer.scrollhandler.setting
 
 import android.app.Application
+import android.content.Intent
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreferenceMap
 import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.SettingTouchZoneActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -50,5 +52,10 @@ class ViewerSettingViewModel(
 
             }
         compositeDisposable.add(disposable)
+    }
+
+    fun startSettingTouchZone(view: View) {
+        val intent = Intent(view.context, SettingTouchZoneActivity::class.java)
+        view.context.startActivity(intent)
     }
 }

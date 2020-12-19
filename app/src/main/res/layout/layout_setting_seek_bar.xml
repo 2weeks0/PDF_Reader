@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="title"
+            type="java.lang.String" />
+        <variable
+            name="left"
+            type="java.lang.String" />
+        <variable
+            name="right"
+            type="java.lang.String" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/laySettingSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitleSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            style="@style/baseTextStyle"
+            android:text="@{title}"
+            tools:text="title"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSmallerSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTitleSize"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            style="@style/baseTextStyle"
+            android:text="@{left}"
+            tools:text="left"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBiggerSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTitleSize"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            style="@style/baseTextStyle"
+            android:text="@{right}"
+            tools:text="right"/>
+
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/seekBarSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvSmallerSize"
+            android:padding="10dp"/>
+    </RelativeLayout>
+</layout>

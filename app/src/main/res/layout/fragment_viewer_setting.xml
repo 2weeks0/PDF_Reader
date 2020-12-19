@@ -42,47 +42,70 @@
                     android:text="@string/menu_viewer_setting" />
             </androidx.appcompat.widget.Toolbar>
 
-            <include
-                android:id="@+id/layDarkTheme"
-                layout="@layout/layout_setting_menu_with_switch"
-                app:title="@{@string/menu_dark_theme}"
-                app:preferenceType="@{ViewerPreference.DARK_THEME}"
-                app:clickListener="@{viewModel}"/>
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <include
-                android:id="@+id/laySwipeHorizontal"
-                layout="@layout/layout_setting_menu_with_switch"
-                app:title="@{@string/menu_swipe_horizontal}"
-                app:preferenceType="@{ViewerPreference.SWIPE_HORIZONTAL}"
-                app:clickListener="@{viewModel}"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-            <include
-                android:id="@+id/layFling"
-                layout="@layout/layout_setting_menu_with_switch"
-                app:title="@{@string/menu_fling}"
-                app:preferenceType="@{ViewerPreference.FLING}"
-                app:clickListener="@{viewModel}"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTouchZone"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        style="@style/baseTextStyle"
+                        android:padding="15dp"
+                        android:text="@string/title_setting_touch"
+                        android:onClick="@{(v) -> viewModel.startSettingTouchZone(v)}"/>
 
-            <include
-                android:id="@+id/layFitWidth"
-                layout="@layout/layout_setting_menu_with_switch"
-                app:title="@{@string/menu_fit_width}"
-                app:preferenceType="@{ViewerPreference.FIT_WIDTH}"
-                app:clickListener="@{viewModel}"/>
+                    <include
+                        android:id="@+id/layDarkTheme"
+                        layout="@layout/layout_setting_menu_with_switch"
+                        app:title="@{@string/menu_dark_theme}"
+                        app:preferenceType="@{ViewerPreference.DARK_THEME}"
+                        app:clickListener="@{viewModel}"/>
 
-            <include
-                android:id="@+id/layZoomByDoubleTap"
-                layout="@layout/layout_setting_menu_with_switch"
-                app:title="@{@string/menu_zoom_by_double_tap}"
-                app:preferenceType="@{ViewerPreference.ZOOM_BY_DOUBLE_TAP}"
-                app:clickListener="@{viewModel}"/>
+                    <include
+                        android:id="@+id/laySwipeHorizontal"
+                        layout="@layout/layout_setting_menu_with_switch"
+                        app:title="@{@string/menu_swipe_horizontal}"
+                        app:preferenceType="@{ViewerPreference.SWIPE_HORIZONTAL}"
+                        app:clickListener="@{viewModel}"/>
 
-            <include
-                android:id="@+id/layJumpByVolumeKey"
-                layout="@layout/layout_setting_menu_with_switch"
-                app:title="@{@string/menu_jump_by_volume_key}"
-                app:preferenceType="@{ViewerPreference.JUMP_BY_VOLUME_KEY}"
-                app:clickListener="@{viewModel}"/>
+                    <include
+                        android:id="@+id/layFling"
+                        layout="@layout/layout_setting_menu_with_switch"
+                        app:title="@{@string/menu_fling}"
+                        app:preferenceType="@{ViewerPreference.FLING}"
+                        app:clickListener="@{viewModel}"/>
+
+                    <include
+                        android:id="@+id/layFitWidth"
+                        layout="@layout/layout_setting_menu_with_switch"
+                        app:title="@{@string/menu_fit_width}"
+                        app:preferenceType="@{ViewerPreference.FIT_WIDTH}"
+                        app:clickListener="@{viewModel}"/>
+
+                    <include
+                        android:id="@+id/layZoomByDoubleTap"
+                        layout="@layout/layout_setting_menu_with_switch"
+                        app:title="@{@string/menu_zoom_by_double_tap}"
+                        app:preferenceType="@{ViewerPreference.ZOOM_BY_DOUBLE_TAP}"
+                        app:clickListener="@{viewModel}"/>
+
+                    <include
+                        android:id="@+id/layJumpByVolumeKey"
+                        layout="@layout/layout_setting_menu_with_switch"
+                        app:title="@{@string/menu_jump_by_volume_key}"
+                        app:preferenceType="@{ViewerPreference.JUMP_BY_VOLUME_KEY}"
+                        app:clickListener="@{viewModel}"/>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
         </LinearLayout>
 
         <ProgressBar

@@ -31,5 +31,8 @@
 
         <activity android:name=".viewer.scrollhandler.setting.ViewerSettingActivity"
             android:launchMode="singleTop" />
+
+        <activity android:name=".viewer.scrollhandler.setting.touchzone.SettingTouchZoneActivity"
+            android:launchMode="singleTop" />
     </application>
 </manifest>

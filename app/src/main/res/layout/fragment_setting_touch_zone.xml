@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+
+    <FrameLayout
+        android:id="@+id/layRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/defaultToolbar">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/ic_back"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/titleInPopupDialog"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/title_setting_touch" />
+            </androidx.appcompat.widget.Toolbar>
+
+            <include
+                android:id="@+id/settingZone"
+                layout="@layout/layout_setting_seek_bar"
+                app:title="@{@string/menu_setting_touch_zone}"
+                app:left="@{@string/txt_smaller}"
+                app:right="@{@string/txt_bigger}"/>
+
+            <include
+                android:id="@+id/settingSize"
+                layout="@layout/layout_setting_seek_bar"
+                app:title="@{@string/menu_setting_touch_zone_size}"
+                app:left="@{@string/txt_smaller}"
+                app:right="@{@string/txt_bigger}"/>
+
+            <include
+                android:id="@+id/settingPosition"
+                layout="@layout/layout_setting_seek_bar"
+                app:title="@{@string/menu_setting_touch_zone_pos}"
+                app:left="@{@string/txt_lower}"
+                app:right="@{@string/txt_higher}"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/layTouchZone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/leftTouchZone"
+                android:layout_width="@dimen/touch_zone_width"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:background="@color/bg_previous_page"/>
+
+            <View
+                android:id="@+id/rightTouchZone"
+                android:layout_width="@dimen/touch_zone_width"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@color/bg_next_page"/>
+        </RelativeLayout>
+    </FrameLayout>
+</layout>
