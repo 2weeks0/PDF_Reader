@@ -45,8 +45,14 @@ class ViewerViewModel private constructor(
     }
 
     override fun onResume() {
+        super.onResume()
         loadPreference()
         loadTouchZonePreference()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        updateBook()
     }
 
     private fun loadPreference() {
@@ -74,7 +80,7 @@ class ViewerViewModel private constructor(
         book.readTime = DateUtils.getCurrentTimeToDate()
     }
 
-    fun updateBook() {
+    private fun updateBook() {
         book.currentPage = currentPage.value!!
         val disposable = viewerRepository.updateBook(book)
             .subscribeOn(Schedulers.io())
@@ -100,7 +106,8 @@ class ViewerViewModel private constructor(
         if (target < 0) {
             return
         }
-        pdfView.jumpTo(target, true)
+        currentPage.value = target
+//        pdfView.jumpTo(target, true)
     }
 
     override fun nextPage(pdfView: PDFView) {
@@ -109,7 +116,8 @@ class ViewerViewModel private constructor(
         if (target >= pdfView.pageCount) {
             return
         }
-        pdfView.jumpTo(target, true)
+        currentPage.value = target
+//        pdfView.jumpTo(target, true)
     }
 
     override fun showInfo(view: View) {

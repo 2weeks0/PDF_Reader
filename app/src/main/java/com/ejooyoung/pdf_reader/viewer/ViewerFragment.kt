@@ -49,6 +49,7 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
         viewModel.currentPage.observe(viewLifecycleOwner, Observer {
             DevLogger.i()
             viewModel.updateIsBookmarkedPage()
+            binding.viewPdf.jumpTo(it, true)
             binding.scrollHandler.seekBar.progress = it
             binding.scrollHandler.tvSeekBar.text =
                 resources.getString(
@@ -58,7 +59,6 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
                 )
         })
         viewModel.preferenceMap.observe(viewLifecycleOwner, Observer {
-            DevLogger.e()
             setupPdfView(it)
         })
     }
@@ -70,6 +70,10 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
     private fun setupPdfView(viewerPreferenceMap: ViewerPreferenceMap) {
         DevLogger.i()
         val uri = Uri.parse(viewModel.book.uriString)
+
+        if (binding.viewPdf.documentMeta == null) {
+            DevLogger.w()
+        }
         binding.viewPdf.fromUri(uri)
             .nightMode(viewerPreferenceMap[DARK_THEME])
             .swipeHorizontal(viewerPreferenceMap[SWIPE_HORIZONTAL])
@@ -77,7 +81,7 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
             .pageFitPolicy(if (viewerPreferenceMap[FIT_WIDTH]) FitPolicy.WIDTH else FitPolicy.HEIGHT)
             .enableDoubletap(viewerPreferenceMap[ZOOM_BY_DOUBLE_TAP])
             .enableSwipe(true)
-            .defaultPage(viewModel.book.currentPage)
+            .defaultPage(viewModel.currentPage.value!!)
             .enableAnnotationRendering(true)
             .autoSpacing(true)
             .onTap {
@@ -90,7 +94,6 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
                     viewModel.book.lastPage = pageCount
                     binding.scrollHandler.seekBar.max = pageCount - 1
                 }
-                viewModel.currentPage.value = page
             }
             .onLoad {
                 PdfDocumentRepositoryImpl.getInstance().savePdfDocumentBookmarkList(binding.viewPdf.tableOfContents)
@@ -104,23 +107,12 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 DevLogger.d("fromUser: $fromUser")
                 if (fromUser) {
-                    binding.viewPdf.jumpTo(progress)
+                    viewModel.currentPage.value = progress
                 }
             }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-
-            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewModel.updateBook()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -134,7 +126,7 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
                 Const.KEY_REQUEST_OPEN_CONTENTS ->
                     data?.getIntExtra(Const.KEY_BUNDLE_PAGE_INDEX, -1)?.let {
                         if (0 <= it) {
-                            binding.viewPdf.jumpTo(it)
+                            viewModel.currentPage.value = it
                         }
                     }
             }
