@@ -11,6 +11,7 @@ import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.ejooyoung.pdf_reader.base.repository.ThumbnailRepositoryImpl
+import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.io.File
@@ -39,16 +40,17 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("layoutWidth", "layoutHeight", "layoutMarginTop")
-    fun setWidth(view: View, widthProgress: Int, heightProgress: Int, marginTopProgress: Int) {
+    @BindingAdapter("layoutWidth", "layoutHeight", "layoutMargin")
+    fun setWidth(view: View, widthProgress: Int, heightProgress: Int, marginProgress: Int) {
         val displayMetrics: DisplayMetrics = view.resources.displayMetrics
         val dpHeight = displayMetrics.heightPixels
         val dpWidth = displayMetrics.widthPixels
 
         view.layoutParams = (view.layoutParams as RelativeLayout.LayoutParams).apply {
-            this.width = widthProgress * (dpWidth / 3) / 100
-            this.height = heightProgress * dpHeight / 100
-            this.topMargin = marginTopProgress * (dpHeight - this.height) / 100
+            width = widthProgress * (dpWidth / 3) / 100
+            height = heightProgress * dpHeight / 100
+            bottomMargin = marginProgress * (dpHeight - height) / 100
+            DevLogger.d("width: $width, height: $height, margin: $bottomMargin")
         }
     }
 }

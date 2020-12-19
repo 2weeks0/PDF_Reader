@@ -18,6 +18,8 @@ import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.bookmark.BookmarkL
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.contents.ContentsListViewModel
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingRepositoryImpl
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingViewModel
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.SettingTouchZoneRepository
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.SettingTouchZoneRepositoryImpl
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.SettingTouchZoneViewModel
 
 @Suppress("UNCHECKED_CAST")
@@ -60,7 +62,8 @@ class ViewModelFactories private constructor(
                 ViewerSettingViewModel.newInstance(application, ViewerSettingRepositoryImpl.newInstance(application))
 
             isAssignableFrom(SettingTouchZoneViewModel::class.java) ->
-                SettingTouchZoneViewModel.newInstance(application, ViewerSettingRepositoryImpl.newInstance(application))
+                SettingTouchZoneViewModel.newInstance(application, SettingTouchZoneRepositoryImpl.newInstance(application))
+
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

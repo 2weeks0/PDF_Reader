@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.app.Activity"/>
         <variable
-            name="touchZone"
-            type="com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model.TouchZone" />
+            name="viewModel"
+            type="com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.SettingTouchZoneViewModel" />
     </data>
 
 
@@ -14,7 +15,6 @@
         android:id="@+id/layRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,7 +30,8 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    app:srcCompat="@drawable/ic_back"/>
+                    app:srcCompat="@drawable/ic_back"
+                    android:onClick="@{(v) -> ((Activity) v.context).finish()}"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvName"
@@ -46,21 +47,24 @@
                 layout="@layout/layout_setting_seek_bar"
                 app:title="@{@string/menu_setting_touch_zone}"
                 app:left="@{@string/txt_smaller}"
-                app:right="@{@string/txt_bigger}"/>
+                app:right="@{@string/txt_bigger}"
+                app:progress="@{viewModel.touchZone.widthProgress}"/>
 
             <include
                 android:id="@+id/settingHeight"
                 layout="@layout/layout_setting_seek_bar"
                 app:title="@{@string/menu_setting_touch_zone_size}"
                 app:left="@{@string/txt_smaller}"
-                app:right="@{@string/txt_bigger}"/>
+                app:right="@{@string/txt_bigger}"
+                app:progress="@{viewModel.touchZone.heightProgress}"/>
 
             <include
-                android:id="@+id/settingMarginTop"
+                android:id="@+id/settingMargin"
                 layout="@layout/layout_setting_seek_bar"
                 app:title="@{@string/menu_setting_touch_zone_pos}"
                 app:left="@{@string/txt_lower}"
-                app:right="@{@string/txt_higher}"/>
+                app:right="@{@string/txt_higher}"
+                app:progress="@{viewModel.touchZone.marginProgress}"/>
         </LinearLayout>
 
         <RelativeLayout
@@ -72,10 +76,11 @@
                 android:id="@+id/leftTouchZone"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layoutWidth="@{touchZone.widthProgress}"
-                app:layoutHeight="@{touchZone.heightProgress}"
-                app:layoutMarginTop="@{touchZone.marginTopProgress}"
+                app:layoutWidth="@{viewModel.touchZone.widthProgress}"
+                app:layoutHeight="@{viewModel.touchZone.heightProgress}"
+                app:layoutMargin="@{viewModel.touchZone.marginProgress}"
                 android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
                 android:background="@color/bg_previous_page"
                 tools:layout_width="@dimen/touch_zone_width"
                 tools:layout_height="match_parent"/>
@@ -84,10 +89,11 @@
                 android:id="@+id/rightTouchZone"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layoutWidth="@{touchZone.widthProgress}"
-                app:layoutHeight="@{touchZone.heightProgress}"
-                app:layoutMarginTop="@{touchZone.marginTopProgress}"
+                app:layoutWidth="@{viewModel.touchZone.widthProgress}"
+                app:layoutHeight="@{viewModel.touchZone.heightProgress}"
+                app:layoutMargin="@{viewModel.touchZone.marginProgress}"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
                 android:background="@color/bg_next_page"
                 tools:layout_width="@dimen/touch_zone_width"
                 tools:layout_height="match_parent"/>

@@ -24,7 +24,7 @@ class SettingTouchZoneFragment
     override fun setupDataBinding(inflater: LayoutInflater, container: ViewGroup?) {
         binding = FragmentSettingTouchZoneBinding.inflate(inflater, container, false)
             .apply {
-                touchZone = viewModel.touchZone
+                viewModel = this@SettingTouchZoneFragment.viewModel
             }
     }
 
@@ -53,9 +53,9 @@ class SettingTouchZoneFragment
             override fun onStopTrackingTouch(p0: SeekBar?) {}
         })
 
-        binding.settingMarginTop.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+        binding.settingMargin.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(p0: SeekBar?, progress: Int, fromUser: Boolean) {
-                viewModel.onTouchZoneMarginTopChanged(progress)
+                viewModel.onTouchZoneMarginChanged(progress)
             }
             override fun onStartTrackingTouch(p0: SeekBar?) {}
             override fun onStopTrackingTouch(p0: SeekBar?) {}

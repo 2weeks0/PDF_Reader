@@ -14,8 +14,8 @@
             name="right"
             type="java.lang.String" />
         <variable
-            name="onChangedListener"
-            type="kotlin.jvm.functions.Function3" />
+            name="progress"
+            type="java.lang.Integer" />
     </data>
 
     <RelativeLayout
@@ -64,6 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvLeft"
+            android:progress="@{progress}"
             android:max="100"
             android:padding="10dp"/>
     </RelativeLayout>

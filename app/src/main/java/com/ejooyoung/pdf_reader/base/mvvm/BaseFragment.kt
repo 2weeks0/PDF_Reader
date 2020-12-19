@@ -34,6 +34,11 @@ abstract class BaseFragment<A: BaseAndroidViewModel, B: ViewDataBinding> : Fragm
         viewModel.onPause()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.onDestroy()
+    }
+
     protected abstract fun setupViewModel()
 
     protected abstract fun setupDataBinding(inflater: LayoutInflater, container: ViewGroup?)
