@@ -30,21 +30,33 @@
 
             <View
                 android:id="@+id/leftTouchZone"
-                android:layout_width="@dimen/touch_zone_width"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layoutWidth="@{viewModel.touchZone.widthProgress}"
+                app:layoutHeight="@{viewModel.touchZone.heightProgress}"
+                app:layoutMargin="@{viewModel.touchZone.marginProgress}"
                 android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
                 android:background="@{viewModel.visibilityScrollHandler ? @color/bg_previous_page : @android:color/transparent}"
                 android:onClick="@{() -> clickListener.previousPage(viewPdf)}"
-                tools:background="@color/bg_previous_page"/>
+                tools:background="@color/bg_previous_page"
+                tools:layout_width="@dimen/touch_zone_width"
+                tools:layout_height="match_parent"/>
 
             <View
                 android:id="@+id/rightTouchZone"
-                android:layout_width="@dimen/touch_zone_width"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layoutWidth="@{viewModel.touchZone.widthProgress}"
+                app:layoutHeight="@{viewModel.touchZone.heightProgress}"
+                app:layoutMargin="@{viewModel.touchZone.marginProgress}"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
                 android:background="@{viewModel.visibilityScrollHandler ? @color/bg_next_page : @android:color/transparent}"
                 android:onClick="@{() -> clickListener.nextPage(viewPdf)}"
-                tools:background="@color/bg_next_page"/>
+                tools:background="@color/bg_next_page"
+                tools:layout_width="@dimen/touch_zone_width"
+                tools:layout_height="match_parent"/>
         </RelativeLayout>
 
         <include

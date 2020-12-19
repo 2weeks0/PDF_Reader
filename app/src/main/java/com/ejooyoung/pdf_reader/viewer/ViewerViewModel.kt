@@ -15,6 +15,7 @@ import com.ejooyoung.pdf_reader.base.utils.DateUtils
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Bookmark
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model.TouchZone
 import com.github.barteksc.pdfviewer.PDFView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -25,6 +26,7 @@ class ViewerViewModel private constructor(
     val book: Book
 ) : BaseAndroidViewModel(application), ViewerMenuClickListener {
 
+    val touchZone = TouchZone.of()
     val visibilityScrollHandler = ObservableBoolean(false)
     val currentPage = MutableLiveData<Int>(book.currentPage)
     val isBookmarkedPage = ObservableBoolean(false)
@@ -44,6 +46,7 @@ class ViewerViewModel private constructor(
 
     override fun onResume() {
         loadPreference()
+        loadTouchZonePreference()
     }
 
     private fun loadPreference() {
@@ -57,6 +60,14 @@ class ViewerViewModel private constructor(
                 visibilityOfProgressBar.set(false)
                 preferenceMap.value = it
             }
+    }
+
+    private fun loadTouchZonePreference() {
+        val disposable = viewerRepository.loadTouchZonePreference(touchZone)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe()
+        compositeDisposable.add(disposable)
     }
 
     private fun updateReadTime() {

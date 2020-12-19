@@ -12,6 +12,9 @@ import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Bookmark
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingRepository
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingRepositoryImpl
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.SettingTouchZoneRepository
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.SettingTouchZoneRepositoryImpl
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model.TouchZone
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
@@ -19,7 +22,8 @@ import io.reactivex.rxjava3.core.Observable
 class ViewerRepositoryImpl private constructor(
     private val bookRepository: BookRepository,
     private val bookmarkRepository: BookmarkRepository,
-    private val viewerSettingRepository: ViewerSettingRepository
+    private val viewerSettingRepository: ViewerSettingRepository,
+    private val settingTouchZoneRepository: SettingTouchZoneRepository
 ): ViewerRepository {
 
     companion object {
@@ -27,7 +31,8 @@ class ViewerRepositoryImpl private constructor(
             return ViewerRepositoryImpl(
                 BookRepositoryImpl.getInstance(context),
                 BookmarkRepositoryImpl.getInstance(context),
-                ViewerSettingRepositoryImpl.newInstance(context.applicationContext as Application)
+                ViewerSettingRepositoryImpl.newInstance(context.applicationContext as Application),
+                SettingTouchZoneRepositoryImpl.newInstance(context.applicationContext as Application)
             )
         }
     }
@@ -70,5 +75,13 @@ class ViewerRepositoryImpl private constructor(
 
     override fun loadAllPreference(): Observable<ViewerPreferenceMap> {
         return viewerSettingRepository.loadAllPreference()
+    }
+
+    override fun loadTouchZonePreference(touchZone: TouchZone): Completable {
+        return settingTouchZoneRepository.loadTouchZonePreference(touchZone)
+    }
+
+    override fun saveTouchZonePreference(touchZone: TouchZone): Completable {
+        return settingTouchZoneRepository.saveTouchZonePreference(touchZone)
     }
 }
