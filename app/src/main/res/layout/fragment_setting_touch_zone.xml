@@ -284,6 +284,7 @@
         <include
             android:id="@+id/layTouchZone"
             layout="@layout/layout_touch_zone"
-            app:touchZone="@{viewModel.touchZone}"/>
+            app:touchZone="@{viewModel.touchZone}"
+            app:visibility="@{true}"/>
     </FrameLayout>
 </layout>
