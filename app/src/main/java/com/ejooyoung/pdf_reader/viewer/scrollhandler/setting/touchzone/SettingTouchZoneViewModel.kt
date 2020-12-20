@@ -68,4 +68,9 @@ class SettingTouchZoneViewModel(
         touchZone.set(isActive = if (touchZone.isActive.get()) 0 else 1)
         saveTouchZonePreference(touchZone)
     }
+
+    fun setTouchZoneHorizon(boolean: Boolean) {
+        touchZone.isHorizontal.set(boolean)
+        saveTouchZonePreference(touchZone)
+    }
 }

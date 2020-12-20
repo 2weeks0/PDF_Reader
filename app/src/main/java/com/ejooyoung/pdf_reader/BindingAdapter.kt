@@ -40,17 +40,34 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("layoutWidth", "layoutHeight", "layoutMargin")
-    fun setWidth(view: View, widthProgress: Int, heightProgress: Int, marginProgress: Int) {
+    @BindingAdapter("layoutWidth", "layoutHeight", "layoutMargin", "isHorizontal")
+    fun setWidth(view: View, widthProgress: Int, heightProgress: Int, marginProgress: Int, isHorizontal: Boolean) {
         val displayMetrics: DisplayMetrics = view.resources.displayMetrics
         val dpHeight = displayMetrics.heightPixels
         val dpWidth = displayMetrics.widthPixels
 
         view.layoutParams = (view.layoutParams as RelativeLayout.LayoutParams).apply {
-            width = widthProgress * (dpWidth / 3) / 100
-            height = heightProgress * dpHeight / 100
-            bottomMargin = marginProgress * (dpHeight - height) / 100
-            DevLogger.d("width: $width, height: $height, margin: $bottomMargin")
+            if (isHorizontal) {
+                width = widthProgress * (dpWidth / 3) / 100
+                height = heightProgress * dpHeight / 100
+                bottomMargin = marginProgress * (dpHeight - height) / 100
+                leftMargin = 0
+            }
+            else {
+                width = heightProgress * dpWidth / 100
+                height = widthProgress * (dpHeight / 3) / 100
+                bottomMargin = 0
+                leftMargin = marginProgress * (dpWidth - width) / 100
+            }
+
+            if (view.id == R.id.leftTouchZone) {
+                addRule(RelativeLayout.ALIGN_PARENT_TOP, if (isHorizontal) 0 else RelativeLayout.TRUE)
+                addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, if (isHorizontal) RelativeLayout.TRUE else 0)
+            }
+            else {
+                addRule(RelativeLayout.ALIGN_PARENT_START, if (isHorizontal) 0 else RelativeLayout.TRUE)
+                addRule(RelativeLayout.ALIGN_PARENT_END, if (isHorizontal) RelativeLayout.TRUE else 0)
+            }
         }
     }
 }

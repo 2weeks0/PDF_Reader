@@ -6,6 +6,7 @@
     <data>
         <import type="android.app.Activity"/>
         <import type="android.view.View"/>
+        <import type="android.widget.RelativeLayout"/>
         <import type="com.ejooyoung.pdf_reader.application.preference.ViewerPreference"/>
         <variable
             name="viewModel"
@@ -81,7 +82,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_margin="15dp"/>
+                            android:layout_margin="15dp"
+                            android:checked="@{viewModel.touchZone.isHorizontal ? true : false}"
+                            android:onClick="@{() -> viewModel.setTouchZoneHorizon(true)}"/>
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvHorizontal"
@@ -110,7 +113,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_margin="15dp"/>
+                            android:layout_margin="15dp"
+                            android:checked="@{viewModel.touchZone.isHorizontal ? false : true}"
+                            android:onClick="@{() -> viewModel.setTouchZoneHorizon(false)}"/>
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvVertical"
@@ -170,8 +175,8 @@
                 app:layoutWidth="@{viewModel.touchZone.widthProgress}"
                 app:layoutHeight="@{viewModel.touchZone.heightProgress}"
                 app:layoutMargin="@{viewModel.touchZone.marginProgress}"
+                app:isHorizontal="@{viewModel.touchZone.isHorizontal}"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
                 android:background="@color/bg_previous_page"
                 tools:layout_width="@dimen/touch_zone_width"
                 tools:layout_height="match_parent"/>
@@ -183,11 +188,12 @@
                 app:layoutWidth="@{viewModel.touchZone.widthProgress}"
                 app:layoutHeight="@{viewModel.touchZone.heightProgress}"
                 app:layoutMargin="@{viewModel.touchZone.marginProgress}"
-                android:layout_alignParentEnd="true"
+                app:isHorizontal="@{viewModel.touchZone.isHorizontal}"
                 android:layout_alignParentBottom="true"
                 android:background="@color/bg_next_page"
                 tools:layout_width="@dimen/touch_zone_width"
-                tools:layout_height="match_parent"/>
+                tools:layout_height="match_parent"
+                tools:layout_alignParentEnd="true"/>
         </RelativeLayout>
     </FrameLayout>
 </layout>
