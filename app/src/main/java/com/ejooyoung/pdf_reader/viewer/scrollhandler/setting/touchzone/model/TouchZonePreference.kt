@@ -5,5 +5,7 @@ enum class TouchZonePreference(
 ){
     WIDTH_PROGRESS(50),
     HEIGHT_PROGRESS(100),
-    MARGIN_PROGRESS(50);
+    MARGIN_PROGRESS(50),
+    IS_ACTIVE(1),
+    IS_HORIZONTAL(1);
 }

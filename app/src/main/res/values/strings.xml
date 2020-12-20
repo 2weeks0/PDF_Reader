@@ -43,4 +43,7 @@
     <string name="txt_using">사용 중</string>
     <string name="txt_un_using">사용 안함</string>
     <string name="comment_touch_zone">화면을 터치하여 페이지 이동을 할 수 있습니다.</string>
+    <string name="menu_touch_zone_position">터치 영역 위치</string>
+    <string name="menu_horizontal">가로 방향</string>
+    <string name="menu_vertical">세로 방향</string>
 </resources>

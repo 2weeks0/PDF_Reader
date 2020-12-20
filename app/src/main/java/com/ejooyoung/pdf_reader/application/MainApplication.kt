@@ -44,6 +44,8 @@ class MainApplication : Application() {
             .putInt(TouchZonePreference.WIDTH_PROGRESS.toString(), touchZone.widthProgress.get())
             .putInt(TouchZonePreference.HEIGHT_PROGRESS.toString(), touchZone.heightProgress.get())
             .putInt(TouchZonePreference.MARGIN_PROGRESS.toString(), touchZone.marginProgress.get())
+            .putBoolean(ViewerPreference.TOUCH_ZONE.toString(), touchZone.isActive.get())
+            .putInt(TouchZonePreference.IS_HORIZONTAL.toString(), if (touchZone.isHorizontal.get()) 1 else 0)
             .apply()
     }
 }

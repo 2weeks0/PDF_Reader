@@ -47,11 +47,10 @@
             <include
                 android:id="@+id/layActive"
                 layout="@layout/layout_setting_menu_with_switch"
-                app:title="@{viewModel.isTouchZoneActive ? @string/txt_using : @string/txt_un_using}"
+                app:title="@{viewModel.touchZone.isActive ? @string/txt_using : @string/txt_un_using}"
                 app:preferenceType="@{ViewerPreference.TOUCH_ZONE}"
                 app:clickListener="@{viewModel}"
-                app:isChecked="@{viewModel.isTouchZoneActive}"/>
-
+                app:isChecked="@{viewModel.touchZone.isActive}"/>
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -61,6 +60,67 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/titleTouchZonePosition"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/baseTextStyle"
+                        android:layout_margin="10dp"
+                        android:text="@string/menu_touch_zone_position"/>
+
+                    <RelativeLayout
+                        android:id="@+id/layTouchZoneHorizon"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="?attr/selectableItemBackground"
+                        android:onClick="@{() -> radioHorizontal.performClick()}">
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/radioHorizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_margin="15dp"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvHorizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/radioHorizontal"
+                            style="@style/titleInPopupDialog"
+                            android:text="@string/menu_horizontal"/>
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/bg_divider"/>
+
+                    <RelativeLayout
+                        android:id="@+id/layTouchZoneVertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="?attr/selectableItemBackground"
+                        android:onClick="@{() -> radioVertical.performClick()}">
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/radioVertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_margin="15dp"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvVertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/radioVertical"
+                            style="@style/titleInPopupDialog"
+                            android:text="@string/menu_vertical"/>
+                    </RelativeLayout>
 
                     <include
                         android:id="@+id/settingWidth"
@@ -93,7 +153,7 @@
                     android:background="@color/bg_scroll_handler"
                     android:focusable="true"
                     android:clickable="true"
-                    android:visibility="@{viewModel.isTouchZoneActive ? View.GONE : View.VISIBLE}"/>
+                    android:visibility="@{viewModel.touchZone.isActive ? View.GONE : View.VISIBLE}"/>
             </FrameLayout>
         </LinearLayout>
 
@@ -101,7 +161,7 @@
             android:id="@+id/layTouchZone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{viewModel.isTouchZoneActive ? View.VISIBLE : View.GONE}">
+            android:visibility="@{viewModel.touchZone.isActive ? View.VISIBLE : View.GONE}">
 
             <View
                 android:id="@+id/leftTouchZone"

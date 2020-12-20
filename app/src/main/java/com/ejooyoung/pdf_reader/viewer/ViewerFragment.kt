@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.lifecycle.Observer
@@ -61,7 +60,6 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
         })
         viewModel.preferenceMap.observe(viewLifecycleOwner, Observer {
             setupPdfView(it)
-            binding.layTouchZone.visibility = if (it[TOUCH_ZONE]) View.VISIBLE else View.GONE
         })
     }
 

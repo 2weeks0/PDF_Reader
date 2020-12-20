@@ -84,12 +84,4 @@ class ViewerRepositoryImpl private constructor(
     override fun saveTouchZonePreference(touchZone: TouchZone): Completable {
         return settingTouchZoneRepository.saveTouchZonePreference(touchZone)
     }
-
-    override fun loadPreference(): Observable<Boolean> {
-        return settingTouchZoneRepository.loadPreference()
-    }
-
-    override fun savePreference(value: Boolean): Completable {
-        return settingTouchZoneRepository.savePreference(value)
-    }
 }
