@@ -281,38 +281,9 @@
             </FrameLayout>
         </LinearLayout>
 
-        <RelativeLayout
+        <include
             android:id="@+id/layTouchZone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="@{viewModel.touchZone.isActive ? View.VISIBLE : View.GONE}">
-
-            <View
-                android:id="@+id/leftTouchZone"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layoutWidth="@{viewModel.touchZone.widthProgress}"
-                app:layoutHeight="@{viewModel.touchZone.heightProgress}"
-                app:layoutMargin="@{viewModel.touchZone.marginProgress}"
-                app:isHorizontal="@{viewModel.touchZone.isHorizontal}"
-                android:layout_alignParentStart="true"
-                android:background="@color/bg_previous_page"
-                tools:layout_width="@dimen/touch_zone_width"
-                tools:layout_height="match_parent"/>
-
-            <View
-                android:id="@+id/rightTouchZone"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layoutWidth="@{viewModel.touchZone.widthProgress}"
-                app:layoutHeight="@{viewModel.touchZone.heightProgress}"
-                app:layoutMargin="@{viewModel.touchZone.marginProgress}"
-                app:isHorizontal="@{viewModel.touchZone.isHorizontal}"
-                android:layout_alignParentBottom="true"
-                android:background="@color/bg_next_page"
-                tools:layout_width="@dimen/touch_zone_width"
-                tools:layout_height="match_parent"
-                tools:layout_alignParentEnd="true"/>
-        </RelativeLayout>
+            layout="@layout/layout_touch_zone"
+            app:touchZone="@{viewModel.touchZone}"/>
     </FrameLayout>
 </layout>

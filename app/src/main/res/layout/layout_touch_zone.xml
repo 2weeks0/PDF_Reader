@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="touchZone"
+            type="com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model.TouchZone" />
+        <variable
+            name="clickListener"
+            type="com.ejooyoung.pdf_reader.viewer.ViewerMenuClickListener" />
+        <variable
+            name="pdfView"
+            type="com.github.barteksc.pdfviewer.PDFView" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/layTouchZone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="@{touchZone.isActive ? View.VISIBLE : View.GONE}">
+
+        <View
+            android:id="@+id/leftTouchZone"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layoutWidth="@{touchZone.widthProgress}"
+            app:layoutHeight="@{touchZone.heightProgress}"
+            app:layoutMargin="@{touchZone.marginProgress}"
+            app:isHorizontal="@{touchZone.isHorizontal}"
+            android:clickable="@{clickListener != null}"
+            android:layout_alignParentStart="true"
+            android:background="@color/bg_previous_page"
+            android:onClick="@{() -> touchZone.isLeftActionPreviousPage ? clickListener.previousPage(pdfView) : clickListener.nextPage(pdfView)}"
+            tools:layout_width="@dimen/touch_zone_width"
+            tools:layout_height="match_parent"/>
+
+        <View
+            android:id="@+id/rightTouchZone"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layoutWidth="@{touchZone.widthProgress}"
+            app:layoutHeight="@{touchZone.heightProgress}"
+            app:layoutMargin="@{touchZone.marginProgress}"
+            app:isHorizontal="@{touchZone.isHorizontal}"
+            android:clickable="@{clickListener != null}"
+            android:layout_alignParentBottom="true"
+            android:background="@color/bg_next_page"
+            android:onClick="@{() -> touchZone.isRightActionNextPage ? clickListener.nextPage(pdfView) : clickListener.previousPage(pdfView)}"
+            tools:layout_width="@dimen/touch_zone_width"
+            tools:layout_height="match_parent"
+            tools:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+</layout>
