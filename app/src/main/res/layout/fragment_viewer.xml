@@ -26,7 +26,7 @@
         <include
             android:id="@+id/layTouchZone"
             layout="@layout/layout_touch_zone"
-            app:visibility="@{viewModel.visibilityScrollHandler ? View.VISIBLE : View.GONE}"
+            app:visibility="@{viewModel.visibilityScrollHandler}"
             app:touchZone="@{viewModel.touchZone}"
             app:clickListener="@{viewModel}"
             app:pdfView="@{viewPdf}"/>

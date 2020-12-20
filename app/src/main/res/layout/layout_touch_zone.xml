@@ -23,8 +23,7 @@
     <RelativeLayout
         android:id="@+id/layTouchZone"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="@{touchZone.isActive &amp;&amp; visibility ? View.VISIBLE : View.GONE}">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/leftTouchZone"
@@ -36,10 +35,11 @@
             app:isHorizontal="@{touchZone.isHorizontal}"
             android:clickable="@{clickListener != null}"
             android:layout_alignParentStart="true"
-            android:background="@color/bg_previous_page"
+            android:background="@{touchZone.isActive &amp;&amp; visibility ? @color/bg_previous_page : @android:color/transparent}"
             android:onClick="@{() -> touchZone.isLeftActionPreviousPage ? clickListener.previousPage(pdfView) : clickListener.nextPage(pdfView)}"
             tools:layout_width="@dimen/touch_zone_width"
-            tools:layout_height="match_parent">
+            tools:layout_height="match_parent"
+            tools:background="@color/bg_previous_page">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
@@ -47,6 +47,7 @@
                 android:layout_margin="10dp"
                 android:layout_centerInParent="true"
                 android:src="@{touchZone.isLeftActionPreviousPage ? @drawable/ic_arrow_left : @drawable/ic_arrow_right}"
+                android:visibility="@{touchZone.isActive &amp;&amp; visibility ? View.VISIBLE : View.GONE}"
                 tools:src="@drawable/ic_arrow_left"/>
         </RelativeLayout>
 
@@ -60,11 +61,12 @@
             app:isHorizontal="@{touchZone.isHorizontal}"
             android:clickable="@{clickListener != null}"
             android:layout_alignParentBottom="true"
-            android:background="@color/bg_next_page"
+            android:background="@{touchZone.isActive &amp;&amp; visibility ? @color/bg_next_page : @android:color/transparent}"
             android:onClick="@{() -> touchZone.isRightActionNextPage ? clickListener.nextPage(pdfView) : clickListener.previousPage(pdfView)}"
             tools:layout_width="@dimen/touch_zone_width"
             tools:layout_height="match_parent"
-            tools:layout_alignParentEnd="true">
+            tools:layout_alignParentEnd="true"
+            tools:background="@color/bg_next_page">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
@@ -72,6 +74,7 @@
                 android:layout_margin="10dp"
                 android:layout_centerInParent="true"
                 android:src="@{touchZone.isRightActionNextPage ? @drawable/ic_arrow_right : @drawable/ic_arrow_left}"
+                android:visibility="@{touchZone.isActive &amp;&amp; visibility ? View.VISIBLE : View.GONE}"
                 tools:src="@drawable/ic_arrow_right"/>
         </RelativeLayout>
     </RelativeLayout>
