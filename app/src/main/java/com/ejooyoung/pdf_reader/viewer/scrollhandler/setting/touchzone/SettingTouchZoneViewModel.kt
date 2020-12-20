@@ -73,4 +73,14 @@ class SettingTouchZoneViewModel(
         touchZone.isHorizontal.set(boolean)
         saveTouchZonePreference(touchZone)
     }
+
+    fun setLeftActionPreviousPage(boolean: Boolean) {
+        touchZone.isLeftActionPreviousPage.set(boolean)
+        saveTouchZonePreference(touchZone)
+    }
+
+    fun setRightActionNextPage(boolean: Boolean) {
+        touchZone.isRightActionNextPage.set(boolean)
+        saveTouchZonePreference(touchZone)
+    }
 }

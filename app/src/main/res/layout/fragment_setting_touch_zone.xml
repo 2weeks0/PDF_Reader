@@ -141,6 +141,111 @@
                         android:layout_height="1dp"
                         android:background="@color/bg_divider"/>
 
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/titleTouchZoneAction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/baseTextStyle"
+                        android:layout_margin="10dp"
+                        android:text="@string/menu_touch_zone_action"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="2"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:id="@+id/layLeftTouchAction"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvLeftAction"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerHorizontal="true"
+                                style="@style/baseTextStyle"
+                                android:text="@string/menu_left_touch_zone"/>
+
+                            <androidx.appcompat.widget.AppCompatRadioButton
+                                android:id="@+id/radioLeftPrevious"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:layout_below="@id/tvLeftAction"
+                                android:layout_centerHorizontal="true"
+                                android:text="@string/menu_go_previous_page"
+                                android:checked="@{viewModel.touchZone.isLeftActionPreviousPage ? true : false}"
+                                android:onClick="@{() -> viewModel.setLeftActionPreviousPage(true)}"/>
+
+                            <androidx.appcompat.widget.AppCompatRadioButton
+                                android:id="@+id/radioLeftNext"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:layout_below="@id/radioLeftPrevious"
+                                android:layout_centerHorizontal="true"
+                                android:text="@string/menu_go_next_page"
+                                android:checked="@{viewModel.touchZone.isLeftActionPreviousPage ? false : true}"
+                                android:onClick="@{() -> viewModel.setLeftActionPreviousPage(false)}"/>
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/bg_divider"/>
+
+                        <RelativeLayout
+                            android:id="@+id/layRightTouchAction"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvRightAction"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerHorizontal="true"
+                                style="@style/baseTextStyle"
+                                android:text="@string/menu_right_touch_zone"/>
+
+                            <androidx.appcompat.widget.AppCompatRadioButton
+                                android:id="@+id/radioRightPrevious"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:layout_below="@id/tvRightAction"
+                                android:layout_centerHorizontal="true"
+                                android:text="@string/menu_go_previous_page"
+                                android:checked="@{viewModel.touchZone.isRightActionNextPage ? false : true}"
+                                android:onClick="@{() -> viewModel.setRightActionNextPage(false)}"/>
+
+                            <androidx.appcompat.widget.AppCompatRadioButton
+                                android:id="@+id/radioRightNext"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:layout_below="@id/radioRightPrevious"
+                                android:layout_centerHorizontal="true"
+                                android:text="@string/menu_go_next_page"
+                                android:checked="@{viewModel.touchZone.isRightActionNextPage ? true : false}"
+                                android:onClick="@{() -> viewModel.setRightActionNextPage(true)}"/>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/bg_divider"/>
+
                     <include
                         android:id="@+id/settingWidth"
                         layout="@layout/layout_setting_seek_bar"

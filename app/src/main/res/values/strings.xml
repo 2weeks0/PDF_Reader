@@ -46,4 +46,11 @@
     <string name="menu_touch_zone_position">터치 영역 위치</string>
     <string name="menu_horizontal">가로 방향</string>
     <string name="menu_vertical">세로 방향</string>
+    <string name="menu_touch_zone_action">터치 동작</string>
+    <string name="menu_left_touch_zone">왼쪽 터치 영역</string>
+    <string name="menu_right_touch_zone">오른쪽 터치 영역</string>
+    <string name="menu_top_touch_zone">위쪽 터치 영역</string>
+    <string name="menu_bottom_touch_zone">아래쪽 터치 영역</string>
+    <string name="menu_go_previous_page">이전 페이지</string>
+    <string name="menu_go_next_page">다음 페이지</string>
 </resources>

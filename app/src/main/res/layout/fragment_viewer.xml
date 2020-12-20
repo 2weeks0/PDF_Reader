@@ -39,7 +39,7 @@
                 app:isHorizontal="@{viewModel.touchZone.isHorizontal}"
                 android:layout_alignParentStart="true"
                 android:background="@{viewModel.visibilityScrollHandler ? @color/bg_previous_page : @android:color/transparent}"
-                android:onClick="@{() -> clickListener.previousPage(viewPdf)}"
+                android:onClick="@{() -> viewModel.touchZone.isLeftActionPreviousPage ? clickListener.previousPage(viewPdf) : clickListener.nextPage(viewPdf)}"
                 tools:background="@color/bg_previous_page"
                 tools:layout_width="@dimen/touch_zone_width"
                 tools:layout_height="match_parent"/>
@@ -54,10 +54,11 @@
                 app:isHorizontal="@{viewModel.touchZone.isHorizontal}"
                 android:layout_alignParentBottom="true"
                 android:background="@{viewModel.visibilityScrollHandler ? @color/bg_next_page : @android:color/transparent}"
-                android:onClick="@{() -> clickListener.nextPage(viewPdf)}"
+                android:onClick="@{() -> viewModel.touchZone.isRightActionNextPage ? clickListener.nextPage(viewPdf) : clickListener.previousPage(viewPdf)}"
                 tools:background="@color/bg_next_page"
                 tools:layout_width="@dimen/touch_zone_width"
-                tools:layout_height="match_parent"/>
+                tools:layout_height="match_parent"
+                tools:layout_alignParentEnd="true"/>
         </RelativeLayout>
 
         <include
