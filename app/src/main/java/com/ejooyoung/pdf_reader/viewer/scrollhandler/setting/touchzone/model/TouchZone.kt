@@ -2,6 +2,7 @@ package com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model
 
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableInt
+import com.ejooyoung.pdf_reader.application.preference.TouchZonePreference
 
 data class TouchZone(
     val widthProgress: ObservableInt = ObservableInt(),

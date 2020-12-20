@@ -4,7 +4,7 @@ import android.app.Application
 import android.preference.PreferenceManager
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model.TouchZone
-import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model.TouchZonePreference
+import com.ejooyoung.pdf_reader.application.preference.TouchZonePreference
 import java.io.File
 
 class MainApplication : Application() {
@@ -58,9 +58,11 @@ class MainApplication : Application() {
             .putInt(TouchZonePreference.MARGIN_PROGRESS.toString(), touchZone.marginProgress.get())
             .putBoolean(ViewerPreference.TOUCH_ZONE.toString(), touchZone.isActive.get())
             .putInt(TouchZonePreference.IS_HORIZONTAL.toString(), if (touchZone.isHorizontal.get()) 1 else 0)
-            .putInt(TouchZonePreference.IS_LEFT_ACTION_PREVIOUS_PAGE.toString(),
+            .putInt(
+                TouchZonePreference.IS_LEFT_ACTION_PREVIOUS_PAGE.toString(),
                 if (touchZone.isLeftActionPreviousPage.get()) 1 else 0)
-            .putInt(TouchZonePreference.IS_RIGHT_ACTION_NEXT_PAGE.toString(),
+            .putInt(
+                TouchZonePreference.IS_RIGHT_ACTION_NEXT_PAGE.toString(),
                 if (touchZone.isRightActionNextPage.get()) 1 else 0)
             .apply()
     }

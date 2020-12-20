@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model
+package com.ejooyoung.pdf_reader.application.preference
 
 enum class TouchZonePreference(
     val defValue: Int
