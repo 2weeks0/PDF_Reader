@@ -2,9 +2,7 @@ package com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone
 
 import android.app.Application
 import com.ejooyoung.pdf_reader.application.MainApplication
-import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model.TouchZone
-import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model.TouchZonePreference
 import io.reactivex.rxjava3.core.Completable
 
 class SettingTouchZoneRepositoryImpl private constructor(
@@ -19,14 +17,8 @@ class SettingTouchZoneRepositoryImpl private constructor(
 
     override fun loadTouchZonePreference(touchZone: TouchZone): Completable {
         return Completable.fromAction {
-            touchZone.set(
-                mainApplication.getTouchZonePreference(TouchZonePreference.WIDTH_PROGRESS),
-                mainApplication.getTouchZonePreference(TouchZonePreference.HEIGHT_PROGRESS),
-                mainApplication.getTouchZonePreference(TouchZonePreference.MARGIN_PROGRESS),
-                if (mainApplication.getPreference(ViewerPreference.TOUCH_ZONE, ViewerPreference.TOUCH_ZONE.defValue)) 1 else 0,
-                mainApplication.getTouchZonePreference(TouchZonePreference.IS_HORIZONTAL)
-            )
-        }
+            mainApplication.getTouchZonePreference(touchZone)
+        }.onErrorComplete()
     }
 
     override fun saveTouchZonePreference(touchZone: TouchZone): Completable {

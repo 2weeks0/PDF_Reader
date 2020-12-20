@@ -33,9 +33,19 @@ class MainApplication : Application() {
             .getBoolean(viewerPreference.toString(), defValue)
     }
 
-    fun getTouchZonePreference(touchZonePreference: TouchZonePreference): Int {
+    private fun getTouchZonePreference(touchZonePreference: TouchZonePreference): Int {
         return PreferenceManager.getDefaultSharedPreferences(this)
             .getInt(touchZonePreference.toString(), touchZonePreference.defValue)
+    }
+
+    fun getTouchZonePreference(touchZone: TouchZone) {
+        touchZone.set(
+            getTouchZonePreference(TouchZonePreference.WIDTH_PROGRESS),
+            getTouchZonePreference(TouchZonePreference.HEIGHT_PROGRESS),
+            getTouchZonePreference(TouchZonePreference.MARGIN_PROGRESS),
+            if (getPreference(ViewerPreference.TOUCH_ZONE, ViewerPreference.TOUCH_ZONE.defValue)) 1 else 0,
+            getTouchZonePreference(TouchZonePreference.IS_HORIZONTAL)
+        )
     }
 
     fun putTouchZonePreference(touchZone: TouchZone) {
