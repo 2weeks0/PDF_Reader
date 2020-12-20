@@ -28,9 +28,9 @@ class MainApplication : Application() {
             .apply()
     }
 
-    fun getPreference(viewerPreference: ViewerPreference, defValue: Boolean): Boolean {
+    fun getViewerPreference(viewerPreference: ViewerPreference): Boolean {
         return PreferenceManager.getDefaultSharedPreferences(this)
-            .getBoolean(viewerPreference.toString(), defValue)
+            .getBoolean(viewerPreference.toString(), viewerPreference.defValue)
     }
 
     private fun getTouchZonePreference(touchZonePreference: TouchZonePreference): Int {
@@ -43,7 +43,7 @@ class MainApplication : Application() {
             getTouchZonePreference(TouchZonePreference.WIDTH_PROGRESS),
             getTouchZonePreference(TouchZonePreference.HEIGHT_PROGRESS),
             getTouchZonePreference(TouchZonePreference.MARGIN_PROGRESS),
-            if (getPreference(ViewerPreference.TOUCH_ZONE, ViewerPreference.TOUCH_ZONE.defValue)) 1 else 0,
+            if (getViewerPreference(ViewerPreference.TOUCH_ZONE)) 1 else 0,
             getTouchZonePreference(TouchZonePreference.IS_HORIZONTAL),
             getTouchZonePreference(TouchZonePreference.IS_LEFT_ACTION_PREVIOUS_PAGE),
             getTouchZonePreference(TouchZonePreference.IS_RIGHT_ACTION_NEXT_PAGE)

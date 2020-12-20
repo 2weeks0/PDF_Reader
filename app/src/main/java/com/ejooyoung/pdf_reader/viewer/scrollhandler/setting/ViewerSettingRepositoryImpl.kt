@@ -26,7 +26,7 @@ class ViewerSettingRepositoryImpl private constructor(
 
     override fun loadAllPreference(): Observable<ViewerPreferenceMap> {
         val observableList = ViewerPreference.values().asSequence()
-            .map { loadPreference(it, it.defValue) }
+            .map { loadPreference(it) }
             .toList()
         return Observable.zip(observableList) {
             ViewerPreferenceMap.newInstance().apply {
@@ -35,12 +35,10 @@ class ViewerSettingRepositoryImpl private constructor(
         }
     }
 
-    private fun loadPreference(
-        viewerPreference: ViewerPreference,
-        defValue: Boolean
-    ): Observable<Pair<ViewerPreference, Boolean>> {
+    private fun loadPreference(viewerPreference: ViewerPreference)
+            : Observable<Pair<ViewerPreference, Boolean>> {
         return Observable.fromCallable {
-            Pair(viewerPreference, mainApplication.getPreference(viewerPreference, defValue))
+            Pair(viewerPreference, mainApplication.getViewerPreference(viewerPreference))
         }
     }
 }
