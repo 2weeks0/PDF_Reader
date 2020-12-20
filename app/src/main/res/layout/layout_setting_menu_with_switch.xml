@@ -13,16 +13,21 @@
         <variable
             name="clickListener"
             type="com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.OnClickMenuListener" />
+        <variable
+            name="isChecked"
+            type="java.lang.Boolean" />
     </data>
 
     <LinearLayout
         android:id="@+id/layMenu"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="?attr/selectableItemBackground"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingStart="15dp"
-        android:paddingEnd="15dp">
+        android:paddingEnd="15dp"
+        android:onClick="@{() -> btnSwitch.performClick()}">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"
@@ -39,6 +44,7 @@
             android:id="@+id/btnSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="@{isChecked}"
             android:onClick="@{(v) -> clickListener.onClickMenu(v, preferenceType)}"/>
     </LinearLayout>
 </layout>

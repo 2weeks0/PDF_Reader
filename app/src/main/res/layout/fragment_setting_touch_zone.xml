@@ -5,6 +5,8 @@
 
     <data>
         <import type="android.app.Activity"/>
+        <import type="android.view.View"/>
+        <import type="com.ejooyoung.pdf_reader.application.preference.ViewerPreference"/>
         <variable
             name="viewModel"
             type="com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.SettingTouchZoneViewModel" />
@@ -43,34 +45,63 @@
             </androidx.appcompat.widget.Toolbar>
 
             <include
-                android:id="@+id/settingWidth"
-                layout="@layout/layout_setting_seek_bar"
-                app:title="@{@string/menu_setting_touch_zone}"
-                app:left="@{@string/txt_smaller}"
-                app:right="@{@string/txt_bigger}"
-                app:progress="@{viewModel.touchZone.widthProgress}"/>
+                android:id="@+id/layActive"
+                layout="@layout/layout_setting_menu_with_switch"
+                app:title="@{viewModel.isTouchZoneActive ? @string/txt_using : @string/txt_un_using}"
+                app:preferenceType="@{ViewerPreference.TOUCH_ZONE}"
+                app:clickListener="@{viewModel}"
+                app:isChecked="@{viewModel.isTouchZoneActive}"/>
 
-            <include
-                android:id="@+id/settingHeight"
-                layout="@layout/layout_setting_seek_bar"
-                app:title="@{@string/menu_setting_touch_zone_size}"
-                app:left="@{@string/txt_smaller}"
-                app:right="@{@string/txt_bigger}"
-                app:progress="@{viewModel.touchZone.heightProgress}"/>
 
-            <include
-                android:id="@+id/settingMargin"
-                layout="@layout/layout_setting_seek_bar"
-                app:title="@{@string/menu_setting_touch_zone_pos}"
-                app:left="@{@string/txt_lower}"
-                app:right="@{@string/txt_higher}"
-                app:progress="@{viewModel.touchZone.marginProgress}"/>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <include
+                        android:id="@+id/settingWidth"
+                        layout="@layout/layout_setting_seek_bar"
+                        app:title="@{@string/menu_setting_touch_zone}"
+                        app:left="@{@string/txt_smaller}"
+                        app:right="@{@string/txt_bigger}"
+                        app:progress="@{viewModel.touchZone.widthProgress}"/>
+
+                    <include
+                        android:id="@+id/settingHeight"
+                        layout="@layout/layout_setting_seek_bar"
+                        app:title="@{@string/menu_setting_touch_zone_size}"
+                        app:left="@{@string/txt_smaller}"
+                        app:right="@{@string/txt_bigger}"
+                        app:progress="@{viewModel.touchZone.heightProgress}"/>
+
+                    <include
+                        android:id="@+id/settingMargin"
+                        layout="@layout/layout_setting_seek_bar"
+                        app:title="@{@string/menu_setting_touch_zone_pos}"
+                        app:left="@{@string/txt_lower}"
+                        app:right="@{@string/txt_higher}"
+                        app:progress="@{viewModel.touchZone.marginProgress}"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/bg_scroll_handler"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:visibility="@{viewModel.isTouchZoneActive ? View.GONE : View.VISIBLE}"/>
+            </FrameLayout>
         </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/layTouchZone"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.isTouchZoneActive ? View.VISIBLE : View.GONE}">
 
             <View
                 android:id="@+id/leftTouchZone"

@@ -29,7 +29,8 @@ class ViewerSettingViewModel(
         }
     }
 
-    init {
+    override fun onResume() {
+        super.onResume()
         loadPreference()
     }
 
