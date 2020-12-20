@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="SpUsage">
 
     <data>
         <variable
@@ -29,6 +30,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             style="@style/baseTextStyle"
+            android:textStyle="bold"
+            android:textSize="18dp"
             android:text="@{title}"
             tools:text="Title"/>
 

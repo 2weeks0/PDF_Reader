@@ -39,6 +39,7 @@ class ViewerSettingFragment : BaseFragment<ViewerSettingViewModel, FragmentViewe
     }
 
     private fun initSwitch(viewerPreferenceMap: ViewerPreferenceMap) {
+        binding.layTouchZone.btnSwitch.isChecked = viewerPreferenceMap[TOUCH_ZONE]
         binding.layDarkTheme.btnSwitch.isChecked = viewerPreferenceMap[DARK_THEME]
         binding.laySwipeHorizontal.btnSwitch.isChecked = viewerPreferenceMap[SWIPE_HORIZONTAL]
         binding.layFling.btnSwitch.isChecked = viewerPreferenceMap[FLING]

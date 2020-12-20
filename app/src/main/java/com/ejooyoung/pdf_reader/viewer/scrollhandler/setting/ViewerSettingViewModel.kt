@@ -3,6 +3,7 @@ package com.ejooyoung.pdf_reader.viewer.scrollhandler.setting
 import android.app.Application
 import android.content.Intent
 import android.view.View
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreferenceMap
@@ -17,6 +18,7 @@ class ViewerSettingViewModel(
 ) : BaseAndroidViewModel(application), OnClickMenuListener {
 
     val preferenceMap: MutableLiveData<ViewerPreferenceMap> = MutableLiveData()
+    val isTouchZoneActive = ObservableBoolean(true)
 
     companion object {
         fun newInstance(
@@ -40,6 +42,7 @@ class ViewerSettingViewModel(
             .subscribe {
                 visibilityOfProgressBar.set(false)
                 preferenceMap.value = it
+                isTouchZoneActive.set(it[ViewerPreference.TOUCH_ZONE])
             }
     }
 
@@ -49,7 +52,9 @@ class ViewerSettingViewModel(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-
+                if (viewerPreference == ViewerPreference.TOUCH_ZONE) {
+                    isTouchZoneActive.set(!isTouchZoneActive.get())
+                }
             }
         compositeDisposable.add(disposable)
     }

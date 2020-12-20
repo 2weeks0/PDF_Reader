@@ -3,6 +3,7 @@ package com.ejooyoung.pdf_reader.application.preference
 enum class ViewerPreference(
     val defValue: Boolean
 ){
+    TOUCH_ZONE(true),
     DARK_THEME(false),
     SWIPE_HORIZONTAL(true),
     FLING(true),

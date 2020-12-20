@@ -51,15 +51,13 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvTouchZone"
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        android:background="?attr/selectableItemBackground"
-                        android:gravity="center_vertical"
-                        style="@style/baseTextStyle"
-                        android:padding="15dp"
-                        android:text="@string/title_setting_touch"
+                    <include
+                        android:id="@+id/layTouchZone"
+                        layout="@layout/layout_settting_menu_with_switch_more"
+                        app:title="@{@string/title_setting_touch}"
+                        app:comment="@{viewModel.isTouchZoneActive ? @string/txt_using : @string/comment_touch_zone}"
+                        app:preferenceType="@{ViewerPreference.TOUCH_ZONE}"
+                        app:switchClickListener="@{viewModel}"
                         android:onClick="@{(v) -> viewModel.startSettingTouchZone(v)}"/>
 
                     <include

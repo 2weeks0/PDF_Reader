@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="SpUsage">
+
+    <data>
+        <variable
+            name="title"
+            type="java.lang.String" />
+        <variable
+            name="comment"
+            type="java.lang.String" />
+        <variable
+            name="preferenceType"
+            type="com.ejooyoung.pdf_reader.application.preference.ViewerPreference" />
+        <variable
+            name="switchClickListener"
+            type="com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.OnClickMenuListener" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/layMenu"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="15dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/baseTextStyle"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:text="@{title}"
+                tools:text="Title"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvTitle"
+                style="@style/baseTextStyle"
+                android:text="@{comment}"
+                tools:text="Comment"/>
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/btnSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="@{(v) -> switchClickListener.onClickMenu(v, preferenceType)}"/>
+    </RelativeLayout>
+</layout>
