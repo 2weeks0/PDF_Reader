@@ -3,4 +3,6 @@
     <dimen name="touch_zone_width">100dp</dimen>
     <dimen name="scroll_handler_bottom_height">130dp</dimen>
     <dimen name="width_popup_dialog_min">300dp</dimen>
+    <dimen name="radius_setting_block">30dp</dimen>
+    <dimen name="padding_width_setting_block">20dp</dimen>
 </resources>

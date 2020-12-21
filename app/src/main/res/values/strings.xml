@@ -53,4 +53,7 @@
     <string name="menu_bottom_touch_zone">아래쪽 터치 영역</string>
     <string name="menu_go_previous_page">이전 페이지</string>
     <string name="menu_go_next_page">다음 페이지</string>
+    <string name="txt_subtitle_setting_move_page">페이지 이동 설정</string>
+    <string name="txt_subtitle_setting_display">화면 설정</string>
+    <string name="txt_subtitle_setting_etc">기타 설정</string>
 </resources>

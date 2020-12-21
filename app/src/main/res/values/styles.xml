@@ -21,6 +21,14 @@
         <item name="android:textColor">#4d4d4d</item>
     </style>
 
+    <style name="subTitleSettingBlock" parent="baseTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
     <style name="LayoutTitleTextStyle" parent="baseTextStyle">
         <item name="android:textColor">#4d4d4d</item>
         <item name="android:layout_width">match_parent</item>
@@ -60,5 +68,13 @@
         <item name="android:textSize">14dp</item>
         <item name="android:singleLine">true</item>
         <item name="android:imeOptions">actionDone</item>
+    </style>
+
+    <style name="dividerSettingBlock">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/bg_divider</item>
+        <item name="android:layout_marginStart">@dimen/padding_width_setting_block</item>
+        <item name="android:layout_marginEnd">@dimen/padding_width_setting_block</item>
     </style>
 </resources>

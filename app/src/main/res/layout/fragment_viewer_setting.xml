@@ -14,7 +14,8 @@
     <FrameLayout
         android:id="@+id/layRoot"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/bg_main">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,59 +52,109 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <include
-                        android:id="@+id/layTouchZone"
-                        layout="@layout/layout_settting_menu_with_switch_more"
-                        app:title="@{@string/title_setting_touch}"
-                        app:comment="@{viewModel.isTouchZoneActive ? @string/txt_using : @string/comment_touch_zone}"
-                        app:preferenceType="@{ViewerPreference.TOUCH_ZONE}"
-                        app:switchClickListener="@{viewModel}"
-                        android:onClick="@{(v) -> viewModel.startSettingTouchZone(v)}"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/subTitleSettingBlock"
+                        android:text="@string/txt_subtitle_setting_move_page"/>
 
-                    <include
-                        android:id="@+id/layDarkTheme"
-                        layout="@layout/layout_setting_menu_with_switch"
-                        app:title="@{@string/menu_dark_theme}"
-                        app:preferenceType="@{ViewerPreference.DARK_THEME}"
-                        app:clickListener="@{viewModel}"/>
+                    <LinearLayout
+                        android:id="@+id/laySettingMovePage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_setting_block">
 
-                    <include
-                        android:id="@+id/laySwipeHorizontal"
-                        layout="@layout/layout_setting_menu_with_switch"
-                        app:title="@{@string/menu_swipe_horizontal}"
-                        app:preferenceType="@{ViewerPreference.SWIPE_HORIZONTAL}"
-                        app:clickListener="@{viewModel}"/>
+                        <include
+                            android:id="@+id/laySwipeHorizontal"
+                            layout="@layout/layout_setting_menu_with_switch"
+                            app:title="@{@string/menu_swipe_horizontal}"
+                            app:preferenceType="@{ViewerPreference.SWIPE_HORIZONTAL}"
+                            app:clickListener="@{viewModel}"
+                            app:background="@{@drawable/bg_setting_block_top}"/>
 
-                    <include
-                        android:id="@+id/layFling"
-                        layout="@layout/layout_setting_menu_with_switch"
-                        app:title="@{@string/menu_fling}"
-                        app:preferenceType="@{ViewerPreference.FLING}"
-                        app:clickListener="@{viewModel}"/>
+                        <View style="@style/dividerSettingBlock"/>
 
-                    <include
-                        android:id="@+id/layFitWidth"
-                        layout="@layout/layout_setting_menu_with_switch"
-                        app:title="@{@string/menu_fit_width}"
-                        app:preferenceType="@{ViewerPreference.FIT_WIDTH}"
-                        app:clickListener="@{viewModel}"/>
+                        <include
+                            android:id="@+id/layTouchZone"
+                            layout="@layout/layout_settting_menu_with_switch_more"
+                            app:title="@{@string/title_setting_touch}"
+                            app:comment="@{viewModel.isTouchZoneActive ? @string/txt_using : @string/comment_touch_zone}"
+                            app:preferenceType="@{ViewerPreference.TOUCH_ZONE}"
+                            app:switchClickListener="@{viewModel}"
+                            android:onClick="@{(v) -> viewModel.startSettingTouchZone(v)}"
+                            app:background="@{@drawable/bg_setting_block_middle}"/>
 
-                    <include
-                        android:id="@+id/layZoomByDoubleTap"
-                        layout="@layout/layout_setting_menu_with_switch"
-                        app:title="@{@string/menu_zoom_by_double_tap}"
-                        app:preferenceType="@{ViewerPreference.ZOOM_BY_DOUBLE_TAP}"
-                        app:clickListener="@{viewModel}"/>
+                        <View style="@style/dividerSettingBlock"/>
 
-                    <include
-                        android:id="@+id/layJumpByVolumeKey"
-                        layout="@layout/layout_setting_menu_with_switch"
-                        app:title="@{@string/menu_jump_by_volume_key}"
-                        app:preferenceType="@{ViewerPreference.JUMP_BY_VOLUME_KEY}"
-                        app:clickListener="@{viewModel}"/>
+                        <include
+                            android:id="@+id/layFling"
+                            layout="@layout/layout_setting_menu_with_switch"
+                            app:title="@{@string/menu_fling}"
+                            app:preferenceType="@{ViewerPreference.FLING}"
+                            app:clickListener="@{viewModel}"
+                            app:background="@{@drawable/bg_setting_block_middle}"/>
+
+                        <View style="@style/dividerSettingBlock"/>
+
+                        <include
+                            android:id="@+id/layJumpByVolumeKey"
+                            layout="@layout/layout_setting_menu_with_switch"
+                            app:title="@{@string/menu_jump_by_volume_key}"
+                            app:preferenceType="@{ViewerPreference.JUMP_BY_VOLUME_KEY}"
+                            app:clickListener="@{viewModel}"
+                            app:background="@{@drawable/bg_setting_block_bottom}"/>
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/subTitleSettingBlock"
+                        android:text="@string/txt_subtitle_setting_display"/>
+
+                    <LinearLayout
+                        android:id="@+id/laySettingDisplay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_setting_block">
+
+                        <include
+                            android:id="@+id/layFitWidth"
+                            layout="@layout/layout_setting_menu_with_switch"
+                            app:title="@{@string/menu_fit_width}"
+                            app:preferenceType="@{ViewerPreference.FIT_WIDTH}"
+                            app:clickListener="@{viewModel}"
+                            app:background="@drawable/bg_setting_block_top"/>
+
+                        <View style="@style/dividerSettingBlock"/>
+
+                        <include
+                            android:id="@+id/layDarkTheme"
+                            layout="@layout/layout_setting_menu_with_switch"
+                            app:title="@{@string/menu_dark_theme}"
+                            app:preferenceType="@{ViewerPreference.DARK_THEME}"
+                            app:clickListener="@{viewModel}"
+                            app:background="@drawable/bg_setting_block_bottom"/>
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/subTitleSettingBlock"
+                        android:text="@string/txt_subtitle_setting_etc"/>
+
+                    <LinearLayout
+                        android:id="@+id/laySettingEtc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_setting_block">
+
+                        <include
+                            android:id="@+id/layZoomByDoubleTap"
+                            layout="@layout/layout_setting_menu_with_switch"
+                            app:title="@{@string/menu_zoom_by_double_tap}"
+                            app:preferenceType="@{ViewerPreference.ZOOM_BY_DOUBLE_TAP}"
+                            app:clickListener="@{viewModel}"
+                            app:background="@drawable/bg_setting_block"/>
+                    </LinearLayout>
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
-
         </LinearLayout>
 
         <ProgressBar

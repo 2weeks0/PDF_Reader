@@ -4,6 +4,10 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
 
+    <color name="transparent_30">#33000000</color>
+
+    <color name="bg_main">#aaaaaa</color>
+    <color name="bg_setting_block">#f8f8f8</color>
     <color name="bg_scroll_handler">#33000000</color>
     <color name="bg_previous_page">#11ff0000</color>
     <color name="bg_next_page">#110000ff</color>
