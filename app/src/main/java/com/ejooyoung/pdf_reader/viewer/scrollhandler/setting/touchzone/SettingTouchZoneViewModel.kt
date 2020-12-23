@@ -13,7 +13,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class SettingTouchZoneViewModel(
     application: Application,
     private val repository: SettingTouchZoneRepository
-) : BaseAndroidViewModel(application), OnClickMenuListener {
+) : BaseAndroidViewModel(application),
+    OnClickMenuListener {
 
     val touchZone = TouchZone.of()
 

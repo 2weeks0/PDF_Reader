@@ -27,7 +27,9 @@
 
     <string name="menu_viewer_setting">뷰어 설정</string>
     <string name="menu_dark_theme">다크 모드</string>
-    <string name="menu_swipe_horizontal">가로로 스와이프하기</string>
+    <string name="menu_swipe_horizontal">스크롤 방향</string>
+    <string name="menu_scroll_mode_horizontal">가로 방향</string>
+    <string name="menu_scroll_mode_vertical">세로 방향</string>
     <string name="menu_fling">Fling 모드</string>
     <string name="menu_fit_width">가로 너비에 맞추기</string>
     <string name="menu_zoom_by_double_tap">더블 탭하여 확대하기</string>

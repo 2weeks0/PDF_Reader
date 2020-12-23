@@ -65,11 +65,10 @@
 
                         <include
                             android:id="@+id/laySwipeHorizontal"
-                            layout="@layout/layout_setting_menu_with_switch"
+                            layout="@layout/layout_settting_menu_more"
                             app:title="@{@string/menu_swipe_horizontal}"
-                            app:preferenceType="@{ViewerPreference.SWIPE_HORIZONTAL}"
-                            app:clickListener="@{viewModel}"
-                            app:background="@{@drawable/bg_setting_block_top}"/>
+                            app:background="@{@drawable/bg_setting_block_top}"
+                            android:onClick="@{(v) -> viewModel.showScrollModeSelectDialog(v)}"/>
 
                         <View style="@style/dividerSettingBlock"/>
 

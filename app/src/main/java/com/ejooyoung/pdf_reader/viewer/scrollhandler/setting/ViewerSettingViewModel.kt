@@ -1,13 +1,20 @@
 package com.ejooyoung.pdf_reader.viewer.scrollhandler.setting
 
 import android.app.Application
+import android.content.DialogInterface
 import android.content.Intent
+import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
+import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreferenceMap
 import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
+import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.SettingTouchZoneActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -15,7 +22,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class ViewerSettingViewModel(
     application: Application,
     private val repository: ViewerSettingRepository
-) : BaseAndroidViewModel(application), OnClickMenuListener {
+) : BaseAndroidViewModel(application),
+    OnClickMenuListener {
 
     val preferenceMap: MutableLiveData<ViewerPreferenceMap> = MutableLiveData()
     val isTouchZoneActive = ObservableBoolean(true)
@@ -63,5 +71,19 @@ class ViewerSettingViewModel(
     fun startSettingTouchZone(view: View) {
         val intent = Intent(view.context, SettingTouchZoneActivity::class.java)
         view.context.startActivity(intent)
+    }
+
+    fun showScrollModeSelectDialog(view: View) {
+        val dialog = AlertDialog.Builder(view.context, R.style.SettingSelectDialog)
+            .setItems(R.array.SCROLL_MODE) { _, i: Int ->
+                DevLogger.d("i: $i")
+            }
+            .setCancelable(true)
+            .create()
+        dialog.show()
+        dialog.window?.attributes = WindowManager.LayoutParams().apply {
+            width = ViewGroup.LayoutParams.WRAP_CONTENT
+            height = ViewGroup.LayoutParams.WRAP_CONTENT
+        }
     }
 }

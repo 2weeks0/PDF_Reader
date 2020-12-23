@@ -77,4 +77,8 @@
         <item name="android:layout_marginStart">@dimen/padding_width_setting_block</item>
         <item name="android:layout_marginEnd">@dimen/padding_width_setting_block</item>
     </style>
+
+    <style name="SettingSelectDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/bg_setting_block</item>
+    </style>
 </resources>
