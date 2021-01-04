@@ -49,7 +49,6 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
         viewModel.currentPage.observe(viewLifecycleOwner, Observer {
             DevLogger.i()
             viewModel.updateIsBookmarkedPage()
-            binding.viewPdf.jumpTo(it, true)
             binding.scrollHandler.seekBar.progress = it
             binding.scrollHandler.tvSeekBar.text =
                 resources.getString(
@@ -71,9 +70,6 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
         DevLogger.i()
         val uri = Uri.parse(viewModel.book.uriString)
 
-        if (binding.viewPdf.documentMeta == null) {
-            DevLogger.w()
-        }
         binding.viewPdf.fromUri(uri)
             .nightMode(viewerPreferenceMap[DARK_THEME])
             .swipeHorizontal(viewerPreferenceMap[SWIPE_HORIZONTAL])
@@ -88,15 +84,13 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
                 viewModel.visibilityScrollHandler.set(!viewModel.visibilityScrollHandler.get())
                 return@onTap true
             }
-            .onPageChange { page, pageCount ->
-                DevLogger.d("${(page + 1)} / $pageCount")
-                if (viewModel.book.lastPage == 0) {
-                    viewModel.book.lastPage = pageCount
-                    binding.scrollHandler.seekBar.max = pageCount - 1
-                }
+            .onPageChange { page, _ ->
+                viewModel.currentPage.value = page
             }
             .onLoad {
                 PdfDocumentRepositoryImpl.getInstance().savePdfDocumentBookmarkList(binding.viewPdf.tableOfContents)
+                viewModel.book.lastPage = binding.viewPdf.pageCount
+                binding.scrollHandler.seekBar.max = binding.viewPdf.pageCount - 1
             }
             .load()
     }
@@ -106,8 +100,8 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
         binding.scrollHandler.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 DevLogger.d("fromUser: $fromUser")
-                if (fromUser) {
-                    viewModel.currentPage.value = progress
+                if (fromUser && viewModel.currentPage.value != progress) {
+                    binding.viewPdf.jumpTo(progress)
                 }
             }
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}

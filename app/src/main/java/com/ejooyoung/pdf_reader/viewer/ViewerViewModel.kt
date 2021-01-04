@@ -107,7 +107,7 @@ class ViewerViewModel private constructor(
             return
         }
         currentPage.value = target
-//        pdfView.jumpTo(target, true)
+        pdfView.jumpTo(target, true)
     }
 
     override fun nextPage(pdfView: PDFView) {
@@ -117,7 +117,7 @@ class ViewerViewModel private constructor(
             return
         }
         currentPage.value = target
-//        pdfView.jumpTo(target, true)
+        pdfView.jumpTo(target, true)
     }
 
     override fun showInfo(view: View) {
