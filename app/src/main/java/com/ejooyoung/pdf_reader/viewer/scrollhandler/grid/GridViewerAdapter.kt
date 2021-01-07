@@ -1,10 +1,14 @@
 package com.ejooyoung.pdf_reader.viewer.scrollhandler.grid
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Bitmap
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
+import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.widget.ViewHolder
 import com.ejooyoung.pdf_reader.databinding.ItemGridThumbnailBinding
 
@@ -15,9 +19,21 @@ class GridViewerAdapter(
 ) : RecyclerView.Adapter<ViewHolder>() {
 
     private val itemList = MutableList<Bitmap?>(itemCount) { null }
+    private val clickListener = object : GridViewerClickListener {
+        override fun onClickGridViewer(view: View, pageIdx: Int) {
+            with(view.context as Activity) {
+                val intent = Intent().apply {
+                    putExtra(Const.KEY_BUNDLE_PAGE_INDEX, pageIdx)
+                }
+                setResult(Activity.RESULT_OK, intent)
+                finish()
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemGridThumbnailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemGridThumbnailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -27,6 +43,7 @@ class GridViewerAdapter(
             bitmap = itemList[position]
             pos = position
             isCurrentPosition = position == currentPosition
+            clickListener = this@GridViewerAdapter.clickListener
         }
     }
 

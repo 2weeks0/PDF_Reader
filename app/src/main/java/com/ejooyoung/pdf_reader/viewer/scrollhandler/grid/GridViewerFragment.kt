@@ -2,12 +2,15 @@ package com.ejooyoung.pdf_reader.viewer.scrollhandler.grid
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.mvvm.BaseFragment
+import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.databinding.FragmentGridViewerBinding
 
@@ -56,5 +59,12 @@ class GridViewerFragment : BaseFragment<GridViewerViewModel, FragmentGridViewerB
             viewModel.getBookPageCount(),
             book.currentPage
         ).apply { setHasStableIds(true) }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        DevLogger.w()
+        (binding.recyclerView.layoutManager as GridLayoutManager)
+            .scrollToPositionWithOffset(book.currentPage, 300)
     }
 }

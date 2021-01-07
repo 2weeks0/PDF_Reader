@@ -1,7 +1,6 @@
 package com.ejooyoung.pdf_reader.viewer
 
 import android.app.Application
-import android.content.Intent
 import android.view.KeyEvent
 import android.view.View
 import androidx.databinding.ObservableBoolean
@@ -10,14 +9,12 @@ import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreferenceMap
-import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.ext.*
 import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
 import com.ejooyoung.pdf_reader.base.utils.DateUtils
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Bookmark
-import com.ejooyoung.pdf_reader.viewer.scrollhandler.grid.GridViewerActivity
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model.TouchZone
 import com.github.barteksc.pdfviewer.PDFView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -127,10 +124,8 @@ class ViewerViewModel private constructor(
     }
 
     override fun showGrid(view: View) {
-        val intent = Intent(view.context, GridViewerActivity::class.java).apply {
-            putExtra(Const.KEY_BUNDLE_BOOK, book)
-        }
-        view.findFragment<ViewerFragment>().startActivity(intent)
+        DevLogger.i()
+        view.findFragment<ViewerFragment>().startGridViewerActivity(book)
     }
 
     override fun showContents(view: View) {

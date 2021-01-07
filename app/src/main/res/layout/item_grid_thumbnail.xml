@@ -16,13 +16,17 @@
         <variable
             name="isCurrentPosition"
             type="java.lang.Boolean" />
+        <variable
+            name="clickListener"
+            type="com.ejooyoung.pdf_reader.viewer.scrollhandler.grid.GridViewerClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layRoot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp">
+        android:layout_margin="3dp"
+        android:onClick="@{(v) -> clickListener.onClickGridViewer(v, pos)}">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv"

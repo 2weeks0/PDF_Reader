@@ -46,29 +46,17 @@
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
-        <FrameLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:overScrollMode="never"
-                android:orientation="vertical"
-                android:clipToPadding="false"
-                android:paddingStart="3dp"
-                android:paddingEnd="3dp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="4"
-                tools:listitem="@layout/item_grid_thumbnail"/>
-
-            <ProgressBar
-                android:id="@+id/progress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="@{viewModel.visibilityOfProgressBar ? View.VISIBLE : View.GONE}"/>
-        </FrameLayout>
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:orientation="vertical"
+            android:clipToPadding="false"
+            android:paddingStart="3dp"
+            android:paddingEnd="3dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="4"
+            tools:listitem="@layout/item_grid_thumbnail"/>
     </LinearLayout>
 </layout>

@@ -28,13 +28,11 @@ class GridViewerViewModel private constructor(
     }
 
     fun loadPdfThumbnailList() {
-        visibilityOfProgressBar.set(true)
         for (i in 0 until getBookPageCount()) {
             val disposable = repository.getThumbnail(i)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    visibilityOfProgressBar.set(false)
                     itemList.value = Pair(i, it)
                 }
             compositeDisposable.add(disposable)

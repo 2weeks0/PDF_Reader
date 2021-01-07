@@ -34,10 +34,8 @@ object ThumbnailUtils {
         core.openPage(pdfDocument, index)
         val originWidth = core.getPageWidthPoint(pdfDocument, index)
         val originHeight = core.getPageHeightPoint(pdfDocument, index)
-
         val targetWidth = THUMB_WIDTH
         val targetHeight = ((originHeight / originWidth.toFloat()) * targetWidth).toInt()
-        DevLogger.i("targetWidth: $targetWidth, targetHeight: $targetHeight")
 
         val bmp = Bitmap.createBitmap(targetWidth, targetHeight, Bitmap.Config.ARGB_8888)
         core.renderPageBitmap(
