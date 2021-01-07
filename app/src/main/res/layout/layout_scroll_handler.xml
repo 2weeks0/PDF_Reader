@@ -99,13 +99,13 @@
                 android:layout_below="@id/tvSeekBar">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivUndo"
+                    android:id="@+id/ivGrid"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:onClick="@{(v) -> clickListener.performUndo(v)}"
+                    android:onClick="@{(v) -> clickListener.showGrid(v)}"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    app:srcCompat="@drawable/ic_undo"/>
+                    app:srcCompat="@drawable/ic_grid"/>
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivContents"

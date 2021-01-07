@@ -49,6 +49,7 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
         viewModel.currentPage.observe(viewLifecycleOwner, Observer {
             DevLogger.i()
             viewModel.updateIsBookmarkedPage()
+            viewModel.book.currentPage = it
             binding.scrollHandler.seekBar.progress = it
             binding.scrollHandler.tvSeekBar.text =
                 resources.getString(

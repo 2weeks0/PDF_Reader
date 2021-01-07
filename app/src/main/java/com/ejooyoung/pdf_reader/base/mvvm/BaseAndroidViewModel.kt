@@ -23,11 +23,6 @@ open class BaseAndroidViewModel(
     }
 
     open fun onDestroy() {
-
-    }
-
-    override fun onCleared() {
-        super.onCleared()
         compositeDisposable.dispose()
     }
 }

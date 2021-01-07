@@ -1,17 +1,18 @@
 package com.ejooyoung.pdf_reader
 
 import android.app.Application
+import android.graphics.Bitmap
 import android.util.DisplayMetrics
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.ejooyoung.pdf_reader.base.repository.ThumbnailRepositoryImpl
-import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.io.File
@@ -69,5 +70,15 @@ object BindingAdapter {
                 addRule(RelativeLayout.ALIGN_PARENT_END, if (isHorizontal) RelativeLayout.TRUE else 0)
             }
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("glideRequest", "bitmap")
+    fun setBitmap(imageView: ImageView, glideRequest: RequestManager, bitmap: Bitmap?) {
+        if (bitmap == null) {
+            return
+        }
+        glideRequest.load(bitmap)
+            .into(imageView)
     }
 }
