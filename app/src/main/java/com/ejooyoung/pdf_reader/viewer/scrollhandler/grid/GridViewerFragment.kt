@@ -50,13 +50,13 @@ class GridViewerFragment : BaseFragment<GridViewerViewModel, FragmentGridViewerB
 
     override fun onBindingCreated() {
         setupRecyclerView()
-        viewModel.loadPdfThumbnailList()
+        viewModel.loadPdfThumbnailList(book)
     }
 
     private fun setupRecyclerView() {
         binding.recyclerView.adapter = GridViewerAdapter(
             Glide.with(this),
-            viewModel.getBookPageCount(),
+            book.lastPage,
             book.currentPage
         ).apply { setHasStableIds(true) }
     }

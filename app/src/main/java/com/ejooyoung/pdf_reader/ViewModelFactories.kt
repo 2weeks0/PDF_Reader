@@ -67,7 +67,7 @@ class ViewModelFactories private constructor(
                 SettingTouchZoneViewModel.newInstance(application, SettingTouchZoneRepositoryImpl.newInstance(application))
 
             isAssignableFrom(GridViewerViewModel::class.java) ->
-                GridViewerViewModel.newInstance(application, GridViewerRepositoryImpl.newInstance(application, arg as Book))
+                GridViewerViewModel.newInstance(application, GridViewerRepositoryImpl.newInstance())
 
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

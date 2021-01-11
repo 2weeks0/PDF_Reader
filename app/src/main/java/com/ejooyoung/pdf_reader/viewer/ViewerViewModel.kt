@@ -50,8 +50,8 @@ class ViewerViewModel private constructor(
         loadTouchZonePreference()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onPause() {
+        super.onPause()
         updateBook()
     }
 
