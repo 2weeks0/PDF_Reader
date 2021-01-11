@@ -3,6 +3,7 @@ package com.ejooyoung.pdf_reader.viewer
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.SeekBar
@@ -26,11 +27,12 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
 
     companion object {
         fun newInstance(book: Book) = ViewerFragment().apply {
-            this.book = book
+            arguments = Bundle().apply { putParcelable(Const.KEY_BUNDLE_BOOK, book) }
         }
     }
 
     override fun setupViewModel() {
+        book = requireArguments().getParcelable(Const.KEY_BUNDLE_BOOK)!!
         viewModel = ViewModelFactories.of(
             requireActivity().application,
     this,
