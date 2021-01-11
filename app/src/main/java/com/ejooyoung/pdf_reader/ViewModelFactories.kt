@@ -16,6 +16,8 @@ import com.ejooyoung.pdf_reader.viewer.ViewerRepositoryImpl
 import com.ejooyoung.pdf_reader.viewer.ViewerViewModel
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.bookmark.BookmarkListViewModel
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.contents.ContentsListViewModel
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.grid.GridViewerRepositoryImpl
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.grid.GridViewerViewModel
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingRepositoryImpl
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingViewModel
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.SettingTouchZoneRepository
@@ -63,6 +65,9 @@ class ViewModelFactories private constructor(
 
             isAssignableFrom(SettingTouchZoneViewModel::class.java) ->
                 SettingTouchZoneViewModel.newInstance(application, SettingTouchZoneRepositoryImpl.newInstance(application))
+
+            isAssignableFrom(GridViewerViewModel::class.java) ->
+                GridViewerViewModel.newInstance(application, GridViewerRepositoryImpl.newInstance(), arg as Book)
 
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

@@ -34,5 +34,8 @@
 
         <activity android:name=".viewer.scrollhandler.setting.touchzone.SettingTouchZoneActivity"
             android:launchMode="singleTop" />
+
+        <activity android:name=".viewer.scrollhandler.grid.GridViewerActivity"
+            android:launchMode="singleTop" />
     </application>
 </manifest>

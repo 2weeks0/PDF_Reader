@@ -45,6 +45,6 @@ private fun Uri.toBook(application: MainApplication): Book? {
     }
     // 썸네일 생성 및 디비에 저장
     val book = Book.valueOf(fileName, toString(), "")
-    val thumbnail = ThumbnailUtils.create(application, book)
+    val thumbnail = ThumbnailUtils.createMainThumbnail(application, book)
     return book.apply { thumbnailGuid = thumbnail.guid }
 }

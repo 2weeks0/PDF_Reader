@@ -29,9 +29,10 @@ object Const {
     const val KEY_PERMISSION_STORAGE = 1000
     const val KEY_REQUEST_OPEN_PDF = 1000
     const val KEY_REQUEST_OPEN_CONTENTS = 1000
+    const val KEY_REQUEST_RENAME = 1001
+    const val KEY_REQUEST_OPEN_GRID_VIEWER = 1002
     const val KEY_BUNDLE_BOOK = "bundleKeyBook"
     const val KEY_BUNDLE_TITLE = "bundleTitle"
     const val KEY_BUNDLE_RENAMABLE = "bundleRenamable"
-    const val KEY_REQUEST_RENAME = 1001
     const val KEY_BUNDLE_PAGE_INDEX = "bundlePageIndex"
 }

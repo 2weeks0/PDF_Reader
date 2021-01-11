@@ -50,8 +50,8 @@ class ViewerViewModel private constructor(
         loadTouchZonePreference()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onPause() {
+        super.onPause()
         updateBook()
     }
 
@@ -82,11 +82,10 @@ class ViewerViewModel private constructor(
 
     private fun updateBook() {
         book.currentPage = currentPage.value!!
-        val disposable = viewerRepository.updateBook(book)
+        viewerRepository.updateBook(book)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())!!
             .subscribe()
-        compositeDisposable.add(disposable)
     }
 
     fun updateIsBookmarkedPage() {
@@ -124,8 +123,9 @@ class ViewerViewModel private constructor(
         DevLogger.i()
     }
 
-    override fun performUndo(view: View) {
+    override fun showGrid(view: View) {
         DevLogger.i()
+        view.findFragment<ViewerFragment>().startGridViewerActivity(book)
     }
 
     override fun showContents(view: View) {

@@ -3,6 +3,7 @@ package com.ejooyoung.pdf_reader.viewer
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.SeekBar
@@ -26,11 +27,12 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
 
     companion object {
         fun newInstance(book: Book) = ViewerFragment().apply {
-            this.book = book
+            arguments = Bundle().apply { putParcelable(Const.KEY_BUNDLE_BOOK, book) }
         }
     }
 
     override fun setupViewModel() {
+        book = requireArguments().getParcelable(Const.KEY_BUNDLE_BOOK)!!
         viewModel = ViewModelFactories.of(
             requireActivity().application,
     this,
@@ -49,6 +51,7 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
         viewModel.currentPage.observe(viewLifecycleOwner, Observer {
             DevLogger.i()
             viewModel.updateIsBookmarkedPage()
+            viewModel.book.currentPage = it
             binding.scrollHandler.seekBar.progress = it
             binding.scrollHandler.tvSeekBar.text =
                 resources.getString(
@@ -117,9 +120,10 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
                     data?.getParcelableExtra<Bookmark>(Const.KEY_BUNDLE_RENAMABLE)?.let {
                         viewModel.updateRenamedBookmark(it)
                     }
-                Const.KEY_REQUEST_OPEN_CONTENTS ->
+                Const.KEY_REQUEST_OPEN_CONTENTS, Const.KEY_REQUEST_OPEN_GRID_VIEWER ->
                     data?.getIntExtra(Const.KEY_BUNDLE_PAGE_INDEX, -1)?.let {
                         if (0 <= it) {
+                            DevLogger.i("pageIdx: $it")
                             viewModel.currentPage.value = it
                         }
                     }

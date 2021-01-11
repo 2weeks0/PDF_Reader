@@ -8,10 +8,18 @@ import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.rename.Renamable
 import com.ejooyoung.pdf_reader.rename.RenameActivity
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.ContentsActivity
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.grid.GridViewerActivity
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingActivity
 
 fun Fragment.makeToast(stringId: Int) {
     Toast.makeText(requireContext(), stringId, Toast.LENGTH_SHORT).show()
+}
+
+fun Fragment.startGridViewerActivity(book: Book) {
+    val intent = Intent(requireContext(), GridViewerActivity::class.java).apply {
+        putExtra(Const.KEY_BUNDLE_BOOK, book)
+    }
+    startActivityForResult(intent, Const.KEY_REQUEST_OPEN_GRID_VIEWER)
 }
 
 fun Fragment.startContentsActivity(book: Book) {

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="glideRequest"
+            type="com.bumptech.glide.RequestManager" />
+        <variable
+            name="bitmap"
+            type="android.graphics.Bitmap" />
+        <variable
+            name="pos"
+            type="java.lang.Integer" />
+        <variable
+            name="isCurrentPosition"
+            type="java.lang.Boolean" />
+        <variable
+            name="clickListener"
+            type="com.ejooyoung.pdf_reader.viewer.scrollhandler.grid.listener.GridViewerClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layRoot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:onClick="@{(v) -> clickListener.onClickGridViewer(v, pos)}">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:glideRequest="@{glideRequest}"
+            app:bitmap="@{bitmap}"
+            tools:src="@tools:sample/avatars" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/iv"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:background="@{isCurrentPosition ? @color/colorAccent : @color/bg_main}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/baseTextStyle"
+            android:text="@{String.valueOf(pos + 1)}"
+            tools:text="1"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
