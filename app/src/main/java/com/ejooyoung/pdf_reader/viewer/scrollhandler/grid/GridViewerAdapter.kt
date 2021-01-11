@@ -1,35 +1,25 @@
 package com.ejooyoung.pdf_reader.viewer.scrollhandler.grid
 
-import android.app.Activity
-import android.content.Intent
 import android.graphics.Bitmap
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
-import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.widget.ViewHolder
 import com.ejooyoung.pdf_reader.databinding.ItemGridThumbnailBinding
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.grid.listener.GridViewerBinder
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.grid.listener.GridViewerClickListener
 
 class GridViewerAdapter(
     private val glideRequest: RequestManager,
-    itemCount: Int,
-    private val currentPosition: Int
+    viewModel: GridViewerViewModel
 ) : RecyclerView.Adapter<ViewHolder>() {
 
-    private val itemList = MutableList<Bitmap?>(itemCount) { null }
-    private val clickListener = object : GridViewerClickListener {
-        override fun onClickGridViewer(view: View, pageIdx: Int) {
-            with(view.context as Activity) {
-                val intent = Intent().apply {
-                    putExtra(Const.KEY_BUNDLE_PAGE_INDEX, pageIdx)
-                }
-                setResult(Activity.RESULT_OK, intent)
-                finish()
-            }
-        }
-    }
+    private val loadFlags = mutableSetOf<Int>()
+    private val itemList = MutableList<Bitmap?>(viewModel.book.lastPage) { null }
+    private val currentPosition = viewModel.book.currentPage
+    private val clickListener: GridViewerClickListener = viewModel
+    private val binder: GridViewerBinder = viewModel
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -39,11 +29,18 @@ class GridViewerAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.binding as ItemGridThumbnailBinding) {
-            glideRequest = this@GridViewerAdapter.glideRequest
-            bitmap = itemList[position]
             pos = position
             isCurrentPosition = position == currentPosition
             clickListener = this@GridViewerAdapter.clickListener
+            glideRequest = this@GridViewerAdapter.glideRequest
+            bitmap = if (!loadFlags.contains(position)) {
+                loadFlags.add(position)
+                binder.onBindGridViewer(itemList, position) { notifyItemChanged(position) }
+                null
+            }
+            else {
+                itemList[position]
+            }
         }
     }
 
@@ -53,11 +50,6 @@ class GridViewerAdapter(
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
-    }
-
-    fun setItem(item: Pair<Int, Bitmap>) {
-        this.itemList[item.first] = item.second
-        notifyDataSetChanged()
     }
 
     override fun onViewRecycled(holder: ViewHolder) {

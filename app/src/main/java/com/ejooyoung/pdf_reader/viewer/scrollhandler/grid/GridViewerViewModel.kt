@@ -1,57 +1,78 @@
 package com.ejooyoung.pdf_reader.viewer.scrollhandler.grid
 
+import android.app.Activity
 import android.app.Application
+import android.content.Intent
 import android.graphics.Bitmap
-import androidx.lifecycle.MutableLiveData
+import android.net.Uri
+import android.view.View
+import androidx.core.content.res.ResourcesCompat
+import com.ejooyoung.pdf_reader.R
+import com.ejooyoung.pdf_reader.base.Const
+import com.ejooyoung.pdf_reader.base.ext.withBorder
 import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
-import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.database.model.Book
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.grid.listener.GridViewerBinder
+import com.ejooyoung.pdf_reader.viewer.scrollhandler.grid.listener.GridViewerClickListener
+import com.shockwave.pdfium.PdfiumCore
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class GridViewerViewModel private constructor(
     application: Application,
-    private val repository: GridViewerRepository
-) : BaseAndroidViewModel(application) {
+    private val repository: GridViewerRepository,
+    val book: Book
+) : BaseAndroidViewModel(application),
+    GridViewerClickListener, GridViewerBinder {
 
-    val itemList: MutableLiveData<Pair<Int, Bitmap>> = MutableLiveData()
+    private val core = PdfiumCore(application)
+    private val pdfDocument = core.newDocument(
+        getApplication<Application>()
+            .contentResolver.openFileDescriptor(Uri.parse(book.uriString), "r")
+    )
 
     companion object {
         fun newInstance(
             application: Application,
-            repository: GridViewerRepository
+            repository: GridViewerRepository,
+            book: Book
         ): GridViewerViewModel {
-            return GridViewerViewModel(application, repository)
+            return GridViewerViewModel(application, repository, book)
         }
     }
 
-    fun loadPdfThumbnailList(book: Book) {
-        DevLogger.i()
-        val disposable = Completable.fromAction {
-            var left = book.currentPage
-            var right = book.currentPage
-            loadPdfThumbnail(book, book.currentPage)
-            do {
-                if (0 <= --left) loadPdfThumbnail(book, left)
-                if (++right < book.lastPage) loadPdfThumbnail(book, right)
-            } while (0 <= left || right < book.lastPage)
-        }
-            .subscribeOn(Schedulers.computation())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                DevLogger.e("complete")
+    override fun onDestroy() {
+        super.onDestroy()
+        core.closeDocument(pdfDocument)
+    }
+
+    override fun onClickGridViewer(view: View, pageIdx: Int) {
+        with(view.context as Activity) {
+            val intent = Intent().apply {
+                putExtra(Const.KEY_BUNDLE_PAGE_INDEX, pageIdx)
             }
-        compositeDisposable.add(disposable)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+        }
     }
 
-    private fun loadPdfThumbnail(book: Book, index: Int) {
-        DevLogger.w("index: $index")
-        val disposable = repository.getThumbnail(getApplication(), book, index)
+    override fun onBindGridViewer(itemList: MutableList<Bitmap?>, position: Int, notify: () -> Unit) {
+        val disposable = repository.getThumbnail(core, pdfDocument, position)
+            .map {
+                it.withBorder(
+                    2,
+                    ResourcesCompat.getColor(
+                        getApplication<Application>().resources,
+                        R.color.bg_thumb_border,
+                        null
+                    )
+                )
+            }
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                itemList.value = Pair(index, it)
+                itemList[position] = it
+                notify.invoke()
             }
         compositeDisposable.add(disposable)
     }

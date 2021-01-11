@@ -14,7 +14,7 @@ import java.io.FileOutputStream
 object ThumbnailUtils {
 
     private const val PAGE_NUM_TO_MAKE_THUMB = 0
-    private const val THUMB_WIDTH = 300
+    const val THUMB_WIDTH = 300
 
     fun createMainThumbnail(application: MainApplication, book: Book): Thumbnail {
         val bmp = getThumbnail(application, book, PAGE_NUM_TO_MAKE_THUMB)

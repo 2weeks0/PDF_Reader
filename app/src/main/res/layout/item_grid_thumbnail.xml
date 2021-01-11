@@ -18,7 +18,7 @@
             type="java.lang.Boolean" />
         <variable
             name="clickListener"
-            type="com.ejooyoung.pdf_reader.viewer.scrollhandler.grid.GridViewerClickListener" />
+            type="com.ejooyoung.pdf_reader.viewer.scrollhandler.grid.listener.GridViewerClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

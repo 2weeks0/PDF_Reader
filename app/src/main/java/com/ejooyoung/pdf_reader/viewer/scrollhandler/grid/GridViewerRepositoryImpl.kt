@@ -1,12 +1,9 @@
 package com.ejooyoung.pdf_reader.viewer.scrollhandler.grid
 
-import android.app.Application
 import android.graphics.Bitmap
-import androidx.core.content.res.ResourcesCompat
-import com.ejooyoung.pdf_reader.R
-import com.ejooyoung.pdf_reader.base.ext.withBorder
 import com.ejooyoung.pdf_reader.base.utils.ThumbnailUtils
-import com.ejooyoung.pdf_reader.database.model.Book
+import com.shockwave.pdfium.PdfDocument
+import com.shockwave.pdfium.PdfiumCore
 import io.reactivex.rxjava3.core.Observable
 
 class GridViewerRepositoryImpl private constructor(): GridViewerRepository {
@@ -17,13 +14,27 @@ class GridViewerRepositoryImpl private constructor(): GridViewerRepository {
         }
     }
 
-    override fun getThumbnail(application: Application, book: Book, index: Int): Observable<Bitmap> {
+    override fun getThumbnail(
+        core: PdfiumCore,
+        pdfDocument: PdfDocument,
+        index: Int
+    ): Observable<Bitmap> {
         return Observable.fromCallable {
-            ThumbnailUtils.getThumbnail(application, book, index)
-                .withBorder(
-                    2,
-                    ResourcesCompat.getColor(application.resources, R.color.bg_thumb_border, null)
+            core.openPage(pdfDocument, index)
+            val originWidth = core.getPageWidthPoint(pdfDocument, index)
+            val originHeight = core.getPageHeightPoint(pdfDocument, index)
+            val targetWidth = ThumbnailUtils.THUMB_WIDTH
+            val targetHeight = ((originHeight / originWidth.toFloat()) * targetWidth).toInt()
+            return@fromCallable Bitmap.createBitmap(
+                targetWidth,
+                targetHeight,
+                Bitmap.Config.ARGB_8888
+            ).apply {
+                core.renderPageBitmap(
+                    pdfDocument, this,
+                    index, 0, 0, targetWidth, targetHeight
                 )
+            }
         }
     }
 }

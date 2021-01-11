@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.bumptech.glide.Glide
 import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.base.Const
@@ -43,22 +43,20 @@ class GridViewerFragment : BaseFragment<GridViewerViewModel, FragmentGridViewerB
     }
 
     override fun setupObserver() {
-        viewModel.itemList.observe(this, Observer {
-            (binding.recyclerView.adapter as GridViewerAdapter).setItem(it)
-        })
     }
 
     override fun onBindingCreated() {
         setupRecyclerView()
-        viewModel.loadPdfThumbnailList(book)
     }
 
     private fun setupRecyclerView() {
         binding.recyclerView.adapter = GridViewerAdapter(
             Glide.with(this),
-            book.lastPage,
-            book.currentPage
+            viewModel
         ).apply { setHasStableIds(true) }
+        (binding.recyclerView.itemAnimator as? SimpleItemAnimator)?.let {
+            it.supportsChangeAnimations = false
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
