@@ -7,7 +7,9 @@ import com.ejooyoung.pdf_reader.application.MainApplication
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Thumbnail
 import com.ejooyoung.pdf_reader.base.repository.ThumbnailRepositoryImpl
+import com.shockwave.pdfium.PdfDocument
 import com.shockwave.pdfium.PdfiumCore
+import io.reactivex.rxjava3.core.Observable
 import java.io.File
 import java.io.FileOutputStream
 
@@ -28,7 +30,12 @@ object ThumbnailUtils {
     fun getThumbnail(application: Application, book: Book, index: Int): Bitmap {
         val core = PdfiumCore(application)
         val pdfDocument =
-            core.newDocument(application.contentResolver.openFileDescriptor(Uri.parse(book.uriString), "r"))
+            core.newDocument(
+                application.contentResolver.openFileDescriptor(
+                    Uri.parse(book.uriString),
+                    "r"
+                )
+            )
         core.openPage(pdfDocument, index)
         val originWidth = core.getPageWidthPoint(pdfDocument, index)
         val originHeight = core.getPageHeightPoint(pdfDocument, index)
@@ -42,6 +49,28 @@ object ThumbnailUtils {
         )
         core.closeDocument(pdfDocument)
         return bmp
+    }
+
+    fun getThumbnail(
+        core: PdfiumCore,
+        pdfDocument: PdfDocument,
+        index: Int
+    ): Bitmap {
+        core.openPage(pdfDocument, index)
+        val originWidth = core.getPageWidthPoint(pdfDocument, index)
+        val originHeight = core.getPageHeightPoint(pdfDocument, index)
+        val targetWidth = THUMB_WIDTH
+        val targetHeight = ((originHeight / originWidth.toFloat()) * targetWidth).toInt()
+        return Bitmap.createBitmap(
+            targetWidth,
+            targetHeight,
+            Bitmap.Config.ARGB_8888
+        ).apply {
+            core.renderPageBitmap(
+                pdfDocument, this,
+                index, 0, 0, targetWidth, targetHeight
+            )
+        }
     }
 
     private fun saveImage(absolutePath: String, bmp: Bitmap) {

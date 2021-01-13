@@ -5,12 +5,13 @@
 
     <data>
         <import type="android.app.Activity"/>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.ejooyoung.pdf_reader.viewer.ViewerViewModel" />
         <variable
             name="clickListener"
-            type="com.ejooyoung.pdf_reader.viewer.ViewerMenuClickListener" />
+            type="com.ejooyoung.pdf_reader.viewer.listener.ViewerMenuClickListener" />
         <variable
             name="pdfView"
             type="com.github.barteksc.pdfviewer.PDFView" />
@@ -20,7 +21,8 @@
         android:id="@+id/layRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/transparent">
+        android:background="@android:color/transparent"
+        android:animateLayoutChanges="true">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/layToolbar"
@@ -63,6 +65,18 @@
                     app:srcCompat="@drawable/ic_info"/>
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivPreview"
+            android:layout_width="wrap_content"
+            android:maxWidth="200dp"
+            android:layout_height="wrap_content"
+            android:maxHeight="200dp"
+            android:layout_marginBottom="10dp"
+            android:layout_above="@id/layBottom"
+            android:layout_centerHorizontal="true"
+            android:adjustViewBounds="true"
+            android:visibility="@{viewModel.visibilityPreview ? View.VISIBLE : View.GONE}"/>
 
         <RelativeLayout
             android:id="@+id/layBottom"

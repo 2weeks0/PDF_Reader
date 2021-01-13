@@ -4,10 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
+import com.ejooyoung.pdf_reader.BindingAdapter
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreference.*
@@ -24,6 +28,7 @@ import com.github.barteksc.pdfviewer.util.FitPolicy
 class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
 
     private lateinit var book: Book
+    private lateinit var glideRequest: RequestManager
 
     companion object {
         fun newInstance(book: Book) = ViewerFragment().apply {
@@ -63,9 +68,13 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
         viewModel.preferenceMap.observe(viewLifecycleOwner, Observer {
             setupPdfView(it)
         })
+        viewModel.previewThumbnail.observe(viewLifecycleOwner, Observer {
+            BindingAdapter.setBitmap(binding.scrollHandler.ivPreview, glideRequest, it)
+        })
     }
 
     override fun onBindingCreated() {
+        glideRequest = Glide.with(this)
         setupSeekBar()
     }
 
@@ -102,13 +111,21 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
         binding.scrollHandler.seekBar.max = viewModel.book.lastPage - 1
         binding.scrollHandler.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                DevLogger.d("fromUser: $fromUser")
-                if (fromUser && viewModel.currentPage.value != progress) {
-                    binding.viewPdf.jumpTo(progress)
-                }
+                seekBar!!.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING)
+                viewModel.onProgressChanged(seekBar, progress, fromUser)
+                binding.scrollHandler.tvSeekBar.text =
+                    resources.getString(
+                        R.string.seek_bar,
+                        (progress + 1).toString(),
+                        viewModel.book.lastPage.toString()
+                    )
             }
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                viewModel.onStartTracking(seekBar!!)
+            }
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                viewModel.onStopTracking(seekBar!!, binding.viewPdf)
+            }
         })
     }
 

@@ -20,21 +20,7 @@ class GridViewerRepositoryImpl private constructor(): GridViewerRepository {
         index: Int
     ): Observable<Bitmap> {
         return Observable.fromCallable {
-            core.openPage(pdfDocument, index)
-            val originWidth = core.getPageWidthPoint(pdfDocument, index)
-            val originHeight = core.getPageHeightPoint(pdfDocument, index)
-            val targetWidth = ThumbnailUtils.THUMB_WIDTH
-            val targetHeight = ((originHeight / originWidth.toFloat()) * targetWidth).toInt()
-            return@fromCallable Bitmap.createBitmap(
-                targetWidth,
-                targetHeight,
-                Bitmap.Config.ARGB_8888
-            ).apply {
-                core.renderPageBitmap(
-                    pdfDocument, this,
-                    index, 0, 0, targetWidth, targetHeight
-                )
-            }
+            ThumbnailUtils.getThumbnail(core, pdfDocument, index)
         }
     }
 }
