@@ -9,7 +9,6 @@ import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.findFragment
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.R
-import com.ejooyoung.pdf_reader.application.MainApplication
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreferenceMap
 import com.ejooyoung.pdf_reader.base.ext.*
@@ -20,6 +19,7 @@ import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Bookmark
 import com.ejooyoung.pdf_reader.viewer.listener.PreviewListener
 import com.ejooyoung.pdf_reader.viewer.listener.ViewerMenuClickListener
+import com.ejooyoung.pdf_reader.viewer.manager.PDFManager
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model.TouchZone
 import com.github.barteksc.pdfviewer.PDFView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -41,6 +41,7 @@ class ViewerViewModel private constructor(
     val preferenceMap: MutableLiveData<ViewerPreferenceMap> = MutableLiveData()
     val previewThumbnail: MutableLiveData<Bitmap> = MutableLiveData()
     private var loadPreviewDisposable: Disposable? = null
+    private val pdfManager = PDFManager.getInstance(getApplication())
 
     companion object {
         fun newInstance(
@@ -53,7 +54,7 @@ class ViewerViewModel private constructor(
     override fun onCreateView() {
         super.onCreateView()
         updateReadTime()
-        getApplication<MainApplication>().openPdfDocument(book)
+        pdfManager.openPdfDocument(getApplication(), book)
     }
 
     override fun onResume() {
@@ -69,7 +70,7 @@ class ViewerViewModel private constructor(
 
     override fun onDestroy() {
         super.onDestroy()
-        getApplication<MainApplication>().closePdfDocument()
+        pdfManager.closePdfDocument()
     }
 
     private fun loadPreference() {
@@ -229,11 +230,7 @@ class ViewerViewModel private constructor(
 
     private fun loadPreview(index: Int): Disposable {
         loadPreviewDisposable?.dispose()
-        return viewerRepository.loadThumbnail(
-            getApplication<MainApplication>().pdfiumCore,
-            getApplication<MainApplication>().pdfDocument!!,
-            index
-        )
+        return viewerRepository.loadThumbnail(getApplication(), index)
             .map { it.withBorder(getApplication<Application>().resources) }
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())

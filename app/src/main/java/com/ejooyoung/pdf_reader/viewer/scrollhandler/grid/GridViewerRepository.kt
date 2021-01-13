@@ -1,14 +1,9 @@
 package com.ejooyoung.pdf_reader.viewer.scrollhandler.grid
 
+import android.content.Context
 import android.graphics.Bitmap
-import com.shockwave.pdfium.PdfDocument
-import com.shockwave.pdfium.PdfiumCore
 import io.reactivex.rxjava3.core.Observable
 
 interface GridViewerRepository {
-    fun getThumbnail(
-        core: PdfiumCore,
-        pdfDocument: PdfDocument,
-        index: Int
-    ): Observable<Bitmap>
+    fun getThumbnail(context: Context, index: Int): Observable<Bitmap>
 }

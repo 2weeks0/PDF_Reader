@@ -1,38 +1,17 @@
 package com.ejooyoung.pdf_reader.application
 
 import android.app.Application
-import android.net.Uri
 import android.preference.PreferenceManager
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model.TouchZone
 import com.ejooyoung.pdf_reader.application.preference.TouchZonePreference
-import com.ejooyoung.pdf_reader.database.model.Book
-import com.shockwave.pdfium.PdfDocument
-import com.shockwave.pdfium.PdfiumCore
 import java.io.File
 
 class MainApplication : Application() {
 
-    lateinit var pdfiumCore: PdfiumCore
-    var pdfDocument: PdfDocument? = null
-
     override fun onCreate() {
         super.onCreate()
-        pdfiumCore = PdfiumCore(applicationContext)
         makeThumbDirIfNotExist()
-    }
-
-    fun openPdfDocument(book: Book) {
-        closePdfDocument()
-        pdfDocument = pdfiumCore.newDocument(
-            contentResolver.openFileDescriptor(Uri.parse(book.uriString), "r"))
-    }
-
-    fun closePdfDocument() {
-        if (pdfDocument != null) {
-            pdfiumCore.closeDocument(pdfDocument)
-            pdfDocument = null
-        }
     }
 
     private fun makeThumbDirIfNotExist() {

@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreferenceMap
-import com.ejooyoung.pdf_reader.base.ext.withBorder
 import com.ejooyoung.pdf_reader.base.repository.BookRepository
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 import com.ejooyoung.pdf_reader.base.repository.BookmarkRepository
@@ -18,8 +17,6 @@ import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingReposi
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.SettingTouchZoneRepository
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.SettingTouchZoneRepositoryImpl
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model.TouchZone
-import com.shockwave.pdfium.PdfDocument
-import com.shockwave.pdfium.PdfiumCore
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
@@ -90,13 +87,9 @@ class ViewerRepositoryImpl private constructor(
         return settingTouchZoneRepository.saveTouchZonePreference(touchZone)
     }
 
-    override fun loadThumbnail(
-        core: PdfiumCore,
-        pdfDocument: PdfDocument,
-        index: Int
-    ): Observable<Bitmap> {
+    override fun loadThumbnail(context: Context, index: Int): Observable<Bitmap> {
         return Observable.fromCallable {
-            ThumbnailUtils.getThumbnail(core, pdfDocument, index)
+            ThumbnailUtils.getThumbnail(context, index)
         }
     }
 }

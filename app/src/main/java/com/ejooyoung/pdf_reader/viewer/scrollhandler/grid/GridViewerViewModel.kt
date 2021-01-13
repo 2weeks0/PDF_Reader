@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.Intent
 import android.graphics.Bitmap
 import android.view.View
-import com.ejooyoung.pdf_reader.application.MainApplication
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.ext.withBorder
 import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
@@ -43,11 +42,7 @@ class GridViewerViewModel private constructor(
     }
 
     override fun onBindGridViewer(itemList: MutableList<Bitmap?>, position: Int, notify: () -> Unit) {
-        val disposable = repository.getThumbnail(
-            getApplication<MainApplication>().pdfiumCore,
-            getApplication<MainApplication>().pdfDocument!!,
-            position
-        )
+        val disposable = repository.getThumbnail(getApplication(), position)
             .map { it.withBorder(getApplication<Application>().resources) }
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
