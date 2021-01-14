@@ -1,8 +1,10 @@
 package com.ejooyoung.pdf_reader.viewer
 
 import android.app.Application
+import android.graphics.Bitmap
 import android.view.KeyEvent
 import android.view.View
+import android.widget.SeekBar
 import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.findFragment
 import androidx.lifecycle.MutableLiveData
@@ -15,6 +17,9 @@ import com.ejooyoung.pdf_reader.base.utils.DateUtils
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Bookmark
+import com.ejooyoung.pdf_reader.viewer.listener.PreviewListener
+import com.ejooyoung.pdf_reader.viewer.listener.ViewerMenuClickListener
+import com.ejooyoung.pdf_reader.viewer.manager.PDFManager
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model.TouchZone
 import com.github.barteksc.pdfviewer.PDFView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -24,13 +29,17 @@ class ViewerViewModel private constructor(
     application: Application,
     private val viewerRepository: ViewerRepository,
     val book: Book
-) : BaseAndroidViewModel(application), ViewerMenuClickListener {
+) : BaseAndroidViewModel(application),
+    ViewerMenuClickListener, PreviewListener {
 
     val touchZone = TouchZone.of()
     val visibilityScrollHandler = ObservableBoolean(false)
+    val visibilityPreview = ObservableBoolean(false)
     val currentPage = MutableLiveData<Int>(book.currentPage)
     val isBookmarkedPage = ObservableBoolean(false)
     val preferenceMap: MutableLiveData<ViewerPreferenceMap> = MutableLiveData()
+    val previewThumbnail: MutableLiveData<Bitmap> = MutableLiveData()
+    private val pdfManager = PDFManager.getInstance(getApplication())
 
     companion object {
         fun newInstance(
@@ -40,8 +49,10 @@ class ViewerViewModel private constructor(
         ) = ViewerViewModel(application, viewerRepository, book)
     }
 
-    init {
+    override fun onCreateView() {
+        super.onCreateView()
         updateReadTime()
+        pdfManager.openPdfDocument(getApplication(), book)
     }
 
     override fun onResume() {
@@ -53,6 +64,11 @@ class ViewerViewModel private constructor(
     override fun onPause() {
         super.onPause()
         updateBook()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        pdfManager.closePdfDocument()
     }
 
     private fun loadPreference() {
@@ -169,11 +185,6 @@ class ViewerViewModel private constructor(
         view.findFragment<ViewerFragment>().startViewerSettingActivity()
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        DevLogger.i()
-    }
-
     fun updateRenamedBookmark(bookmark: Bookmark) {
         val disposable = viewerRepository.updateBookmark(bookmark)
             .subscribeOn(Schedulers.io())
@@ -193,5 +204,44 @@ class ViewerViewModel private constructor(
             return true
         }
         return false
+    }
+
+    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+        DevLogger.d("progress: ${seekBar.progress}")
+        loadPreview(progress)
+    }
+
+    override fun onStartTracking(seekBar: SeekBar) {
+        DevLogger.w("progress: ${seekBar.progress}")
+        visibilityPreview.set(true)
+        loadPreview(seekBar.progress)
+    }
+
+    override fun onStopTracking(seekBar: SeekBar, pdfView: PDFView) {
+        DevLogger.d("progress: ${seekBar.progress}")
+        visibilityPreview.set(false)
+        if (currentPage.value != seekBar.progress) {
+            pdfView.jumpTo(seekBar.progress)
+        }
+    }
+
+    private fun loadPreview(index: Int) {
+        if (pdfManager.getThumbCached(index) != null) {
+            previewThumbnail.value = pdfManager.getThumbCached(index)
+        }
+        else if (!pdfManager.isStartLoad(index)) {
+            pdfManager.startLoad(index)
+            val disposable = viewerRepository.loadThumbnail(getApplication(), index)
+                .map { it.withBorder(getApplication<Application>().resources) }
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    pdfManager.putThumbCached(index, it)
+                    if (pdfManager.previewIndex == index) {
+                        previewThumbnail.value = it
+                    }
+                }
+            compositeDisposable.add(disposable)
+        }
     }
 }

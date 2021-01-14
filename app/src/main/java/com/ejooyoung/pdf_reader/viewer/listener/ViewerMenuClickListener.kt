@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.viewer
+package com.ejooyoung.pdf_reader.viewer.listener
 
 import android.view.View
 import com.github.barteksc.pdfviewer.PDFView

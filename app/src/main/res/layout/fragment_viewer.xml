@@ -10,7 +10,7 @@
             type="com.ejooyoung.pdf_reader.viewer.ViewerViewModel" />
         <variable
             name="clickListener"
-            type="com.ejooyoung.pdf_reader.viewer.ViewerMenuClickListener" />
+            type="com.ejooyoung.pdf_reader.viewer.listener.ViewerMenuClickListener" />
     </data>
 
     <FrameLayout

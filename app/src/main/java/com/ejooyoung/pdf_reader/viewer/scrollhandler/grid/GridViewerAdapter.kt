@@ -41,6 +41,7 @@ class GridViewerAdapter(
             else {
                 itemList[position]
             }
+            executePendingBindings()
         }
     }
 

@@ -11,7 +11,7 @@
             type="com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model.TouchZone" />
         <variable
             name="clickListener"
-            type="com.ejooyoung.pdf_reader.viewer.ViewerMenuClickListener" />
+            type="com.ejooyoung.pdf_reader.viewer.listener.ViewerMenuClickListener" />
         <variable
             name="pdfView"
             type="com.github.barteksc.pdfviewer.PDFView" />

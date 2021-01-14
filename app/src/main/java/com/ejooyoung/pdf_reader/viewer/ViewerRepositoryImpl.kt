@@ -2,12 +2,15 @@ package com.ejooyoung.pdf_reader.viewer
 
 import android.app.Application
 import android.content.Context
+import android.graphics.Bitmap
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreference
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreferenceMap
 import com.ejooyoung.pdf_reader.base.repository.BookRepository
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 import com.ejooyoung.pdf_reader.base.repository.BookmarkRepository
 import com.ejooyoung.pdf_reader.base.repository.BookmarkRepositoryImpl
+import com.ejooyoung.pdf_reader.base.utils.ThumbnailUtils
+import com.ejooyoung.pdf_reader.base.utils.UnitUtils
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Bookmark
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingRepository
@@ -83,5 +86,11 @@ class ViewerRepositoryImpl private constructor(
 
     override fun saveTouchZonePreference(touchZone: TouchZone): Completable {
         return settingTouchZoneRepository.saveTouchZonePreference(touchZone)
+    }
+
+    override fun loadThumbnail(context: Context, index: Int): Observable<Bitmap> {
+        return Observable.fromCallable {
+            ThumbnailUtils.getThumbnail(context, index, UnitUtils.dpToPx(context, 200f))
+        }
     }
 }

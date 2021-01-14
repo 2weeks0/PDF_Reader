@@ -2,12 +2,17 @@ package com.ejooyoung.pdf_reader.viewer
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
+import com.ejooyoung.pdf_reader.BindingAdapter
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreference.*
@@ -16,6 +21,7 @@ import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.mvvm.BaseFragment
 import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
+import com.ejooyoung.pdf_reader.base.utils.UnitUtils
 import com.ejooyoung.pdf_reader.databinding.FragmentViewerBinding
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Bookmark
@@ -24,6 +30,7 @@ import com.github.barteksc.pdfviewer.util.FitPolicy
 class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
 
     private lateinit var book: Book
+    private lateinit var glideRequest: RequestManager
 
     companion object {
         fun newInstance(book: Book) = ViewerFragment().apply {
@@ -63,9 +70,13 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
         viewModel.preferenceMap.observe(viewLifecycleOwner, Observer {
             setupPdfView(it)
         })
+        viewModel.previewThumbnail.observe(viewLifecycleOwner, Observer {
+           setupPreview(it)
+        })
     }
 
     override fun onBindingCreated() {
+        glideRequest = Glide.with(this)
         setupSeekBar()
     }
 
@@ -98,17 +109,40 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
             .load()
     }
 
+    private fun setupPreview(bitmap: Bitmap) {
+        binding.scrollHandler.ivPreview.setImageBitmap(bitmap)
+//        binding.scrollHandler.ivPreview.layoutParams =
+//            binding.scrollHandler.ivPreview.layoutParams.apply {
+//                if (bitmap.width > bitmap.height) {
+//                    width = UnitUtils.dpToPx(requireContext(), 200f)
+//                    height = ViewGroup.LayoutParams.WRAP_CONTENT
+//                }
+//                else {
+//                    width = ViewGroup.LayoutParams.WRAP_CONTENT
+//                    height = UnitUtils.dpToPx(requireContext(), 200f)
+//                }
+//            }
+    }
+
     private fun setupSeekBar() {
         binding.scrollHandler.seekBar.max = viewModel.book.lastPage - 1
         binding.scrollHandler.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                DevLogger.d("fromUser: $fromUser")
-                if (fromUser && viewModel.currentPage.value != progress) {
-                    binding.viewPdf.jumpTo(progress)
-                }
+                seekBar!!.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING)
+                viewModel.onProgressChanged(seekBar, progress, fromUser)
+                binding.scrollHandler.tvSeekBar.text =
+                    resources.getString(
+                        R.string.seek_bar,
+                        (progress + 1).toString(),
+                        viewModel.book.lastPage.toString()
+                    )
             }
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                viewModel.onStartTracking(seekBar!!)
+            }
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                viewModel.onStopTracking(seekBar!!, binding.viewPdf)
+            }
         })
     }
 

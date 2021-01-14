@@ -21,6 +21,7 @@ abstract class BaseFragment<A: BaseAndroidViewModel, B: ViewDataBinding> : Fragm
         setupDataBinding(inflater, container)
         setupObserver()
         onBindingCreated()
+        viewModel.onCreateView()
         return binding.root
     }
 
