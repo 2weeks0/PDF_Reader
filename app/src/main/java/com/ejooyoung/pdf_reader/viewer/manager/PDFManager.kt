@@ -14,6 +14,9 @@ class PDFManager private constructor(
 
     private val pdfiumCore = PdfiumCore(context)
     private var pdfDocument: PdfDocument? = null
+    private val loadThumbFlags = hashSetOf<Int>()
+    private val thumbCached = hashMapOf<Int, Bitmap>()
+    var previewIndex: Int = 0
 
     companion object {
         private var INSTANCE: PDFManager? = null
@@ -24,6 +27,24 @@ class PDFManager private constructor(
             }
             return INSTANCE!!
         }
+    }
+
+    fun startLoad(index: Int) {
+        loadThumbFlags.add(index)
+        previewIndex = index
+    }
+
+    fun isStartLoad(index: Int): Boolean {
+        return loadThumbFlags.contains(index)
+    }
+
+    fun putThumbCached(index: Int, bitmap: Bitmap) {
+        thumbCached[index] = bitmap
+    }
+
+    fun getThumbCached(index: Int): Bitmap? {
+        previewIndex = index
+        return thumbCached[index]
     }
 
     fun openPdfDocument(application: Application, book: Book) {
@@ -37,6 +58,8 @@ class PDFManager private constructor(
         if (pdfDocument != null) {
             pdfiumCore.closeDocument(pdfDocument)
             pdfDocument = null
+            loadThumbFlags.clear()
+            thumbCached.clear()
         }
     }
 

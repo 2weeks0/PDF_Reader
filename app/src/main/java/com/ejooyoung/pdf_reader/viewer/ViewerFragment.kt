@@ -2,6 +2,7 @@ package com.ejooyoung.pdf_reader.viewer
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
@@ -20,6 +21,7 @@ import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.mvvm.BaseFragment
 import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
+import com.ejooyoung.pdf_reader.base.utils.UnitUtils
 import com.ejooyoung.pdf_reader.databinding.FragmentViewerBinding
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Bookmark
@@ -69,7 +71,7 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
             setupPdfView(it)
         })
         viewModel.previewThumbnail.observe(viewLifecycleOwner, Observer {
-            BindingAdapter.setBitmap(binding.scrollHandler.ivPreview, glideRequest, it)
+           setupPreview(it)
         })
     }
 
@@ -105,6 +107,21 @@ class ViewerFragment : BaseFragment<ViewerViewModel, FragmentViewerBinding>() {
                 binding.scrollHandler.seekBar.max = binding.viewPdf.pageCount - 1
             }
             .load()
+    }
+
+    private fun setupPreview(bitmap: Bitmap) {
+        binding.scrollHandler.ivPreview.setImageBitmap(bitmap)
+//        binding.scrollHandler.ivPreview.layoutParams =
+//            binding.scrollHandler.ivPreview.layoutParams.apply {
+//                if (bitmap.width > bitmap.height) {
+//                    width = UnitUtils.dpToPx(requireContext(), 200f)
+//                    height = ViewGroup.LayoutParams.WRAP_CONTENT
+//                }
+//                else {
+//                    width = ViewGroup.LayoutParams.WRAP_CONTENT
+//                    height = UnitUtils.dpToPx(requireContext(), 200f)
+//                }
+//            }
     }
 
     private fun setupSeekBar() {

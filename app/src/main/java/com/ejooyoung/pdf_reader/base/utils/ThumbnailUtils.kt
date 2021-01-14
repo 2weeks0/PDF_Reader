@@ -53,12 +53,21 @@ object ThumbnailUtils {
 
     fun getThumbnail(
         context: Context,
-        index: Int
+        index: Int,
+        targetMaxLength: Int = THUMB_WIDTH
     ): Bitmap {
         with(PDFManager.getInstance(context)) {
             val originBounds = getBounds(index)
-            val targetWidth = THUMB_WIDTH
-            val targetHeight = ((originBounds[1] / originBounds[0].toFloat()) * targetWidth).toInt()
+            val targetWidth: Int
+            val targetHeight: Int
+            if (originBounds[0] > originBounds[1]) {
+                targetWidth = targetMaxLength
+                targetHeight = ((originBounds[1] / originBounds[0].toFloat()) * targetWidth).toInt()
+            }
+            else{
+                targetHeight = targetMaxLength
+                targetWidth = ((originBounds[0] / originBounds[1].toFloat()) * targetHeight).toInt()
+            }
             return Bitmap.createBitmap(
                 targetWidth,
                 targetHeight,

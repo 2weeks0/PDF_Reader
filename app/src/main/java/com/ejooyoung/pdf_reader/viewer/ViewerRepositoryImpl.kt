@@ -10,6 +10,7 @@ import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 import com.ejooyoung.pdf_reader.base.repository.BookmarkRepository
 import com.ejooyoung.pdf_reader.base.repository.BookmarkRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.ThumbnailUtils
+import com.ejooyoung.pdf_reader.base.utils.UnitUtils
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Bookmark
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingRepository
@@ -89,7 +90,7 @@ class ViewerRepositoryImpl private constructor(
 
     override fun loadThumbnail(context: Context, index: Int): Observable<Bitmap> {
         return Observable.fromCallable {
-            ThumbnailUtils.getThumbnail(context, index)
+            ThumbnailUtils.getThumbnail(context, index, UnitUtils.dpToPx(context, 200f))
         }
     }
 }

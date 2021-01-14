@@ -69,13 +69,10 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivPreview"
             android:layout_width="wrap_content"
-            android:maxWidth="200dp"
             android:layout_height="wrap_content"
-            android:maxHeight="200dp"
             android:layout_marginBottom="10dp"
             android:layout_above="@id/layBottom"
             android:layout_centerHorizontal="true"
-            android:adjustViewBounds="true"
             android:visibility="@{viewModel.visibilityPreview ? View.VISIBLE : View.GONE}"/>
 
         <RelativeLayout

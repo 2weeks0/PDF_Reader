@@ -2,6 +2,7 @@ package com.ejooyoung.pdf_reader
 
 import android.app.Application
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.util.DisplayMetrics
 import android.view.View
 import android.widget.ImageView
@@ -10,6 +11,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.ejooyoung.pdf_reader.base.repository.ThumbnailRepositoryImpl
@@ -79,6 +81,9 @@ object BindingAdapter {
             return
         }
         glideRequest.load(bitmap)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+            .thumbnail(0.2f)
             .into(imageView)
     }
 }

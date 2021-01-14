@@ -23,7 +23,6 @@ import com.ejooyoung.pdf_reader.viewer.manager.PDFManager
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.model.TouchZone
 import com.github.barteksc.pdfviewer.PDFView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class ViewerViewModel private constructor(
@@ -40,7 +39,6 @@ class ViewerViewModel private constructor(
     val isBookmarkedPage = ObservableBoolean(false)
     val preferenceMap: MutableLiveData<ViewerPreferenceMap> = MutableLiveData()
     val previewThumbnail: MutableLiveData<Bitmap> = MutableLiveData()
-    private var loadPreviewDisposable: Disposable? = null
     private val pdfManager = PDFManager.getInstance(getApplication())
 
     companion object {
@@ -210,32 +208,40 @@ class ViewerViewModel private constructor(
 
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
         DevLogger.d("progress: ${seekBar.progress}")
-        loadPreviewDisposable = loadPreview(seekBar.progress)
+        loadPreview(progress)
     }
 
     override fun onStartTracking(seekBar: SeekBar) {
         DevLogger.w("progress: ${seekBar.progress}")
         visibilityPreview.set(true)
-        loadPreviewDisposable = loadPreview(seekBar.progress)
+        loadPreview(seekBar.progress)
     }
 
     override fun onStopTracking(seekBar: SeekBar, pdfView: PDFView) {
         DevLogger.d("progress: ${seekBar.progress}")
         visibilityPreview.set(false)
-        loadPreviewDisposable?.dispose()
         if (currentPage.value != seekBar.progress) {
             pdfView.jumpTo(seekBar.progress)
         }
     }
 
-    private fun loadPreview(index: Int): Disposable {
-        loadPreviewDisposable?.dispose()
-        return viewerRepository.loadThumbnail(getApplication(), index)
-            .map { it.withBorder(getApplication<Application>().resources) }
-            .subscribeOn(Schedulers.computation())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                previewThumbnail.value = it
-            }
+    private fun loadPreview(index: Int) {
+        if (pdfManager.getThumbCached(index) != null) {
+            previewThumbnail.value = pdfManager.getThumbCached(index)
+        }
+        else if (!pdfManager.isStartLoad(index)) {
+            pdfManager.startLoad(index)
+            val disposable = viewerRepository.loadThumbnail(getApplication(), index)
+                .map { it.withBorder(getApplication<Application>().resources) }
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    pdfManager.putThumbCached(index, it)
+                    if (pdfManager.previewIndex == index) {
+                        previewThumbnail.value = it
+                    }
+                }
+            compositeDisposable.add(disposable)
+        }
     }
 }
