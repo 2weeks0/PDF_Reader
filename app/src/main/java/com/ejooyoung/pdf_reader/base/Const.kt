@@ -26,6 +26,15 @@ object Const {
     const val DB_BOOKMARK_COLUMN_BOOK_GUID = "bookGuid"
     const val DB_BOOKMARK_COLUMN_BOOKMARKED_TIME = "bookmarkedTime"
 
+    const val DB_CATEGORY_TABLE = "Category"
+    const val DB_CATEGORY_COLUMN_GUID = "guid"
+    const val DB_CATEGORY_COLUMN_NAME = "name"
+
+    const val DB_CATEGORY_RELATION_TABLE = "CategoryRelation"
+    const val DB_CATEGORY_RELATION_COLUMN_GUID = "guid"
+    const val DB_CATEGORY_RELATION_COLUMN_BOOK_GUID = "bookGuid"
+    const val DB_CATEGORY_RELATION_COLUMN_CATEGORY_GUID = "categoryGuid"
+
     const val KEY_PERMISSION_STORAGE = 1000
     const val KEY_REQUEST_OPEN_PDF = 1000
     const val KEY_REQUEST_OPEN_CONTENTS = 1000

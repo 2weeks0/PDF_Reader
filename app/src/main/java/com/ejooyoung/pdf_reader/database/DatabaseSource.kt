@@ -4,20 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.ejooyoung.pdf_reader.database.model.Book
-import com.ejooyoung.pdf_reader.database.model.Thumbnail
 import com.ejooyoung.pdf_reader.base.Const
-import com.ejooyoung.pdf_reader.database.dao.BookDao
-import com.ejooyoung.pdf_reader.database.dao.BookmarkDao
-import com.ejooyoung.pdf_reader.database.dao.ThumbnailDao
-import com.ejooyoung.pdf_reader.database.model.Bookmark
+import com.ejooyoung.pdf_reader.database.dao.*
+import com.ejooyoung.pdf_reader.database.model.*
 
-@Database(entities = [Book::class, Thumbnail::class, Bookmark::class], version = Const.DB_VERSION, exportSchema = false)
+@Database(entities = [Book::class, Thumbnail::class, Bookmark::class, Category::class, CategoryRelation::class], version = Const.DB_VERSION, exportSchema = false)
 abstract class DatabaseSource : RoomDatabase() {
 
     abstract fun thumbnailDao(): ThumbnailDao
     abstract fun bookDao(): BookDao
     abstract fun bookmarkDao(): BookmarkDao
+    abstract fun categoryDao(): CategoryDao
+    abstract fun categoryRelationDao(): CategoryRelationDao
 
     companion object {
         @Volatile private var INSTANCE: DatabaseSource? = null
