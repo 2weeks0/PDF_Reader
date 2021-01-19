@@ -1,30 +1,27 @@
 package com.ejooyoung.pdf_reader.main.category
 
 import android.content.Context
-import com.ejooyoung.pdf_reader.database.DatabaseProvider
-import com.ejooyoung.pdf_reader.database.dao.CategoryDao
-import com.ejooyoung.pdf_reader.database.dao.CategoryRelationDao
+import com.ejooyoung.pdf_reader.base.repository.CategoryAndRelationRepository
+import com.ejooyoung.pdf_reader.base.repository.CategoryAndRelationRepositoryImpl
 import com.ejooyoung.pdf_reader.database.model.Category
 import com.ejooyoung.pdf_reader.main.category.model.CategoryItem
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 
 class CategoryRepositoryImpl private constructor(
-    private val categoryDao: CategoryDao,
-    private val categoryRelationDao: CategoryRelationDao
+    private val categoryAndRelationRepository: CategoryAndRelationRepository
 ) : CategoryRepository {
 
     companion object {
         fun newInstance(context: Context): CategoryRepository {
             return CategoryRepositoryImpl(
-                DatabaseProvider.provideCategorySource(context),
-                DatabaseProvider.provideCategoryRelationSource(context)
+                CategoryAndRelationRepositoryImpl.getInstance(context)
             )
         }
     }
 
     override fun loadCategoryItem(): Flowable<List<CategoryItem>> {
-        return categoryDao.selectAllCategory()
+        return categoryAndRelationRepository.selectAllCategory()
             .flatMap {
                 Flowable.fromCallable {
                     it.asSequence()
@@ -32,7 +29,7 @@ class CategoryRepositoryImpl private constructor(
                             CategoryItem(
                                 it.guid.hashCode().toLong(),
                                 it.name,
-                                categoryRelationDao.selectCategoryRelationCount(it.guid)
+                                categoryAndRelationRepository.selectCountCategoryRelation(it.guid)
                             )
                         }
                         .toList()
@@ -41,10 +38,10 @@ class CategoryRepositoryImpl private constructor(
     }
 
     override fun saveCategory(category: Category): Completable {
-        return categoryDao.insertCategory(category)
+        return categoryAndRelationRepository.saveCategory(category)
     }
 
     override fun deleteCategory(category: Category): Completable {
-        return categoryDao.deleteCategory(category)
+        return categoryAndRelationRepository.deleteCategory(category)
     }
 }
