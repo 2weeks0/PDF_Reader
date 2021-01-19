@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.bookshelf
+package com.ejooyoung.pdf_reader.main.bookshelf
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.bookshelf
+package com.ejooyoung.pdf_reader.main.bookshelf
 
 import android.app.Application
 import android.content.Intent
@@ -9,7 +9,7 @@ import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 import com.ejooyoung.pdf_reader.base.dialog.BookPopupDialog
 import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
-import com.ejooyoung.pdf_reader.bookshelf.listener.OnClickBookListener
+import com.ejooyoung.pdf_reader.main.bookshelf.listener.OnClickBookListener
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.viewer.ViewerActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

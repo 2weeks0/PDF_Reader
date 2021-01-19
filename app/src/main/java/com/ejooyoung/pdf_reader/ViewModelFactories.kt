@@ -5,12 +5,12 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
-import com.ejooyoung.pdf_reader.bookshelf.BookshelfViewModel
+import com.ejooyoung.pdf_reader.main.bookshelf.BookshelfViewModel
 import com.ejooyoung.pdf_reader.main.MainViewModel
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 import com.ejooyoung.pdf_reader.base.repository.BookmarkRepositoryImpl
 import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepository
-import com.ejooyoung.pdf_reader.bookshelf.BookshelfRepositoryImpl
+import com.ejooyoung.pdf_reader.main.bookshelf.BookshelfRepositoryImpl
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.viewer.ViewerRepositoryImpl
 import com.ejooyoung.pdf_reader.viewer.ViewerViewModel
@@ -20,7 +20,6 @@ import com.ejooyoung.pdf_reader.viewer.scrollhandler.grid.GridViewerRepositoryIm
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.grid.GridViewerViewModel
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingRepositoryImpl
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.ViewerSettingViewModel
-import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.SettingTouchZoneRepository
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.SettingTouchZoneRepositoryImpl
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.setting.touchzone.SettingTouchZoneViewModel
 

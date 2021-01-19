@@ -12,7 +12,7 @@ import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.base.mvvm.BaseActivity
-import com.ejooyoung.pdf_reader.bookshelf.BookshelfFragment
+import com.ejooyoung.pdf_reader.main.bookshelf.BookshelfFragment
 import com.ejooyoung.pdf_reader.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {

@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.bookshelf.listener
+package com.ejooyoung.pdf_reader.main.bookshelf.listener
 
 import android.view.View
 import com.ejooyoung.pdf_reader.database.model.Book

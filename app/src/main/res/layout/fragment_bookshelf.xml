@@ -5,7 +5,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.ejooyoung.pdf_reader.bookshelf.BookshelfViewModel" />
+            type="com.ejooyoung.pdf_reader.main.bookshelf.BookshelfViewModel" />
     </data>
 
     <FrameLayout
