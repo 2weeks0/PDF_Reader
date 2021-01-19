@@ -15,22 +15,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/layStart"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_gravity="start"
-            android:background="#ff0000">
-
-        </LinearLayout>
+            android:layout_gravity="start"/>
 
         <LinearLayout
             android:id="@+id/layCenter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:layout_gravity="center"
-            android:orientation="vertical">
+            android:background="@drawable/bg_rounded_dialog"
+            android:backgroundTint="@color/bg_main">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/layToolbar"
@@ -66,7 +64,6 @@
                 android:id="@+id/layContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
-
         </LinearLayout>
 
         <include

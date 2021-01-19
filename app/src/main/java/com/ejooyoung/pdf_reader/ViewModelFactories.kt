@@ -12,6 +12,8 @@ import com.ejooyoung.pdf_reader.base.repository.BookmarkRepositoryImpl
 import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepository
 import com.ejooyoung.pdf_reader.main.bookshelf.BookshelfRepositoryImpl
 import com.ejooyoung.pdf_reader.database.model.Book
+import com.ejooyoung.pdf_reader.main.category.CategoryRepositoryImpl
+import com.ejooyoung.pdf_reader.main.category.CategoryViewModel
 import com.ejooyoung.pdf_reader.viewer.ViewerRepositoryImpl
 import com.ejooyoung.pdf_reader.viewer.ViewerViewModel
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.bookmark.BookmarkListViewModel
@@ -67,6 +69,9 @@ class ViewModelFactories private constructor(
 
             isAssignableFrom(GridViewerViewModel::class.java) ->
                 GridViewerViewModel.newInstance(application, GridViewerRepositoryImpl.newInstance(), arg as Book)
+
+            isAssignableFrom(CategoryViewModel::class.java) ->
+                CategoryViewModel.newInstance(application, CategoryRepositoryImpl.newInstance(application))
 
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

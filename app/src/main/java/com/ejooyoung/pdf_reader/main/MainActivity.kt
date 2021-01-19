@@ -14,6 +14,7 @@ import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.base.mvvm.BaseActivity
 import com.ejooyoung.pdf_reader.main.bookshelf.BookshelfFragment
 import com.ejooyoung.pdf_reader.databinding.ActivityMainBinding
+import com.ejooyoung.pdf_reader.main.category.CategoryFragment
 
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
@@ -46,6 +47,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     private fun setupFragment() {
         supportFragmentManager.beginTransaction()
             .add(R.id.layContainer, BookshelfFragment.newInstance())
+            .add(R.id.layStart, CategoryFragment.newInstance())
             .commit()
     }
 

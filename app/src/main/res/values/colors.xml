@@ -6,7 +6,8 @@
 
     <color name="transparent_30">#33000000</color>
 
-    <color name="bg_main">#aaaaaa</color>
+    <color name="bg_main">#dddddd</color>
+    <color name="bg_main_highlight">#b6b6b6</color>
     <color name="bg_setting_block">#f8f8f8</color>
     <color name="bg_scroll_handler">#33000000</color>
     <color name="bg_previous_page">#11ff0000</color>
