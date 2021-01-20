@@ -37,10 +37,6 @@ class CategoryRepositoryImpl private constructor(
             }
     }
 
-    override fun saveCategory(category: Category): Completable {
-        return categoryAndRelationRepository.saveCategory(category)
-    }
-
     override fun deleteCategory(category: Category): Completable {
         return categoryAndRelationRepository.deleteCategory(category)
     }

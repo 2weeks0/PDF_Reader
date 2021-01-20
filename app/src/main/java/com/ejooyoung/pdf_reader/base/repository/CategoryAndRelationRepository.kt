@@ -6,7 +6,8 @@ import io.reactivex.rxjava3.core.Flowable
 
 interface CategoryAndRelationRepository {
     fun selectAllCategory(): Flowable<List<Category>>
-    fun saveCategory(category: Category): Completable
+    fun saveCategory(category: Category)
     fun deleteCategory(category: Category): Completable
     fun selectCountCategoryRelation(categoryGuid: String): Int
+    fun containCategory(categoryName: String): Flowable<Boolean>
 }

@@ -5,4 +5,5 @@ import io.reactivex.rxjava3.core.Flowable
 
 interface SettingCategoryRepository {
     fun selectAllCategory(): Flowable<List<SettingCategoryItem>>
+    fun saveCategory(categoryName: String): Flowable<Boolean>
 }

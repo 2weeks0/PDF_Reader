@@ -7,6 +7,5 @@ import io.reactivex.rxjava3.core.Flowable
 
 interface CategoryRepository {
     fun loadCategoryItem(): Flowable<List<CategoryItem>>
-    fun saveCategory(category: Category): Completable
     fun deleteCategory(category: Category): Completable
 }

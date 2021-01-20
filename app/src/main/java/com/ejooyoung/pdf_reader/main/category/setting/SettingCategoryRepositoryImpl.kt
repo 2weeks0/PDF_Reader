@@ -2,6 +2,7 @@ package com.ejooyoung.pdf_reader.main.category.setting
 
 import android.app.Application
 import com.ejooyoung.pdf_reader.base.repository.CategoryAndRelationRepositoryImpl
+import com.ejooyoung.pdf_reader.database.model.Category
 import com.ejooyoung.pdf_reader.main.category.setting.model.SettingCategoryItem
 import io.reactivex.rxjava3.core.Flowable
 
@@ -32,6 +33,16 @@ class SettingCategoryRepositoryImpl private constructor(
                         }
                         .toList()
                 }
+            }
+    }
+
+    override fun saveCategory(categoryName: String): Flowable<Boolean> {
+        return categoryAndRelationRepository.containCategory(categoryName)
+            .flatMap {
+                if (!it) {
+                    categoryAndRelationRepository.saveCategory(Category.valueOf(categoryName))
+                }
+                return@flatMap Flowable.just(!it)
             }
     }
 }

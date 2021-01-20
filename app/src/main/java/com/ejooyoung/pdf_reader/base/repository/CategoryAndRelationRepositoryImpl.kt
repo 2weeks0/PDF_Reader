@@ -31,7 +31,7 @@ class CategoryAndRelationRepositoryImpl private constructor(
         return categoryDao.selectAllCategory()
     }
 
-    override fun saveCategory(category: Category): Completable {
+    override fun saveCategory(category: Category) {
         return categoryDao.insertCategory(category)
     }
 
@@ -41,5 +41,9 @@ class CategoryAndRelationRepositoryImpl private constructor(
 
     override fun selectCountCategoryRelation(categoryGuid: String): Int {
         return categoryRelationDao.selectCategoryRelationCount(categoryGuid)
+    }
+
+    override fun containCategory(categoryName: String): Flowable<Boolean> {
+        return categoryDao.containCategory(categoryName)
     }
 }

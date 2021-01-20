@@ -1,5 +1,6 @@
 package com.ejooyoung.pdf_reader.base.dialog
 
+import android.app.Dialog
 import android.content.Context
 import com.ejooyoung.pdf_reader.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -21,11 +22,10 @@ class InputTextDialogFactory(
         return this
     }
 
-    fun setConfirmClickListener(listener: (string: String) -> Unit): InputTextDialogFactory {
+    fun setConfirmClickListener(listener: (dialog: Dialog, string: String) -> Unit): InputTextDialogFactory {
         with(dialog) {
             tvConfirm.setOnClickListener {
-                listener.invoke(edt.text.toString())
-                dismiss()
+                listener.invoke(this, edt.text.toString())
             }
         }
         return this

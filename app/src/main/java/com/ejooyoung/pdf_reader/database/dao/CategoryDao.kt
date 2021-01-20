@@ -16,8 +16,15 @@ interface CategoryDao {
     fun selectAllCategory(): Flowable<List<Category>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCategory(category: Category): Completable
+    fun insertCategory(category: Category)
 
     @Delete
     fun deleteCategory(category: Category): Completable
+
+    @Query(
+        "SELECT CASE WHEN count(${Const.DB_CATEGORY_COLUMN_GUID}) > 0 THEN 1 ELSE 0 END" +
+                " FROM ${Const.DB_CATEGORY_TABLE}" +
+                " WHERE ${Const.DB_CATEGORY_COLUMN_NAME} = :name"
+    )
+    fun containCategory(name: String): Flowable<Boolean>
 }
