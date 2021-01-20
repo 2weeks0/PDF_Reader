@@ -90,7 +90,7 @@
                         android:layout_height="wrap_content"
                         style="@style/titleInPopupDialog"
                         android:text="@string/txt_add_category"
-                        tools:text="카테고리 추가"/>
+                        android:onClick="@{(v) -> viewModel.showInputCategoryDialog(v)}"/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

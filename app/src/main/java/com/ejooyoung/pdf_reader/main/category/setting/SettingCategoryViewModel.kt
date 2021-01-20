@@ -1,8 +1,12 @@
 package com.ejooyoung.pdf_reader.main.category.setting
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.MutableLiveData
+import com.ejooyoung.pdf_reader.R
+import com.ejooyoung.pdf_reader.base.dialog.InputTextDialogFactory
 import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
+import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.main.category.setting.model.SettingCategoryItem
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -38,5 +42,12 @@ class SettingCategoryViewModel private constructor(
                 visibilityOfProgressBar.set(false)
             }
         compositeDisposable.add(disposable)
+    }
+
+    fun showInputCategoryDialog(view: View) {
+        InputTextDialogFactory(view.context)
+            .setTitle(R.string.txt_add_category)
+            .setConfirmClickListener { DevLogger.w("edt: $it") }
+            .show()
     }
 }
