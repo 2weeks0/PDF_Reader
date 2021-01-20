@@ -37,5 +37,8 @@
 
         <activity android:name=".viewer.scrollhandler.grid.GridViewerActivity"
             android:launchMode="singleTop" />
+
+        <activity android:name=".main.category.setting.SettingCategoryActivity"
+            android:launchMode="singleTop" />
     </application>
 </manifest>

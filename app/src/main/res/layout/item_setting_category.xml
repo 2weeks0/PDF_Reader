@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="settingCategoryItem"
+            type="com.ejooyoung.pdf_reader.main.category.setting.model.SettingCategoryItem" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/btnRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:checked="@={settingCategoryItem.selected}"
+            android:visibility="gone"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_hash_tag"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            style="@style/titleInPopupDialog"
+            android:text="@{settingCategoryItem.name}"
+            android:ellipsize="end"
+            android:maxLines="1"
+            tools:text="카테고리"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/baseTextStyle"
+            android:layout_marginStart="15dp"
+            android:text="@{String.valueOf(settingCategoryItem.count)}"
+            tools:text="100"/>
+    </LinearLayout>
+</layout>

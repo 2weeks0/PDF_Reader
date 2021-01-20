@@ -31,7 +31,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentBottom="true"
-                android:src="@drawable/ic_setting"/>
+                android:src="@drawable/ic_setting"
+                android:onClick="@{(v) -> viewModel.startSettingCategoryActivity(v)}"/>
         </RelativeLayout>
 
         <include

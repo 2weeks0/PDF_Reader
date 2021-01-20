@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.database.model.Book
+import com.ejooyoung.pdf_reader.main.category.setting.SettingCategoryActivity
 import com.ejooyoung.pdf_reader.rename.Renamable
 import com.ejooyoung.pdf_reader.rename.RenameActivity
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.ContentsActivity
@@ -39,5 +40,10 @@ fun Fragment.startRenameActivity(titleResId: Int, renamable: Renamable) {
 
 fun Fragment.startViewerSettingActivity() {
     val intent = Intent(requireContext(), ViewerSettingActivity::class.java)
+    startActivity(intent)
+}
+
+fun Fragment.startSettingCategoryActivity() {
+    val intent = Intent(requireContext(), SettingCategoryActivity::class.java)
     startActivity(intent)
 }

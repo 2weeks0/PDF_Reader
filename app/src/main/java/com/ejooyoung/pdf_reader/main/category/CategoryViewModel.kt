@@ -1,7 +1,10 @@
 package com.ejooyoung.pdf_reader.main.category
 
 import android.app.Application
+import android.view.View
+import androidx.fragment.app.findFragment
 import androidx.lifecycle.MutableLiveData
+import com.ejooyoung.pdf_reader.base.ext.startSettingCategoryActivity
 import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
 import com.ejooyoung.pdf_reader.main.category.model.CategoryItem
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -35,5 +38,9 @@ class CategoryViewModel private constructor(
                 visibilityOfProgressBar.set(false)
             }
         compositeDisposable.add(disposable)
+    }
+
+    fun startSettingCategoryActivity(view: View) {
+        view.findFragment<CategoryFragment>().startSettingCategoryActivity()
     }
 }
