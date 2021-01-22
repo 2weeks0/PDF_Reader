@@ -66,4 +66,7 @@
     <string name="txt_edit">편집</string>
     <string name="txt_success_add_category">카테고리가 추가되었습니다.</string>
     <string name="txt_already_has_category">동일한 이름의 카테고리가 있습니다.</string>
+
+    <string name="txt_change_name">이름 변경</string>
+    <string name="txt_delete">삭제</string>
 </resources>

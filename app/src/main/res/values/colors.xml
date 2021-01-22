@@ -5,6 +5,7 @@
     <color name="colorAccent">#03DAC5</color>
 
     <color name="transparent_30">#33000000</color>
+    <color name="light_grey">#888888</color>
 
     <color name="bg_main">#dddddd</color>
     <color name="bg_main_highlight">#b6b6b6</color>
