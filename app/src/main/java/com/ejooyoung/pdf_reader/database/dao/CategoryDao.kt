@@ -16,7 +16,7 @@ interface CategoryDao {
     fun selectAllCategory(): Flowable<List<Category>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCategory(category: Category)
+    fun insertCategory(category: Category): Completable
 
     @Delete
     fun deleteCategory(category: Category): Completable

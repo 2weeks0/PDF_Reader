@@ -37,12 +37,17 @@ class SettingCategoryRepositoryImpl private constructor(
     }
 
     override fun saveCategory(categoryName: String): Flowable<Boolean> {
-        return categoryAndRelationRepository.containCategory(categoryName)
-            .flatMap {
-                if (!it) {
-                    categoryAndRelationRepository.saveCategory(Category.valueOf(categoryName))
-                }
-                return@flatMap Flowable.just(!it)
+        return Flowable.fromCallable {
+            val contain =
+                categoryAndRelationRepository.containCategory(categoryName)
+                    .blockingFirst()
+            return@fromCallable if (!contain) {
+                categoryAndRelationRepository.saveCategory(Category.valueOf(categoryName))
+                    .subscribe()
+                true
+            } else {
+                false
             }
+        }
     }
 }

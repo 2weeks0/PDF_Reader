@@ -31,7 +31,7 @@ class CategoryAndRelationRepositoryImpl private constructor(
         return categoryDao.selectAllCategory()
     }
 
-    override fun saveCategory(category: Category) {
+    override fun saveCategory(category: Category): Completable {
         return categoryDao.insertCategory(category)
     }
 
