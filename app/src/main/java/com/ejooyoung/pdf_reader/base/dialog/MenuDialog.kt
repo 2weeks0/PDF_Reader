@@ -33,9 +33,7 @@ class MenuDialog(
         setupPosAttributes(savedInstanceState)
         setupDialogStyle()
         setupListView()
-        setOnShowListener {
-            setupDialogPosition()
-        }
+        setupDialogPosition()
     }
 
     override fun onSaveInstanceState(): Bundle {
