@@ -34,7 +34,7 @@ class SettingCategoryFragment :
     }
 
     override fun onBindingCreated() {
-        binding.rvCategory.adapter = SettingCategoryAdapter().apply {
+        binding.rvCategory.adapter = SettingCategoryAdapter(viewModel.itemTouchListener).apply {
             setHasStableIds(true)
         }
     }

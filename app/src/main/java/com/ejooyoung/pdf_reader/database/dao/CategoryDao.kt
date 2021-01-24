@@ -22,9 +22,21 @@ interface CategoryDao {
     fun deleteCategory(category: Category): Completable
 
     @Query(
+        "DELETE FROM ${Const.DB_CATEGORY_TABLE}" +
+                " WHERE ${Const.DB_CATEGORY_COLUMN_GUID} = :categoryGuid"
+    )
+    fun deleteCategory(categoryGuid: String)
+
+    @Query(
         "SELECT CASE WHEN count(${Const.DB_CATEGORY_COLUMN_GUID}) > 0 THEN 1 ELSE 0 END" +
                 " FROM ${Const.DB_CATEGORY_TABLE}" +
                 " WHERE ${Const.DB_CATEGORY_COLUMN_NAME} = :name"
     )
     fun containCategory(name: String): Flowable<Boolean>
+
+    @Query(
+        "UPDATE ${Const.DB_CATEGORY_TABLE} SET ${Const.DB_CATEGORY_COLUMN_NAME} = :categoryName" +
+                " WHERE ${Const.DB_CATEGORY_COLUMN_GUID} = :categoryGuid"
+    )
+    fun updateCategory(categoryGuid: String, categoryName: String): Completable
 }

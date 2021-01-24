@@ -10,7 +10,7 @@
         <item>@string/menu_scroll_mode_vertical</item>
     </string-array>
 
-    <string-array name="MENU_CATEGORY">
+    <string-array name="MENU_SETTING_CATEGORY">
         <item>@string/txt_change_name</item>
         <item>@string/txt_delete</item>
     </string-array>

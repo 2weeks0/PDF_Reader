@@ -10,4 +10,6 @@ interface CategoryAndRelationRepository {
     fun deleteCategory(category: Category): Completable
     fun selectCountCategoryRelation(categoryGuid: String): Int
     fun containCategory(categoryName: String): Flowable<Boolean>
+    fun deleteCategoryAndRelationByCategoryGuid(categoryGuid: String): Completable
+    fun updateCategory(categoryGuid: String, categoryName: String): Completable
 }

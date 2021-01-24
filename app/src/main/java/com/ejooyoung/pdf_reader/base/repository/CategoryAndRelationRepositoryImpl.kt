@@ -46,4 +46,15 @@ class CategoryAndRelationRepositoryImpl private constructor(
     override fun containCategory(categoryName: String): Flowable<Boolean> {
         return categoryDao.containCategory(categoryName)
     }
+
+    override fun deleteCategoryAndRelationByCategoryGuid(categoryGuid: String): Completable {
+        return Completable.fromAction {
+            categoryDao.deleteCategory(categoryGuid)
+            categoryRelationDao.deleteCategoryRelationByCategoryGuid(categoryGuid)
+        }
+    }
+
+    override fun updateCategory(categoryGuid: String, categoryName: String): Completable {
+        return categoryDao.updateCategory(categoryGuid, categoryName)
+    }
 }

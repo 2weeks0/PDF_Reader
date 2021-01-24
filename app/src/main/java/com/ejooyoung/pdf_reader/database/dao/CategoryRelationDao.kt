@@ -20,4 +20,9 @@ interface CategoryRelationDao {
 
     @Delete
     fun deleteCategoryRelation(categoryRelation: CategoryRelation): Completable
+
+    @Query(
+        "DELETE FROM ${Const.DB_CATEGORY_RELATION_TABLE} WHERE ${Const.DB_CATEGORY_RELATION_COLUMN_CATEGORY_GUID} = :categoryGuid"
+    )
+    fun deleteCategoryRelationByCategoryGuid(categoryGuid: String)
 }

@@ -40,61 +40,40 @@
                     android:layout_height="wrap_content"
                     style="@style/baseTextStyle"
                     android:layout_toEndOf="@id/ivBack"
+                    android:layout_toStartOf="@id/ivAdd"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
                     android:text="@string/txt_setting_category"/>
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivAdd"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_margin="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@id/tvEdit"
+                    android:onClick="@{(v) -> viewModel.showInputCategoryDialog(v)}"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/ic_add" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvEdit"
+                    style="@style/baseTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/baseTextStyle"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    android:text="@string/txt_edit"/>
+                    android:layout_centerVertical="true"
+                    android:text="@string/txt_edit" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nsv"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCategory"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvCategory"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:overScrollMode="never"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_setting_category"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_add"/>
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/titleInPopupDialog"
-                        android:text="@string/txt_add_category"
-                        android:onClick="@{(v) -> viewModel.showInputCategoryDialog(v)}"/>
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-
-
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_setting_category"/>
     </LinearLayout>
 </layout>
