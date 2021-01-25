@@ -3,6 +3,7 @@ package com.ejooyoung.pdf_reader.main.category.setting
 import android.app.Application
 import android.app.Dialog
 import android.view.View
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.base.dialog.InputTextDialogFactory
@@ -21,6 +22,7 @@ class SettingCategoryViewModel private constructor(
 
     val itemList = MutableLiveData<List<SettingCategoryItem>>()
     val itemTouchListener = ItemTouchListener.newInstance(this)
+    val editMode = ObservableBoolean(false)
 
     companion object {
         fun newInstance(
@@ -104,5 +106,12 @@ class SettingCategoryViewModel private constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe()
         compositeDisposable.add(disposable)
+    }
+
+    override fun onStartEditMode() {
+        itemList.value?.let {
+            it.asSequence().forEach { item -> item.editMode.set(true) }
+            editMode.set(true)
+        }
     }
 }

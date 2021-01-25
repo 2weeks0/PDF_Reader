@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="settingCategoryItem"
             type="com.ejooyoung.pdf_reader.main.category.setting.model.SettingCategoryItem" />
@@ -15,15 +16,16 @@
         android:orientation="horizontal"
         android:background="?attr/selectableItemBackground"
         android:paddingTop="5dp"
-        android:paddingBottom="5dp">
+        android:paddingBottom="5dp"
+        android:animateLayoutChanges="true">
 
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/btnRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:gravity="center"
             android:checked="@={settingCategoryItem.selected}"
-            android:visibility="gone"/>
+            android:visibility="@{settingCategoryItem.editMode ? View.VISIBLE : View.GONE}"/>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"

@@ -21,6 +21,7 @@ class ItemTouchListener private constructor(
     }
 
     override fun onTouch(view: View, item: SettingCategoryItem, event: MotionEvent) {
+        DevLogger.i("event: ${event.action}")
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 view.isPressed = true
@@ -29,16 +30,17 @@ class ItemTouchListener private constructor(
             MotionEvent.ACTION_UP -> {
                 view.isPressed = false
                 if (System.currentTimeMillis() - timeActionDown >= ViewConfiguration.getLongPressTimeout()) {
-                    onLongClick(view)
-                } else {
+                    onLongClick()
+                }
+                else {
                     onClick(view, item, event)
                 }
             }
         }
     }
 
-    private fun onLongClick(view: View) {
-        DevLogger.d()
+    private fun onLongClick() {
+        menuDialogItemClickListener.onStartEditMode()
     }
 
     private fun onClick(view: View, item: SettingCategoryItem, event: MotionEvent) {
