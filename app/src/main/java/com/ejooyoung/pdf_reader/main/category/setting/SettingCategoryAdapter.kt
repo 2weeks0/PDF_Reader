@@ -27,9 +27,10 @@ class SettingCategoryAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.binding as ItemSettingCategoryBinding) {
             settingCategoryItem = itemList[position]
+            onTouchCategoryListener = this@SettingCategoryAdapter.itemTouchListener
             layItem.setOnTouchListener { view: View, event: MotionEvent ->
                 itemTouchListener.onTouch(view, itemList[position], event)
-                return@setOnTouchListener true
+                return@setOnTouchListener false
             }
         }
     }

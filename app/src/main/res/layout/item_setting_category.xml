@@ -7,6 +7,9 @@
         <variable
             name="settingCategoryItem"
             type="com.ejooyoung.pdf_reader.main.category.setting.model.SettingCategoryItem" />
+        <variable
+            name="onTouchCategoryListener"
+            type="com.ejooyoung.pdf_reader.main.category.setting.listener.OnTouchCategoryListener" />
     </data>
 
     <LinearLayout
@@ -17,7 +20,9 @@
         android:background="?attr/selectableItemBackground"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:animateLayoutChanges="true">
+        android:animateLayoutChanges="true"
+        android:onClick="@{(v) -> onTouchCategoryListener.onClick(v, btnRadio)}"
+        android:onLongClick="@{(v) -> onTouchCategoryListener.onLongClick(v)}">
 
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/btnRadio"
