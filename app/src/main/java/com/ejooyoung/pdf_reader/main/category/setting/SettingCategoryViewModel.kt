@@ -4,6 +4,7 @@ import android.app.Application
 import android.app.Dialog
 import android.view.View
 import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.base.dialog.InputTextDialogFactory
@@ -21,7 +22,8 @@ class SettingCategoryViewModel private constructor(
 ) : BaseAndroidViewModel(application), MenuDialogItemClickListener {
 
     val itemList = MutableLiveData<List<SettingCategoryItem>>()
-    val itemTouchListener = ItemTouchListener.newInstance(this)
+    val checkedItemCount = ObservableInt(-1)
+    val itemTouchListener = ItemTouchListener.newInstance(this, checkedItemCount)
     val editMode = ObservableBoolean(false)
 
     companion object {
@@ -46,6 +48,7 @@ class SettingCategoryViewModel private constructor(
             .subscribe {
                 itemList.value = it
                 visibilityOfProgressBar.set(false)
+                checkedItemCount.set(0)
             }
         compositeDisposable.add(disposable)
     }
@@ -78,6 +81,7 @@ class SettingCategoryViewModel private constructor(
     override fun onChangeName(view: View, item: SettingCategoryItem) {
         InputTextDialogFactory(view.context)
             .setTitle(R.string.txt_change_category_name)
+            .setInitialText(item.name)
             .setConfirmClickListener { dialog: Dialog, name: String ->
                 changeName(dialog, item.guid, name)
             }
@@ -113,5 +117,41 @@ class SettingCategoryViewModel private constructor(
             it.asSequence().forEach { item -> item.editMode.set(true) }
             editMode.set(true)
         }
+    }
+
+    fun onBackPressed(): Boolean {
+        if (editMode.get()) {
+            finishEditMode()
+            return true
+        }
+        return false
+    }
+
+    private fun finishEditMode() {
+        itemList.value!!.asSequence().forEach { item ->
+            item.editMode.set(false)
+            item.selected.set(false)
+        }
+        editMode.set(false)
+        checkedItemCount.set(0)
+    }
+
+    fun onClickCheckAll() {
+        val checkedAll = checkedItemCount.get() == itemList.value!!.size
+        itemList.value!!.forEach { it.selected.set(!checkedAll) }
+        checkedItemCount.set(itemList.value!!.count { it.selected.get() })
+    }
+
+    fun changeSelectedItemName(view: View) {
+        itemList.value?.asSequence()
+            ?.find { it.selected.get() }
+            ?.let { onChangeName(view, it) }
+    }
+
+    fun deleteSelectedItem(view: View) {
+        itemList.value?.asSequence()
+            ?.filter { it.selected.get() }
+            ?.toList()
+            ?.forEach { onDeleteItem(view, it) }
     }
 }

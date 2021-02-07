@@ -3,14 +3,16 @@ package com.ejooyoung.pdf_reader.main.category.setting.listener
 import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
 import android.view.View
-import android.widget.RadioButton
+import android.widget.CheckedTextView
+import androidx.databinding.ObservableInt
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.base.dialog.MenuDialog
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.main.category.setting.model.SettingCategoryItem
 
 class ItemTouchListener private constructor(
-    private val menuDialogItemClickListener: MenuDialogItemClickListener
+    private val menuDialogItemClickListener: MenuDialogItemClickListener,
+    private val checkedItemCount: ObservableInt
 ) : OnTouchCategoryListener {
 
     private lateinit var item: SettingCategoryItem
@@ -18,8 +20,11 @@ class ItemTouchListener private constructor(
     private var touchPosY = 0f
 
     companion object {
-        fun newInstance(menuDialogItemClickListener: MenuDialogItemClickListener): ItemTouchListener {
-            return ItemTouchListener(menuDialogItemClickListener)
+        fun newInstance(
+            menuDialogItemClickListener: MenuDialogItemClickListener,
+            checkItemCount: ObservableInt
+        ): ItemTouchListener {
+            return ItemTouchListener(menuDialogItemClickListener, checkItemCount)
         }
     }
 
@@ -29,10 +34,11 @@ class ItemTouchListener private constructor(
         this.item = item
     }
 
-    override fun onClick(view: View, btnRadio: RadioButton) {
+    override fun onClick(view: View, btnCheck: CheckedTextView) {
         DevLogger.d()
         if (item.editMode.get()) {
-            btnRadio.performClick()
+            btnCheck.performClick()
+            checkedItemCount.set(checkedItemCount.get() + if (btnCheck.isChecked) -1 else 1)
         }
         else {
             showMenuDialog(view)
@@ -57,6 +63,7 @@ class ItemTouchListener private constructor(
         if (!item.editMode.get()) {
             view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING)
             menuDialogItemClickListener.onStartEditMode()
+            view.performClick()
         }
         return true
     }

@@ -22,6 +22,14 @@ class InputTextDialogFactory(
         return this
     }
 
+    fun setInitialText(string: String): InputTextDialogFactory {
+        with(dialog.edt) {
+            setText(string)
+            setSelection(string.length)
+        }
+        return this
+    }
+
     fun setConfirmClickListener(listener: (dialog: Dialog, string: String) -> Unit): InputTextDialogFactory {
         with(dialog) {
             tvConfirm.setOnClickListener {

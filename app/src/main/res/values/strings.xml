@@ -71,4 +71,6 @@
     <string name="txt_change_name">이름 변경</string>
     <string name="txt_delete">삭제</string>
     <string name="txt_change_category_name">카테고리 이름 변경</string>
+    <string name="txt_all">전체</string>
+    <string name="txt_show_selected">%d개 선택됨</string>
 </resources>

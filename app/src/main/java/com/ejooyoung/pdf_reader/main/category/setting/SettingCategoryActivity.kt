@@ -9,6 +9,7 @@ import com.ejooyoung.pdf_reader.databinding.ActivitySettingCategoryBinding
 class SettingCategoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingCategoryBinding
+    private lateinit var settingCategoryFragment: SettingCategoryFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +22,16 @@ class SettingCategoryActivity : AppCompatActivity() {
     }
 
     private fun setupFragment() {
+        settingCategoryFragment = SettingCategoryFragment.newInstance()
         supportFragmentManager.beginTransaction()
-            .add(R.id.layRoot, SettingCategoryFragment.newInstance())
+            .add(R.id.layRoot, settingCategoryFragment)
             .commit()
+    }
+
+    override fun onBackPressed() {
+        if (settingCategoryFragment.onBackPressed()) {
+            return
+        }
+        super.onBackPressed()
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="android.view.View"/>
@@ -15,22 +16,30 @@
     <LinearLayout
         android:id="@+id/layItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:background="?attr/selectableItemBackground"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:animateLayoutChanges="true"
-        android:onClick="@{(v) -> onTouchCategoryListener.onClick(v, btnRadio)}"
+        android:onClick="@{(v) -> onTouchCategoryListener.onClick(v, btnChk)}"
         android:onLongClick="@{(v) -> onTouchCategoryListener.onLongClick(v)}">
 
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/btnRadio"
+        <CheckedTextView
+            android:id="@+id/btnChk"
+            android:drawableStart="@drawable/ic_round_check_box"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:checked="@={settingCategoryItem.selected}"
-            android:visibility="@{settingCategoryItem.editMode ? View.VISIBLE : View.GONE}"/>
+            android:layout_height="match_parent"
+            android:paddingStart="15dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="10dp"
+            android:visibility="@{settingCategoryItem.editMode ? View.VISIBLE : View.GONE}"
+            android:clickable="true"
+            android:focusable="true"
+            android:checked="@{settingCategoryItem.selected}"
+            android:onClick="@{() -> settingCategoryItem.setSelected(!settingCategoryItem.selected)}"/>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
@@ -40,7 +49,8 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             style="@style/titleInPopupDialog"
             android:text="@{settingCategoryItem.name}"
             android:ellipsize="end"
@@ -49,10 +59,18 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             style="@style/baseTextStyle"
-            android:layout_marginStart="15dp"
+            android:padding="10dp"
             android:text="@{String.valueOf(settingCategoryItem.count)}"
             tools:text="100"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivHandle"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:padding="15dp"
+            android:src="@drawable/ic_arrow_handle"/>
     </LinearLayout>
 </layout>
