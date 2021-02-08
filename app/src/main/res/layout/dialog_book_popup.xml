@@ -35,16 +35,16 @@
             style="@style/textInPopupDialog"
             android:text="@string/txt_renaming_book"
             android:background="?attr/selectableItemBackground"
-            android:onClick="@{(v) -> dialog.onClickHandler(v)}"/>
+            android:onClick="@{() -> dialog.showRenameDialog()}"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvBookmark"
+            android:id="@+id/tvFavorite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/textInPopupDialog"
-            android:text="@string/txt_bookmark_book"
+            android:text="@{dialog.book.favorite ? @string/txt_delete_favorite : @string/txt_add_favorite}"
             android:background="?attr/selectableItemBackground"
-            android:onClick="@{(v) -> dialog.onClickHandler(v)}" />
+            android:onClick="@{() -> dialog.updateFavorite()}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvDelete"
@@ -53,6 +53,6 @@
             style="@style/textInPopupDialog"
             android:text="@string/txt_delete_book"
             android:background="?attr/selectableItemBackground"
-            android:onClick="@{(v) -> dialog.onClickHandler(v)}"/>
+            android:onClick="@{() -> dialog.deleteBook()}"/>
     </LinearLayout>
 </layout>

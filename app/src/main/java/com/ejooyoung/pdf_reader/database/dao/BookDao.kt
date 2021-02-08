@@ -13,6 +13,10 @@ interface BookDao {
     @Query("SELECT * FROM ${Const.DB_BOOK_TABLE}")
     fun selectAllBooks(): Flowable<List<Book>>
 
+    @Query("SELECT * FROM ${Const.DB_BOOK_TABLE}" +
+            " WHERE ${Const.DB_BOOK_COLUMN_FAVORITE} = 1")
+    fun selectFavoriteBooks(): Flowable<List<Book>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertBooks(vararg book: Book): Completable
 

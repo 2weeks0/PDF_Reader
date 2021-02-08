@@ -4,11 +4,11 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.base.repository.BookRepository
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
-import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.databinding.DialogBookPopupBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -17,7 +17,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class BookPopupDialog private constructor(
     val book: Book,
     private val bookRepository: BookRepository
-): AppCompatDialogFragment() {
+) : AppCompatDialogFragment() {
 
     private lateinit var binding: DialogBookPopupBinding
 
@@ -32,7 +32,6 @@ class BookPopupDialog private constructor(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        DevLogger.i()
         dialog?.window?.let {
             it.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             it.requestFeature(Window.FEATURE_NO_TITLE)
@@ -45,24 +44,38 @@ class BookPopupDialog private constructor(
         return view
     }
 
-    fun onClickHandler(view: View) {
-        when (view.id) {
-            R.id.tvRenaming -> RenameDialog.newInstance(
-                book,
-                BookRepositoryImpl.getInstance(requireActivity().application)
-            )
-                .show(requireActivity().supportFragmentManager, null)
-            R.id.tvBookmark -> DevLogger.i()
-            R.id.tvDelete -> bookRepository.deleteBooks(book)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
-        }
+    fun showRenameDialog() {
+        RenameDialog.newInstance(
+            book,
+            BookRepositoryImpl.getInstance(requireActivity().application)
+        )
+            .show(requireActivity().supportFragmentManager, null)
         dismiss()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        DevLogger.i()
+    fun updateFavorite() {
+        book.favorite = !book.favorite
+        bookRepository.updateBook(book)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                val stringId =
+                    if (book.favorite) R.string.txt_success_add_favorite
+                    else R.string.txt_success_delete_favorite
+                Toast.makeText(requireContext(), stringId, Toast.LENGTH_SHORT)
+                    .show()
+            }
+        dismiss()
+    }
+
+    fun deleteBook() {
+        bookRepository.deleteBooks(book)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                Toast.makeText(requireContext(), R.string.txt_success_delete_book, Toast.LENGTH_SHORT)
+                    .show()
+            }
+        dismiss()
     }
 }

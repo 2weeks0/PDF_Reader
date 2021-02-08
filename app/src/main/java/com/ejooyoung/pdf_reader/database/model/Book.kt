@@ -26,7 +26,9 @@ data class Book(
     @ColumnInfo(name = Const.DB_BOOK_COLUMN_CURRENT_PAGE)
     var currentPage: Int = 0,
     @ColumnInfo(name = Const.DB_BOOK_COLUMN_READ_TIME)
-    var readTime: String = DateUtils.getCurrentTimeToDate()
+    var readTime: String = DateUtils.getCurrentTimeToDate(),
+    @ColumnInfo(name = Const.DB_BOOK_COLUMN_FAVORITE)
+    var favorite: Boolean = false
 ) : Parcelable {
     companion object {
         fun valueOf(

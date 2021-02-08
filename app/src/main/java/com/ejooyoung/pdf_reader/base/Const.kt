@@ -13,6 +13,7 @@ object Const {
     const val DB_BOOK_COLUMN_LAST_PAGE = "lastPage"
     const val DB_BOOK_COLUMN_CURRENT_PAGE = "currentPage"
     const val DB_BOOK_COLUMN_READ_TIME = "readTime"
+    const val DB_BOOK_COLUMN_FAVORITE = "favorite"
 
     const val DB_THUMBNAIL_TABLE = "Thumbnail"
     const val DB_THUMBNAIL_COLUMN_GUID = "guid"

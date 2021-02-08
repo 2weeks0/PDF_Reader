@@ -25,7 +25,12 @@ class BookRepositoryImpl private constructor(
 
     override fun selectAllBooks(): Flowable<List<Book>> {
         return bookDao.selectAllBooks()
-            .onErrorReturnItem(emptyList())!!
+            .onErrorReturnItem(emptyList())
+    }
+
+    override fun selectFavoriteBooks(): Flowable<List<Book>> {
+        return bookDao.selectFavoriteBooks()
+            .onErrorReturnItem(emptyList())
     }
 
     override fun selectBook(fileName: String, uri: String): Maybe<Book?> {
@@ -35,16 +40,16 @@ class BookRepositoryImpl private constructor(
 
     override fun insertBooks(vararg book: Book): Completable {
         return bookDao.insertBooks(*book)
-            .onErrorComplete()!!
+            .onErrorComplete()
     }
 
     override fun deleteBooks(vararg book: Book): Completable {
         return bookDao.deleteBooks(*book)
-            .onErrorComplete()!!
+            .onErrorComplete()
     }
 
     override fun updateBook(book: Book): Completable {
         return bookDao.updateBook(book)
-            .onErrorComplete()!!
+            .onErrorComplete()
     }
 }
