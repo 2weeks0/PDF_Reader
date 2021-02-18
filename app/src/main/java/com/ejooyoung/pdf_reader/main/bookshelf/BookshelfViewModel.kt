@@ -9,8 +9,10 @@ import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 import com.ejooyoung.pdf_reader.base.dialog.BookPopupDialog
 import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
+import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.main.bookshelf.listener.OnClickBookListener
 import com.ejooyoung.pdf_reader.database.model.Book
+import com.ejooyoung.pdf_reader.main.model.CurrentCategory
 import com.ejooyoung.pdf_reader.viewer.ViewerActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -26,18 +28,19 @@ class BookshelfViewModel private constructor(
         fun newInstance(
             application: Application,
             repository: BookshelfRepository
-        ) = BookshelfViewModel(application, repository)
+        ): BookshelfViewModel {
+            return BookshelfViewModel(application, repository)
+        }
     }
 
-    init {
-        loadBookList()
-    }
-
-    private fun loadBookList() {
-        val disposable = repository.loadBookList()
+    fun loadBookList(currentCategory: CurrentCategory) {
+        DevLogger.i()
+        DevLogger.d("currentCategory: $currentCategory")
+        val disposable = repository.loadBookList(currentCategory)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
+                DevLogger.i()
                 bookList.value = it
             }
         compositeDisposable.add(disposable)

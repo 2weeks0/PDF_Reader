@@ -49,8 +49,8 @@ class ViewerViewModel private constructor(
         ) = ViewerViewModel(application, viewerRepository, book)
     }
 
-    override fun onCreateView() {
-        super.onCreateView()
+    override fun onCreate() {
+        super.onCreate()
         updateReadTime()
         pdfManager.openPdfDocument(getApplication(), book)
     }

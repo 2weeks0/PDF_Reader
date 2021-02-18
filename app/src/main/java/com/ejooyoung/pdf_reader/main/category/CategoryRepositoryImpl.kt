@@ -25,13 +25,11 @@ class CategoryRepositoryImpl private constructor(
     }
 
     override fun loadCountOfAllBook(): Flowable<Int> {
-        return bookRepository.selectAllBooks()
-            .flatMap { Flowable.fromCallable { it.count() } }
+        return Flowable.fromCallable { bookRepository.selectAllBooks().count() }
     }
 
     override fun loadCountOfFavoriteBook(): Flowable<Int> {
-        return bookRepository.selectFavoriteBooks()
-            .flatMap { Flowable.fromCallable { it.count() } }
+        return Flowable.fromCallable { bookRepository.selectFavoriteBooks().count() }
     }
 
     override fun loadCategoryItem(): Flowable<List<CategoryItem>> {
@@ -41,7 +39,7 @@ class CategoryRepositoryImpl private constructor(
                     it.asSequence()
                         .map {
                             CategoryItem(
-                                it.guid.hashCode().toLong(),
+                                it.guid,
                                 it.name,
                                 categoryAndRelationRepository.selectCountCategoryRelation(it.guid)
                             )

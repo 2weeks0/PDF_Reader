@@ -5,9 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ejooyoung.pdf_reader.base.widget.ViewHolder
 import com.ejooyoung.pdf_reader.databinding.ItemCategoryBinding
+import com.ejooyoung.pdf_reader.main.category.listener.OnClickCategoryListener
 import com.ejooyoung.pdf_reader.main.category.model.CategoryItem
 
-class CategoryAdapter : RecyclerView.Adapter<ViewHolder>() {
+class CategoryAdapter(
+    private val onClickCategoryListener: OnClickCategoryListener
+) : RecyclerView.Adapter<ViewHolder>() {
 
     private val itemList = arrayListOf<CategoryItem>()
 
@@ -20,6 +23,7 @@ class CategoryAdapter : RecyclerView.Adapter<ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.binding as ItemCategoryBinding) {
             categoryItem = itemList[position]
+            onClickCategoryListener = this@CategoryAdapter.onClickCategoryListener
         }
     }
 
@@ -28,7 +32,7 @@ class CategoryAdapter : RecyclerView.Adapter<ViewHolder>() {
     }
 
     override fun getItemId(position: Int): Long {
-        return itemList[position].id
+        return itemList[position].guid.hashCode().toLong()
     }
 
     fun setItem(itemList: List<CategoryItem>) {

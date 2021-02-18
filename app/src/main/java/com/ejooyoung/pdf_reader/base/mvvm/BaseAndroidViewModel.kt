@@ -14,7 +14,7 @@ open class BaseAndroidViewModel(
     protected val compositeDisposable = CompositeDisposable()
     protected var loadDisposable: Disposable? = null
 
-    open fun onCreateView() {
+    open fun onCreate() {
 
     }
 

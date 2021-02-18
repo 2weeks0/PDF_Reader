@@ -35,8 +35,8 @@ class SettingCategoryViewModel private constructor(
         }
     }
 
-    override fun onCreateView() {
-        super.onCreateView()
+    override fun onCreate() {
+        super.onCreate()
         loadCategory()
     }
 

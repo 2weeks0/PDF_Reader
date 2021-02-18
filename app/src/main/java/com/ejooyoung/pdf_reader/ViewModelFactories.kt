@@ -5,6 +5,7 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
+import com.ejooyoung.pdf_reader.application.MainApplication
 import com.ejooyoung.pdf_reader.main.bookshelf.BookshelfViewModel
 import com.ejooyoung.pdf_reader.main.MainViewModel
 import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
@@ -12,6 +13,7 @@ import com.ejooyoung.pdf_reader.base.repository.BookmarkRepositoryImpl
 import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepository
 import com.ejooyoung.pdf_reader.main.bookshelf.BookshelfRepositoryImpl
 import com.ejooyoung.pdf_reader.database.model.Book
+import com.ejooyoung.pdf_reader.main.MainRepositoryImpl
 import com.ejooyoung.pdf_reader.main.category.CategoryRepositoryImpl
 import com.ejooyoung.pdf_reader.main.category.CategoryViewModel
 import com.ejooyoung.pdf_reader.main.category.setting.SettingCategoryRepository
@@ -53,7 +55,7 @@ class ViewModelFactories private constructor(
                 BookshelfViewModel.newInstance(application, BookshelfRepositoryImpl.newInstance(application))
 
             isAssignableFrom(MainViewModel::class.java) ->
-                MainViewModel.newInstance(application, BookRepositoryImpl.getInstance(application))
+                MainViewModel.newInstance(application, MainRepositoryImpl.newInstance(application as MainApplication))
 
             isAssignableFrom(ViewerViewModel::class.java) ->
                 ViewerViewModel.newInstance(application, ViewerRepositoryImpl.newInstance(application), arg as Book)

@@ -23,6 +23,7 @@ class CategoryFragment : BaseFragment<CategoryViewModel, FragmentCategoryBinding
     override fun setupDataBinding(inflater: LayoutInflater, container: ViewGroup?) {
         binding = FragmentCategoryBinding.inflate(inflater, container, false).apply {
             viewModel = this@CategoryFragment.viewModel
+            onClickCategoryListener = this@CategoryFragment.viewModel
         }
     }
 
@@ -33,7 +34,7 @@ class CategoryFragment : BaseFragment<CategoryViewModel, FragmentCategoryBinding
     }
 
     override fun onBindingCreated() {
-        binding.rvCategory.adapter = CategoryAdapter().apply {
+        binding.rvCategory.adapter = CategoryAdapter(viewModel).apply {
             setHasStableIds(true)
         }
     }

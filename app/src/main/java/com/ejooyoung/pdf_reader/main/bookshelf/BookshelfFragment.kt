@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.base.mvvm.BaseFragment
 import com.ejooyoung.pdf_reader.databinding.FragmentBookshelfBinding
+import com.ejooyoung.pdf_reader.main.CurrentCategoryOwner
 
 class BookshelfFragment : BaseFragment<BookshelfViewModel, FragmentBookshelfBinding>() {
 
@@ -30,6 +31,9 @@ class BookshelfFragment : BaseFragment<BookshelfViewModel, FragmentBookshelfBind
     override fun setupObserver() {
         viewModel.bookList.observe(viewLifecycleOwner, Observer {
             bookshelfAdapter.setItem(it)
+        })
+        (requireActivity() as? CurrentCategoryOwner)?.getCurrentCategory()?.observe(viewLifecycleOwner, Observer {
+            viewModel.loadBookList(it)
         })
     }
 

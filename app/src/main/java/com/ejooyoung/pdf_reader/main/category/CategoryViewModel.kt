@@ -8,27 +8,35 @@ import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.base.ext.startSettingCategoryActivity
 import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
+import com.ejooyoung.pdf_reader.main.CurrentCategoryOwner
+import com.ejooyoung.pdf_reader.main.MainActivity
+import com.ejooyoung.pdf_reader.main.category.listener.OnClickCategoryListener
 import com.ejooyoung.pdf_reader.main.category.model.CategoryItem
+import com.ejooyoung.pdf_reader.main.model.CurrentCategory
+import com.ejooyoung.pdf_reader.main.model.CurrentCategoryType
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class CategoryViewModel private constructor(
     application: Application,
     private val repository: CategoryRepository
-) : BaseAndroidViewModel(application) {
+) : BaseAndroidViewModel(application), OnClickCategoryListener {
 
     val itemList = MutableLiveData<List<CategoryItem>>()
     val countOfAllBook = ObservableInt()
     val countOfFavoriteBooks = ObservableInt()
 
     companion object {
-        fun newInstance(application: Application, repository: CategoryRepository): CategoryViewModel {
+        fun newInstance(
+            application: Application,
+            repository: CategoryRepository
+        ): CategoryViewModel {
             return CategoryViewModel(application, repository)
         }
     }
 
-    override fun onCreateView() {
-        super.onCreateView()
+    override fun onCreate() {
+        super.onCreate()
         loadCategory()
         loadCountOfAllBook()
         loadCountOfFavoriteBooks()
@@ -64,6 +72,12 @@ class CategoryViewModel private constructor(
                 countOfFavoriteBooks.set(it)
             }
         compositeDisposable.add(disposable)
+    }
+
+    override fun onClickCategory(view: View, currentCategory: CurrentCategory) {
+        DevLogger.i()
+        (view.context as? CurrentCategoryOwner)?.getCurrentCategory()?.value = currentCategory
+        (view.context as? MainActivity)?.closePanels()
     }
 
     fun startSettingCategoryActivity(view: View) {

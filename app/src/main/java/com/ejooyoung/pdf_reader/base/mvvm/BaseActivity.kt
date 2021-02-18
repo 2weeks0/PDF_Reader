@@ -15,6 +15,7 @@ abstract class BaseActivity<A: BaseAndroidViewModel, B: ViewDataBinding> : AppCo
         setupDataBinding()
         setupObserver()
         onBindingCreated()
+        viewModel.onCreate()
     }
 
     override fun onResume() {
@@ -25,6 +26,11 @@ abstract class BaseActivity<A: BaseAndroidViewModel, B: ViewDataBinding> : AppCo
     override fun onPause() {
         super.onPause()
         viewModel.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.onDestroy()
     }
 
     protected abstract fun setupViewModel()

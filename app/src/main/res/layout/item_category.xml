@@ -6,14 +6,19 @@
         <variable
             name="categoryItem"
             type="com.ejooyoung.pdf_reader.main.category.model.CategoryItem" />
+        <variable
+            name="onClickCategoryListener"
+            type="com.ejooyoung.pdf_reader.main.category.listener.OnClickCategoryListener" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
         android:orientation="horizontal"
         android:paddingTop="5dp"
-        android:paddingBottom="5dp">
+        android:paddingBottom="5dp"
+        android:onClick="@{(v) -> onClickCategoryListener.onClickCategory(v, categoryItem.toCurrentCategory())}">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"

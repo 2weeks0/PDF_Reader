@@ -66,4 +66,28 @@ class MainApplication : Application() {
                 if (touchZone.isRightActionNextPage.get()) 1 else 0)
             .apply()
     }
+
+    fun putPreference(key: String, value: String) {
+        PreferenceManager.getDefaultSharedPreferences(this)
+            .edit()
+            .putString(key, value)
+            .apply()
+    }
+
+    fun getPreference(key: String, defValue: String): String {
+        return PreferenceManager.getDefaultSharedPreferences(this)
+            .getString(key, defValue)?: defValue
+    }
+
+    fun putPreference(key: String, value: Int) {
+        PreferenceManager.getDefaultSharedPreferences(this)
+            .edit()
+            .putInt(key, value)
+            .apply()
+    }
+
+    fun getPreference(key: String, defValue: Int): Int {
+        return PreferenceManager.getDefaultSharedPreferences(this)
+            .getInt(key, defValue)
+    }
 }

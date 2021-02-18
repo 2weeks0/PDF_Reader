@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.amitshekhar.DebugDB
 import com.discord.panels.OverlappingPanelsLayout
 import com.ejooyoung.pdf_reader.base.Const
@@ -15,8 +17,10 @@ import com.ejooyoung.pdf_reader.base.mvvm.BaseActivity
 import com.ejooyoung.pdf_reader.main.bookshelf.BookshelfFragment
 import com.ejooyoung.pdf_reader.databinding.ActivityMainBinding
 import com.ejooyoung.pdf_reader.main.category.CategoryFragment
+import com.ejooyoung.pdf_reader.main.model.CurrentCategory
+import com.ejooyoung.pdf_reader.main.model.CurrentCategoryType
 
-class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
+class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(), CurrentCategoryOwner {
 
     override fun onResume() {
         super.onResume()
@@ -36,7 +40,13 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     override fun setupObserver() {
-
+        viewModel.currentCategory.observe(this, Observer {
+            binding.tvTitle.text = when (it.type) {
+                CurrentCategoryType.ALL -> getString(R.string.menu_view_all)
+                CurrentCategoryType.FAVORITE -> getString(R.string.menu_view_bookmark)
+                else -> it.name
+            }
+        })
     }
 
     override fun onBindingCreated() {
@@ -74,5 +84,13 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             return
         }
         super.onBackPressed()
+    }
+
+    override fun getCurrentCategory(): MutableLiveData<CurrentCategory> {
+        return viewModel.currentCategory
+    }
+
+    fun closePanels() {
+        binding.layOverlapping.closePanels()
     }
 }

@@ -5,7 +5,6 @@ import com.ejooyoung.pdf_reader.database.dao.BookDao
 import com.ejooyoung.pdf_reader.database.DatabaseProvider
 import com.ejooyoung.pdf_reader.database.model.Book
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Maybe
 
 class BookRepositoryImpl private constructor(
@@ -23,14 +22,12 @@ class BookRepositoryImpl private constructor(
         }
     }
 
-    override fun selectAllBooks(): Flowable<List<Book>> {
+    override fun selectAllBooks(): List<Book> {
         return bookDao.selectAllBooks()
-            .onErrorReturnItem(emptyList())
     }
 
-    override fun selectFavoriteBooks(): Flowable<List<Book>> {
+    override fun selectFavoriteBooks(): List<Book> {
         return bookDao.selectFavoriteBooks()
-            .onErrorReturnItem(emptyList())
     }
 
     override fun selectBook(fileName: String, uri: String): Maybe<Book?> {
