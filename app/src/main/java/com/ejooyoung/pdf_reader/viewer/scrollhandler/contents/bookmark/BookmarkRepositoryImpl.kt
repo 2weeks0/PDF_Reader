@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.base.repository
+package com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.bookmark
 
 import android.content.Context
 import com.ejooyoung.pdf_reader.database.DatabaseProvider

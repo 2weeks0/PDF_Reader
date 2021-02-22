@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.dialog.BookmarkPopupDialog
-import com.ejooyoung.pdf_reader.base.repository.BookmarkRepositoryImpl
 import com.ejooyoung.pdf_reader.databinding.FragmentContentsBinding
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Bookmark
@@ -69,10 +68,7 @@ class ContentsFragment : Fragment() {
 
                     override fun onLongClickContents(contents: Contents): Boolean {
                         if (contents is Bookmark) {
-                            BookmarkPopupDialog.newInstance(
-                                contents,
-                                BookmarkRepositoryImpl.getInstance(requireContext())
-                            )
+                            BookmarkPopupDialog.newInstance(requireContext(), contents)
                                 .show(childFragmentManager, null)
                         }
                         return true

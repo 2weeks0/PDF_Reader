@@ -5,9 +5,9 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import com.ejooyoung.pdf_reader.application.MainApplication
+import com.ejooyoung.pdf_reader.database.DatabaseProvider
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Thumbnail
-import com.ejooyoung.pdf_reader.base.repository.ThumbnailRepositoryImpl
 import com.ejooyoung.pdf_reader.viewer.manager.PDFManager
 import com.shockwave.pdfium.PdfiumCore
 import java.io.File
@@ -23,7 +23,7 @@ object ThumbnailUtils {
         val dirPath = application.getThumbDir()
         val thumbnail = Thumbnail.valueOf(dirPath, book.guid)
         saveImage(thumbnail.getAbsolutePath(), bmp)
-        ThumbnailRepositoryImpl.getInstance(application).insertThumbnails(thumbnail).subscribe()
+        DatabaseProvider.provideThumbnailSource(application).insertThumbnails(thumbnail).subscribe()
         return thumbnail
     }
 

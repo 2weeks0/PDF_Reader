@@ -12,7 +12,6 @@ import android.widget.SeekBar
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
-import com.ejooyoung.pdf_reader.BindingAdapter
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.application.preference.ViewerPreference.*
@@ -21,7 +20,6 @@ import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.mvvm.BaseFragment
 import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
-import com.ejooyoung.pdf_reader.base.utils.UnitUtils
 import com.ejooyoung.pdf_reader.databinding.FragmentViewerBinding
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Bookmark

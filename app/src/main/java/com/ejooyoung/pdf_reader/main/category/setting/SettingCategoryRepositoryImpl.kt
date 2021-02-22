@@ -1,27 +1,30 @@
 package com.ejooyoung.pdf_reader.main.category.setting
 
 import android.app.Application
-import com.ejooyoung.pdf_reader.base.repository.CategoryAndRelationRepositoryImpl
+import com.ejooyoung.pdf_reader.database.DatabaseProvider
+import com.ejooyoung.pdf_reader.database.dao.CategoryDao
+import com.ejooyoung.pdf_reader.database.dao.CategoryRelationDao
 import com.ejooyoung.pdf_reader.database.model.Category
 import com.ejooyoung.pdf_reader.main.category.setting.model.SettingCategoryItem
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 
 class SettingCategoryRepositoryImpl private constructor(
-    application: Application
+    private val categoryDao: CategoryDao,
+    private val categoryRelationDao: CategoryRelationDao
 ) : SettingCategoryRepository {
-
-    private val categoryAndRelationRepository =
-        CategoryAndRelationRepositoryImpl.getInstance(application)
 
     companion object {
         fun newInstance(application: Application): SettingCategoryRepository {
-            return SettingCategoryRepositoryImpl(application)
+            return SettingCategoryRepositoryImpl(
+                DatabaseProvider.provideCategorySource(application),
+                DatabaseProvider.provideCategoryRelationSource(application)
+            )
         }
     }
 
     override fun selectAllCategory(): Flowable<List<SettingCategoryItem>> {
-        return categoryAndRelationRepository.selectAllCategory()
+        return categoryDao.selectAllCategory()
             .flatMap {
                 Flowable.fromCallable {
                     it.asSequence()
@@ -29,7 +32,7 @@ class SettingCategoryRepositoryImpl private constructor(
                             SettingCategoryItem(
                                 it.guid,
                                 it.name,
-                                categoryAndRelationRepository.selectCountCategoryRelation(it.guid)
+                                categoryRelationDao.selectCategoryRelationCount(it.guid)
                             )
                         }
                         .toList()
@@ -40,10 +43,10 @@ class SettingCategoryRepositoryImpl private constructor(
     override fun saveCategory(categoryName: String): Flowable<Boolean> {
         return Flowable.fromCallable {
             val contain =
-                categoryAndRelationRepository.containCategory(categoryName)
+                categoryDao.containCategory(categoryName)
                     .blockingFirst()
             return@fromCallable if (!contain) {
-                categoryAndRelationRepository.saveCategory(Category.valueOf(categoryName))
+                categoryDao.insertCategory(Category.valueOf(categoryName))
                     .subscribe()
                 true
             } else {
@@ -53,15 +56,18 @@ class SettingCategoryRepositoryImpl private constructor(
     }
 
     override fun deleteCategory(categoryGuid: String): Completable {
-        return categoryAndRelationRepository.deleteCategoryAndRelationByCategoryGuid(categoryGuid)
+        return Completable.fromAction {
+            categoryDao.deleteCategory(categoryGuid)
+            categoryRelationDao.deleteCategoryRelationByCategoryGuid(categoryGuid)
+        }
     }
 
     override fun updateCategory(categoryGuid: String, categoryName: String): Flowable<Boolean> {
         return Flowable.fromCallable {
-            val contain = categoryAndRelationRepository.containCategory(categoryName)
+            val contain = categoryDao.containCategory(categoryName)
                 .blockingFirst()
             return@fromCallable if (!contain) {
-                categoryAndRelationRepository.updateCategory(categoryGuid, categoryName).subscribe()
+                categoryDao.updateCategory(categoryGuid, categoryName).subscribe()
                 true
             }
             else {

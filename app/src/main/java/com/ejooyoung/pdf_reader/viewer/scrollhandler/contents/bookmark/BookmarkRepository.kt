@@ -1,4 +1,4 @@
-package com.ejooyoung.pdf_reader.base.repository
+package com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.bookmark
 
 import com.ejooyoung.pdf_reader.database.model.Bookmark
 import io.reactivex.rxjava3.core.Completable

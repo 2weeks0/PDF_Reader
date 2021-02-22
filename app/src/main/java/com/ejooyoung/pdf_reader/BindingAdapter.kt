@@ -2,7 +2,6 @@ package com.ejooyoung.pdf_reader
 
 import android.app.Application
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.util.DisplayMetrics
 import android.view.View
 import android.widget.ImageView
@@ -14,7 +13,7 @@ import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.ejooyoung.pdf_reader.base.repository.ThumbnailRepositoryImpl
+import com.ejooyoung.pdf_reader.database.DatabaseProvider
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.io.File
@@ -28,7 +27,7 @@ object BindingAdapter {
     @BindingAdapter("thumbGuid")
     fun setThumbnail(iv: ImageView, thumbGuid: String) {
         (iv.context.applicationContext as Application).let {
-            ThumbnailRepositoryImpl.getInstance(it).selectThumbnail(thumbGuid)
+            DatabaseProvider.provideThumbnailSource(it).selectThumbnail(thumbGuid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {thumb ->

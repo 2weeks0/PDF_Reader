@@ -1,5 +1,6 @@
 package com.ejooyoung.pdf_reader.base.dialog
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -7,8 +8,8 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.ejooyoung.pdf_reader.R
-import com.ejooyoung.pdf_reader.base.repository.BookRepository
-import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
+import com.ejooyoung.pdf_reader.database.DatabaseProvider
+import com.ejooyoung.pdf_reader.database.dao.BookDao
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.databinding.DialogBookPopupBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -16,14 +17,14 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class BookPopupDialog private constructor(
     val book: Book,
-    private val bookRepository: BookRepository
+    private val bookDao: BookDao
 ) : AppCompatDialogFragment() {
 
     private lateinit var binding: DialogBookPopupBinding
 
     companion object {
-        fun newInstance(book: Book, bookRepository: BookRepository): BookPopupDialog {
-            return BookPopupDialog(book, bookRepository)
+        fun newInstance(context: Context, book: Book): BookPopupDialog {
+            return BookPopupDialog(book, DatabaseProvider.provideBookSource(context))
         }
     }
 
@@ -45,17 +46,14 @@ class BookPopupDialog private constructor(
     }
 
     fun showRenameDialog() {
-        RenameDialog.newInstance(
-            book,
-            BookRepositoryImpl.getInstance(requireActivity().application)
-        )
+        RenameDialog.newInstance(book, bookDao)
             .show(requireActivity().supportFragmentManager, null)
         dismiss()
     }
 
     fun updateFavorite() {
         book.favorite = !book.favorite
-        bookRepository.updateBook(book)
+        bookDao.updateBook(book)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
@@ -69,11 +67,15 @@ class BookPopupDialog private constructor(
     }
 
     fun deleteBook() {
-        bookRepository.deleteBooks(book)
+        bookDao.deleteBooks(book)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                Toast.makeText(requireContext(), R.string.txt_success_delete_book, Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    requireContext(),
+                    R.string.txt_success_delete_book,
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
         dismiss()

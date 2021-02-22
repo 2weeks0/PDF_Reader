@@ -1,6 +1,7 @@
 package com.ejooyoung.pdf_reader.base.dialog
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -11,8 +12,9 @@ import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.ext.makeToast
 import com.ejooyoung.pdf_reader.base.ext.startRenameActivity
-import com.ejooyoung.pdf_reader.base.repository.BookmarkRepository
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
+import com.ejooyoung.pdf_reader.database.DatabaseProvider
+import com.ejooyoung.pdf_reader.database.dao.BookmarkDao
 import com.ejooyoung.pdf_reader.database.model.Bookmark
 import com.ejooyoung.pdf_reader.databinding.DialogBookmarkPopupBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -20,14 +22,14 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class BookmarkPopupDialog private constructor(
     val bookmark: Bookmark,
-    private val bookmarkRepository: BookmarkRepository
+    private val bookmarkDao: BookmarkDao
 ): AppCompatDialogFragment() {
 
     private lateinit var binding: DialogBookmarkPopupBinding
 
     companion object {
-        fun newInstance(bookmark: Bookmark, bookmarkRepository: BookmarkRepository): BookmarkPopupDialog {
-            return BookmarkPopupDialog(bookmark, bookmarkRepository)
+        fun newInstance(context: Context, bookmark: Bookmark): BookmarkPopupDialog {
+            return BookmarkPopupDialog(bookmark, DatabaseProvider.provideBookmarkSource(context))
         }
     }
 
@@ -55,7 +57,7 @@ class BookmarkPopupDialog private constructor(
                 R.string.txt_rename_bookmark,
                 bookmark
             )
-            R.id.tvDelete -> bookmarkRepository.deleteBookmark(bookmark)
+            R.id.tvDelete -> bookmarkDao.deleteBookmark(bookmark)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
@@ -77,7 +79,7 @@ class BookmarkPopupDialog private constructor(
 
                 Const.KEY_REQUEST_RENAME ->
                     data?.getParcelableExtra<Bookmark>(Const.KEY_BUNDLE_RENAMABLE)?.let {
-                        bookmarkRepository.updateBookmark(it)
+                        bookmarkDao.updateBookmark(it)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe {

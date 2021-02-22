@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ejooyoung.pdf_reader.ViewModelFactories
 import com.ejooyoung.pdf_reader.base.mvvm.BaseFragment
-import com.ejooyoung.pdf_reader.base.repository.PdfDocumentRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.databinding.FragmentContentsListBinding
 import com.ejooyoung.pdf_reader.viewer.scrollhandler.contents.ContentsClickListener
@@ -25,11 +24,8 @@ class ContentsListFragment : BaseFragment<ContentsListViewModel, FragmentContent
     }
 
     override fun setupViewModel() {
-        viewModel = ViewModelFactories.of(
-            requireActivity().application,
-            this,
-            PdfDocumentRepositoryImpl.getInstance()
-        ).create(ContentsListViewModel::class.java)
+        viewModel = ViewModelFactories.of(requireActivity().application, this)
+            .create(ContentsListViewModel::class.java)
     }
 
     override fun setupDataBinding(inflater: LayoutInflater, container: ViewGroup?) {
