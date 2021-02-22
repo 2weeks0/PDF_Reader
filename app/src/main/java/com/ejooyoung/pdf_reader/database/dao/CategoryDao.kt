@@ -39,4 +39,9 @@ interface CategoryDao {
                 " WHERE ${Const.DB_CATEGORY_COLUMN_GUID} = :categoryGuid"
     )
     fun updateCategory(categoryGuid: String, categoryName: String): Completable
+
+    @Query(
+        "SELECT count(${Const.DB_CATEGORY_COLUMN_GUID}) FROM ${Const.DB_CATEGORY_TABLE}"
+    )
+    fun selectCount(): Int
 }

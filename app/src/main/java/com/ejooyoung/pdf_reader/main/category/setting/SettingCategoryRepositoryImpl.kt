@@ -46,7 +46,7 @@ class SettingCategoryRepositoryImpl private constructor(
                 categoryDao.containCategory(categoryName)
                     .blockingFirst()
             return@fromCallable if (!contain) {
-                categoryDao.insertCategory(Category.valueOf(categoryName))
+                categoryDao.insertCategory(Category.valueOf(categoryName, categoryDao.selectCount() + 1))
                     .subscribe()
                 true
             } else {
@@ -69,8 +69,7 @@ class SettingCategoryRepositoryImpl private constructor(
             return@fromCallable if (!contain) {
                 categoryDao.updateCategory(categoryGuid, categoryName).subscribe()
                 true
-            }
-            else {
+            } else {
                 false
             }
         }

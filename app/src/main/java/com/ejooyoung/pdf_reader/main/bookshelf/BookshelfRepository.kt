@@ -5,5 +5,6 @@ import com.ejooyoung.pdf_reader.main.model.CurrentCategory
 import io.reactivex.rxjava3.core.Flowable
 
 interface BookshelfRepository {
-    fun loadBookList(currentCategory: CurrentCategory): Flowable<List<Book>>
+    fun loadOriginBookList(): Flowable<List<Book>>
+    fun loadBookList(bookList: List<Book>, currentCategory: CurrentCategory): Flowable<List<Book>>
 }

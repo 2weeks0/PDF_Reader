@@ -12,12 +12,14 @@ data class Category(
     @ColumnInfo(name = Const.DB_CATEGORY_COLUMN_GUID)
     val guid: String = UUID.randomUUID().toString(),
     @ColumnInfo(name = Const.DB_CATEGORY_COLUMN_NAME)
-    val name: String
+    val name: String,
+    @ColumnInfo(name = Const.DB_CATEGORY_COLUMN_ORDER)
+    val order: Int
 ) {
 
     companion object {
-        fun valueOf(name: String): Category {
-            return Category(name = name)
+        fun valueOf(name: String, order: Int): Category {
+            return Category(name = name, order = order)
         }
     }
 }

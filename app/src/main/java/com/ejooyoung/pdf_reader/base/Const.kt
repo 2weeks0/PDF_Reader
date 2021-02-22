@@ -30,6 +30,7 @@ object Const {
     const val DB_CATEGORY_TABLE = "Category"
     const val DB_CATEGORY_COLUMN_GUID = "guid"
     const val DB_CATEGORY_COLUMN_NAME = "name"
+    const val DB_CATEGORY_COLUMN_ORDER = "order"
 
     const val DB_CATEGORY_RELATION_TABLE = "CategoryRelation"
     const val DB_CATEGORY_RELATION_COLUMN_GUID = "guid"

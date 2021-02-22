@@ -10,6 +10,12 @@ import io.reactivex.rxjava3.core.Flowable
 interface CategoryRelationDao {
 
     @Query(
+        "SELECT ${Const.DB_CATEGORY_RELATION_COLUMN_BOOK_GUID} FROM ${Const.DB_CATEGORY_RELATION_TABLE} " +
+                "WHERE ${Const.DB_CATEGORY_RELATION_COLUMN_CATEGORY_GUID} = :categoryGuid"
+    )
+    fun selectBookGuidByCategoryGuid(categoryGuid: String): List<String>
+
+    @Query(
         "SELECT count(guid) FROM ${Const.DB_CATEGORY_RELATION_TABLE} " +
                 "WHERE ${Const.DB_CATEGORY_RELATION_COLUMN_CATEGORY_GUID} = :categoryGuid"
     )

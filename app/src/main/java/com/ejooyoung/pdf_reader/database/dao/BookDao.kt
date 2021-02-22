@@ -11,11 +11,15 @@ import io.reactivex.rxjava3.core.Maybe
 interface BookDao {
 
     @Query("SELECT * FROM ${Const.DB_BOOK_TABLE}")
-    fun selectAllBooks(): List<Book>
+    fun selectAllBooks(): Flowable<List<Book>>
 
-    @Query("SELECT * FROM ${Const.DB_BOOK_TABLE}" +
+    @Query("SELECT count(${Const.DB_BOOK_COLUMN_GUID}) FROM ${Const.DB_BOOK_TABLE}")
+    fun selectAllBookCount(): Flowable<Int>
+
+    @Query("SELECT count(${Const.DB_BOOK_COLUMN_GUID})" +
+            " FROM ${Const.DB_BOOK_TABLE}" +
             " WHERE ${Const.DB_BOOK_COLUMN_FAVORITE} = 1")
-    fun selectFavoriteBooks(): List<Book>
+    fun selectFavoriteBooksCount(): Flowable<Int>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertBooks(vararg book: Book): Completable

@@ -22,6 +22,8 @@ class BookshelfViewModel private constructor(
 ) : BaseAndroidViewModel(application), OnClickBookListener {
 
     val bookList = MutableLiveData(listOf<Book>())
+    val originBookList: MutableLiveData<List<Book>> = MutableLiveData(emptyList())
+    var currentCategoryCached: CurrentCategory? = null
 
     companion object {
         fun newInstance(
@@ -32,10 +34,30 @@ class BookshelfViewModel private constructor(
         }
     }
 
+    override fun onCreate() {
+        super.onCreate()
+        loadOriginBookList()
+    }
+
+    private fun loadOriginBookList() {
+        val disposable = repository.loadOriginBookList()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                originBookList.value = it
+            }
+        compositeDisposable.add(disposable)
+    }
+
+    fun loadBookList() {
+        currentCategoryCached?.let { loadBookList(it) }
+    }
+
     fun loadBookList(currentCategory: CurrentCategory) {
         DevLogger.i()
         DevLogger.d("currentCategory: $currentCategory")
-        val disposable = repository.loadBookList(currentCategory)
+        currentCategoryCached = currentCategory
+        val disposable = repository.loadBookList(originBookList.value!!, currentCategory)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {

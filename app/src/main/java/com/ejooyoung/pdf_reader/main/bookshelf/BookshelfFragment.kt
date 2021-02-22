@@ -29,6 +29,9 @@ class BookshelfFragment : BaseFragment<BookshelfViewModel, FragmentBookshelfBind
     }
 
     override fun setupObserver() {
+        viewModel.originBookList.observe(viewLifecycleOwner, Observer {
+            viewModel.loadBookList()
+        })
         viewModel.bookList.observe(viewLifecycleOwner, Observer {
             bookshelfAdapter.setItem(it)
         })

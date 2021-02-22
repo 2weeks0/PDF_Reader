@@ -27,11 +27,11 @@ class CategoryRepositoryImpl private constructor(
     }
 
     override fun loadCountOfAllBook(): Flowable<Int> {
-        return Flowable.fromCallable { bookDao.selectAllBooks().count() }
+        return bookDao.selectAllBookCount()
     }
 
     override fun loadCountOfFavoriteBook(): Flowable<Int> {
-        return Flowable.fromCallable { bookDao.selectFavoriteBooks().count() }
+        return bookDao.selectFavoriteBooksCount()
     }
 
     override fun loadCategoryItem(): Flowable<List<CategoryItem>> {
