@@ -5,8 +5,8 @@ import android.net.Uri
 import android.provider.OpenableColumns
 import com.ejooyoung.pdf_reader.application.MainApplication
 import com.ejooyoung.pdf_reader.database.model.Book
-import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
 import com.ejooyoung.pdf_reader.base.utils.ThumbnailUtils
+import com.ejooyoung.pdf_reader.database.DatabaseProvider
 import java.io.File
 
 
@@ -40,7 +40,7 @@ private fun Uri.toBook(application: MainApplication): Book? {
         }
     }
     // 이미 저장된 파일이면 null 배출
-    if (BookRepositoryImpl.getInstance(application).selectBook(fileName, toString()).blockingGet() != null) {
+    if (DatabaseProvider.provideBookSource(application).selectBook(fileName, toString()).blockingGet() != null) {
         return null
     }
     // 썸네일 생성 및 디비에 저장

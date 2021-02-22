@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
-import com.ejooyoung.pdf_reader.base.repository.BookmarkRepository
 import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.database.model.Contents
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

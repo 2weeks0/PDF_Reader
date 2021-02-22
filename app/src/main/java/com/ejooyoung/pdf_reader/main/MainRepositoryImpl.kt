@@ -4,7 +4,7 @@ import android.content.Intent
 import com.ejooyoung.pdf_reader.application.MainApplication
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.ext.toBookList
-import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
+import com.ejooyoung.pdf_reader.database.DatabaseProvider
 import com.ejooyoung.pdf_reader.main.model.CurrentCategory
 import com.ejooyoung.pdf_reader.main.model.CurrentCategoryType
 import io.reactivex.rxjava3.core.Completable
@@ -17,7 +17,7 @@ class MainRepositoryImpl private constructor(
 
     // 테스트용으로 book 추가하는 로직을 main 에다가 넣어놓음
     // 오른쪽 panel 인 setting 쪽 작업할 때, 빼야함 (saveBook 도)
-    private val bookRepository = BookRepositoryImpl.getInstance(mainApplication)
+    private val bookDao = DatabaseProvider.provideBookSource(mainApplication)
 
     companion object {
         const val DEFAULT_VALUE = "";
@@ -49,6 +49,6 @@ class MainRepositoryImpl private constructor(
 
     override fun saveBook(data: Intent): Completable {
         return Observable.fromCallable { data.toBookList(mainApplication).toTypedArray() }
-            .flatMapCompletable { bookRepository.insertBooks(*it) }
+            .flatMapCompletable { bookDao.insertBooks(*it) }
     }
 }

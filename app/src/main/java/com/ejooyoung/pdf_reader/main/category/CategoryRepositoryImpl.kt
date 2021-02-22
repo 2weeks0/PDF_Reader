@@ -1,39 +1,41 @@
 package com.ejooyoung.pdf_reader.main.category
 
 import android.content.Context
-import com.ejooyoung.pdf_reader.base.repository.BookRepository
-import com.ejooyoung.pdf_reader.base.repository.BookRepositoryImpl
-import com.ejooyoung.pdf_reader.base.repository.CategoryAndRelationRepository
-import com.ejooyoung.pdf_reader.base.repository.CategoryAndRelationRepositoryImpl
+import com.ejooyoung.pdf_reader.database.DatabaseProvider
+import com.ejooyoung.pdf_reader.database.dao.BookDao
+import com.ejooyoung.pdf_reader.database.dao.CategoryDao
+import com.ejooyoung.pdf_reader.database.dao.CategoryRelationDao
 import com.ejooyoung.pdf_reader.database.model.Category
 import com.ejooyoung.pdf_reader.main.category.model.CategoryItem
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 
 class CategoryRepositoryImpl private constructor(
-    private val categoryAndRelationRepository: CategoryAndRelationRepository,
-    private val bookRepository: BookRepository
+    private val categoryDao: CategoryDao,
+    private val categoryRelationDao: CategoryRelationDao,
+    private val bookDao: BookDao
 ) : CategoryRepository {
 
     companion object {
         fun newInstance(context: Context): CategoryRepository {
             return CategoryRepositoryImpl(
-                CategoryAndRelationRepositoryImpl.getInstance(context),
-                BookRepositoryImpl.getInstance(context)
+                DatabaseProvider.provideCategorySource(context),
+                DatabaseProvider.provideCategoryRelationSource(context),
+                DatabaseProvider.provideBookSource(context)
             )
         }
     }
 
     override fun loadCountOfAllBook(): Flowable<Int> {
-        return Flowable.fromCallable { bookRepository.selectAllBooks().count() }
+        return Flowable.fromCallable { bookDao.selectAllBooks().count() }
     }
 
     override fun loadCountOfFavoriteBook(): Flowable<Int> {
-        return Flowable.fromCallable { bookRepository.selectFavoriteBooks().count() }
+        return Flowable.fromCallable { bookDao.selectFavoriteBooks().count() }
     }
 
     override fun loadCategoryItem(): Flowable<List<CategoryItem>> {
-        return categoryAndRelationRepository.selectAllCategory()
+        return categoryDao.selectAllCategory()
             .flatMap {
                 Flowable.fromCallable {
                     it.asSequence()
@@ -41,7 +43,7 @@ class CategoryRepositoryImpl private constructor(
                             CategoryItem(
                                 it.guid,
                                 it.name,
-                                categoryAndRelationRepository.selectCountCategoryRelation(it.guid)
+                                categoryRelationDao.selectCategoryRelationCount(it.guid)
                             )
                         }
                         .toList()
@@ -50,6 +52,6 @@ class CategoryRepositoryImpl private constructor(
     }
 
     override fun deleteCategory(category: Category): Completable {
-        return categoryAndRelationRepository.deleteCategory(category)
+        return categoryDao.deleteCategory(category)
     }
 }
