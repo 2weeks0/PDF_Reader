@@ -42,39 +42,50 @@
                 android:onClick="@{(v) -> viewModel.startSettingCategoryActivity(v)}"/>
         </RelativeLayout>
 
-        <include
-            android:id="@+id/layViewAll"
-            layout="@layout/layout_category_list"
-            app:icon="@{@drawable/ic_all_book}"
-            app:title="@{@string/menu_view_all}"
-            app:count="@{String.valueOf(viewModel.countOfAllBook)}"
-            android:onClick="@{(v) -> onClickCategoryListener.onClickCategory(v, CurrentCategory.valueOfAll())}" />
-
-        <include
-            android:id="@+id/layViewBookmark"
-            layout="@layout/layout_category_list"
-            app:icon="@{@drawable/ic_star}"
-            app:title="@{@string/menu_view_bookmark}"
-            app:count="@{String.valueOf(viewModel.countOfFavoriteBooks)}"
-            android:onClick="@{(v) -> onClickCategoryListener.onClickCategory(v, CurrentCategory.valueOfFavorite())}"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#4d4d4d"/>
-
-        <FrameLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvCategory"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_category"/>
-        </FrameLayout>
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/layViewAll"
+                    layout="@layout/layout_category_list"
+                    app:icon="@{@drawable/ic_all_book}"
+                    app:title="@{@string/menu_view_all}"
+                    app:count="@{String.valueOf(viewModel.countOfAllBook)}"
+                    android:onClick="@{(v) -> onClickCategoryListener.onClickCategory(v, CurrentCategory.valueOfAll())}" />
+
+                <include
+                    android:id="@+id/layViewBookmark"
+                    layout="@layout/layout_category_list"
+                    app:icon="@{@drawable/ic_star}"
+                    app:title="@{@string/menu_view_bookmark}"
+                    app:count="@{String.valueOf(viewModel.countOfFavoriteBooks)}"
+                    android:onClick="@{(v) -> onClickCategoryListener.onClickCategory(v, CurrentCategory.valueOfFavorite())}"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#4d4d4d"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:overScrollMode="never"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_category" />
+                </FrameLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 </layout>

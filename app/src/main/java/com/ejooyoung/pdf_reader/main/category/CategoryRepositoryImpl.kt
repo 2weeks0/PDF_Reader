@@ -51,7 +51,23 @@ class CategoryRepositoryImpl private constructor(
             }
     }
 
-    override fun deleteCategory(category: Category): Completable {
-        return categoryDao.deleteCategory(category)
+    override fun deleteCategory(categoryGuid: String): Completable {
+        return Completable.fromAction {
+            categoryDao.deleteCategory(categoryGuid)
+            categoryRelationDao.deleteCategoryRelationByCategoryGuid(categoryGuid)
+        }
+    }
+
+    override fun updateCategory(categoryGuid: String, categoryName: String): Flowable<Boolean> {
+        return Flowable.fromCallable {
+            val contain = categoryDao.containCategory(categoryName)
+                .blockingFirst()
+            return@fromCallable if (!contain) {
+                categoryDao.updateCategory(categoryGuid, categoryName).subscribe()
+                true
+            } else {
+                false
+            }
+        }
     }
 }

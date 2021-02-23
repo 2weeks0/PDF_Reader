@@ -1,5 +1,6 @@
 package com.ejooyoung.pdf_reader.main.category
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -20,10 +21,15 @@ class CategoryAdapter(
         return ViewHolder(binding)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.binding as ItemCategoryBinding) {
             categoryItem = itemList[position]
             onClickCategoryListener = this@CategoryAdapter.onClickCategoryListener
+            layItem.setOnTouchListener { _, event ->
+                this@CategoryAdapter.onClickCategoryListener.onTouchCategory(event.x, event.y)
+                return@setOnTouchListener false
+            }
         }
     }
 

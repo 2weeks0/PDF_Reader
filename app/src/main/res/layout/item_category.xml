@@ -12,13 +12,15 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/layItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:orientation="horizontal"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:onClick="@{(v) -> onClickCategoryListener.onClickCategory(v, categoryItem.toCurrentCategory())}">
+        android:onClick="@{(v) -> onClickCategoryListener.onClickCategory(v, categoryItem.toCurrentCategory())}"
+        android:onLongClick="@{(v) -> onClickCategoryListener.onLongClickCategory(v, categoryItem)}">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"

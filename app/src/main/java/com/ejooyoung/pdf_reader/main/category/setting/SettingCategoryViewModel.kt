@@ -104,7 +104,7 @@ class SettingCategoryViewModel private constructor(
         compositeDisposable.add(disposable)
     }
 
-    override fun onDeleteItem(view: View, item: SettingCategoryItem) {
+    override fun onDeleteItem(item: SettingCategoryItem) {
         val disposable = repository.deleteCategory(item.guid)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -148,10 +148,10 @@ class SettingCategoryViewModel private constructor(
             ?.let { onChangeName(view, it) }
     }
 
-    fun deleteSelectedItem(view: View) {
+    fun deleteSelectedItem() {
         itemList.value?.asSequence()
             ?.filter { it.selected.get() }
             ?.toList()
-            ?.forEach { onDeleteItem(view, it) }
+            ?.forEach { onDeleteItem(it) }
     }
 }

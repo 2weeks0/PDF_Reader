@@ -25,8 +25,6 @@ class MenuDialog(
     companion object {
         const val KEY_POS_X = "keyPosX"
         const val KEY_POS_Y = "keyPosY"
-        const val SETTING_CATEGORY_CHANGE_NAME = 0
-        const val SETTING_CATEGORY_DELETE_ITEM = 1
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

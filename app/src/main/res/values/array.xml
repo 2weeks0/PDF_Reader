@@ -11,6 +11,7 @@
     </string-array>
 
     <string-array name="MENU_SETTING_CATEGORY">
+        <item>@string/txt_add_book_category</item>
         <item>@string/txt_change_name</item>
         <item>@string/txt_delete</item>
     </string-array>

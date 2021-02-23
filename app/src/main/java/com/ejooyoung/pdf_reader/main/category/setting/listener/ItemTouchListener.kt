@@ -46,13 +46,12 @@ class ItemTouchListener private constructor(
     }
 
     private fun showMenuDialog(view: View) {
-        MenuDialog.Factory(view.context, touchPosX + view.x, touchPosY + view.y)
+        MenuDialog.Factory(view.context, touchPosX, touchPosY + view.y)
             .setItems(R.layout.item_menu_dialog, R.array.MENU_SETTING_CATEGORY) { v: View, i: Int ->
                 when (i) {
-                    MenuDialog.SETTING_CATEGORY_CHANGE_NAME ->
-                        menuDialogItemClickListener.onChangeName(v, item)
-                    MenuDialog.SETTING_CATEGORY_DELETE_ITEM ->
-                        menuDialogItemClickListener.onDeleteItem(v, item)
+                    0 -> menuDialogItemClickListener.onChangeName(v, item)
+                    1 -> menuDialogItemClickListener.onChangeName(v, item)
+                    2 -> menuDialogItemClickListener.onDeleteItem(item)
                 }
             }
             .show()

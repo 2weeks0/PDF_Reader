@@ -36,7 +36,7 @@ class SettingCategoryAdapter(
                 itemTouchListener.onTouch(v, itemList[position], event)
                 return@setOnTouchListener false
             }
-            ivHandle.setOnTouchListener { v, event ->
+            ivHandle.setOnTouchListener { _, event ->
                 itemStartDragListener.onStartDrag(holder, event)
                 return@setOnTouchListener false
             }
