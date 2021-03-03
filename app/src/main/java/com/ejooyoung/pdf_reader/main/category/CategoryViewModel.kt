@@ -10,6 +10,7 @@ import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.base.dialog.InputTextDialogFactory
 import com.ejooyoung.pdf_reader.base.dialog.MenuDialog
 import com.ejooyoung.pdf_reader.base.ext.makeToast
+import com.ejooyoung.pdf_reader.base.ext.startAddCategoryToBookActivity
 import com.ejooyoung.pdf_reader.base.ext.startSettingCategoryActivity
 import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
 import com.ejooyoung.pdf_reader.main.CurrentCategoryOwner
@@ -91,10 +92,10 @@ class CategoryViewModel private constructor(
 
     override fun onLongClickCategory(view: View, categoryItem: CategoryItem): Boolean {
         MenuDialog.Factory(view.context, touchPosX, touchPosY + view.height * 2 + view.y)
-            .setItems(R.layout.item_menu_dialog, R.array.MENU_SETTING_CATEGORY) { v: View, i: Int ->
+            .setItems(R.layout.item_menu_dialog, R.array.MENU_SETTING_CATEGORY) { _, i: Int ->
                 when (i) {
-                    0 -> onChangeName(v, categoryItem)
-                    1 -> onChangeName(v, categoryItem)
+                    0 -> addCategoryToBook(view, categoryItem.guid)
+                    1 -> onChangeName(view, categoryItem)
                     2 -> onDeleteItem(categoryItem)
                 }
             }
@@ -102,8 +103,9 @@ class CategoryViewModel private constructor(
         return true
     }
 
-    fun startSettingCategoryActivity(view: View) {
-        view.findFragment<CategoryFragment>().startSettingCategoryActivity()
+    private fun addCategoryToBook(view: View, categoryGuid: String) {
+        view.findFragment<CategoryFragment>()
+            .startAddCategoryToBookActivity(categoryGuid)
     }
 
     private fun onChangeName(view: View, categoryItem: CategoryItem) {
@@ -138,5 +140,9 @@ class CategoryViewModel private constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe()
         compositeDisposable.add(disposable)
+    }
+
+    fun startSettingCategoryActivity(view: View) {
+        view.findFragment<CategoryFragment>().startSettingCategoryActivity()
     }
 }

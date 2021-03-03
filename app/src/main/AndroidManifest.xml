@@ -40,5 +40,8 @@
 
         <activity android:name=".main.category.setting.SettingCategoryActivity"
             android:launchMode="singleTop" />
+
+        <activity android:name=".main.category.addition.AddCategoryToBookActivity"
+            android:launchMode="singleTop" />
     </application>
 </manifest>

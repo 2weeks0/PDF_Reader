@@ -22,7 +22,7 @@ interface CategoryRelationDao {
     fun selectCategoryRelationCount(categoryGuid: String): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCategoryRelation(categoryRelation: CategoryRelation): Completable
+    fun insertCategoryRelations(categoryRelationList: List<CategoryRelation>): Completable
 
     @Delete
     fun deleteCategoryRelation(categoryRelation: CategoryRelation): Completable

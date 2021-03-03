@@ -15,4 +15,10 @@ data class CategoryRelation(
     val bookGuid: String,
     @ColumnInfo(name = Const.DB_CATEGORY_RELATION_COLUMN_CATEGORY_GUID)
     val categoryGuid: String
-)
+) {
+    companion object {
+        fun valueOf(bookGuid: String, categoryGuid: String): CategoryRelation {
+            return CategoryRelation(bookGuid = bookGuid, categoryGuid = categoryGuid)
+        }
+    }
+}

@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.database.model.Book
+import com.ejooyoung.pdf_reader.main.category.addition.AddCategoryToBookActivity
 import com.ejooyoung.pdf_reader.main.category.setting.SettingCategoryActivity
 import com.ejooyoung.pdf_reader.rename.Renamable
 import com.ejooyoung.pdf_reader.rename.RenameActivity
@@ -45,5 +46,12 @@ fun Fragment.startViewerSettingActivity() {
 
 fun Fragment.startSettingCategoryActivity() {
     val intent = Intent(requireContext(), SettingCategoryActivity::class.java)
+    startActivity(intent)
+}
+
+fun Fragment.startAddCategoryToBookActivity(categoryGuid: String) {
+    val intent = Intent(requireContext(), AddCategoryToBookActivity::class.java).apply {
+        putExtra(Const.KEY_BUNDLE_CATEGORY, categoryGuid)
+    }
     startActivity(intent)
 }

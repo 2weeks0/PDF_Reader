@@ -14,6 +14,8 @@ import com.ejooyoung.pdf_reader.database.model.Book
 import com.ejooyoung.pdf_reader.main.MainRepositoryImpl
 import com.ejooyoung.pdf_reader.main.category.CategoryRepositoryImpl
 import com.ejooyoung.pdf_reader.main.category.CategoryViewModel
+import com.ejooyoung.pdf_reader.main.category.addition.AddCategoryToBookRepositoryImpl
+import com.ejooyoung.pdf_reader.main.category.addition.AddCategoryToBookViewModel
 import com.ejooyoung.pdf_reader.main.category.setting.SettingCategoryRepositoryImpl
 import com.ejooyoung.pdf_reader.main.category.setting.SettingCategoryViewModel
 import com.ejooyoung.pdf_reader.viewer.ViewerRepositoryImpl
@@ -78,6 +80,9 @@ class ViewModelFactories private constructor(
 
             isAssignableFrom(SettingCategoryViewModel::class.java) ->
                 SettingCategoryViewModel.newInstance(application, SettingCategoryRepositoryImpl.newInstance(application))
+
+            isAssignableFrom(AddCategoryToBookViewModel::class.java) ->
+                AddCategoryToBookViewModel.newInstance(application, AddCategoryToBookRepositoryImpl.newInstance(application), arg as String)
 
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

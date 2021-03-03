@@ -7,6 +7,9 @@
     <color name="transparent_30">#33000000</color>
     <color name="light_grey">#888888</color>
 
+    <color name="text">#4D4D4D</color>
+    <color name="disable">@color/light_grey</color>
+
     <color name="bg_main">#dddddd</color>
     <color name="bg_main_highlight">#b6b6b6</color>
     <color name="bg_setting_block">#f8f8f8</color>

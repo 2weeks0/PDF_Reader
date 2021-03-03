@@ -46,6 +46,7 @@ object Const {
     const val KEY_BUNDLE_TITLE = "bundleTitle"
     const val KEY_BUNDLE_RENAMABLE = "bundleRenamable"
     const val KEY_BUNDLE_PAGE_INDEX = "bundlePageIndex"
+    const val KEY_BUNDLE_CATEGORY = "bundleCategory"
 
     const val PREF_RECENT_CATEGORY_TYPE = "preferenceRecentCategoryType"
     const val PREF_RECENT_CATEGORY_GUID = "preferenceRecentCategoryGuid"
