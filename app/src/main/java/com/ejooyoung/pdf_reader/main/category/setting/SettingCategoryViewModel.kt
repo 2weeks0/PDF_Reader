@@ -5,10 +5,12 @@ import android.app.Dialog
 import android.view.View
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableInt
+import androidx.fragment.app.findFragment
 import androidx.lifecycle.MutableLiveData
 import com.ejooyoung.pdf_reader.R
 import com.ejooyoung.pdf_reader.base.dialog.InputTextDialogFactory
 import com.ejooyoung.pdf_reader.base.ext.makeToast
+import com.ejooyoung.pdf_reader.base.ext.startAddCategoryToBookActivity
 import com.ejooyoung.pdf_reader.base.mvvm.BaseAndroidViewModel
 import com.ejooyoung.pdf_reader.main.category.setting.listener.ItemTouchListener
 import com.ejooyoung.pdf_reader.main.category.setting.listener.MenuDialogItemClickListener
@@ -76,6 +78,11 @@ class SettingCategoryViewModel private constructor(
                 }
             }
         compositeDisposable.add(disposable)
+    }
+
+    override fun onAddCategoryToBook(view: View, item: SettingCategoryItem) {
+        view.findFragment<SettingCategoryFragment>()
+            .startAddCategoryToBookActivity(item.guid)
     }
 
     override fun onChangeName(view: View, item: SettingCategoryItem) {
@@ -153,5 +160,9 @@ class SettingCategoryViewModel private constructor(
             ?.filter { it.selected.get() }
             ?.toList()
             ?.forEach { onDeleteItem(it) }
+    }
+
+    fun onFinishAddCategoryToBook() {
+        loadCategory();
     }
 }

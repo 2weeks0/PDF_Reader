@@ -37,7 +37,7 @@
             android:clickable="true"
             android:focusable="true"
             android:checked="@{addableBook.selected}"
-            android:onClick="@{() -> addableBook.setSelected(!addableBook.selected)}"/>
+            android:onClick="@{() -> layItem.performClick()}"/>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivThumb"

@@ -55,13 +55,14 @@ class AddCategoryToBookViewModel private constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                with(view) {
+                with(view.context as Activity) {
                     Toast.makeText(
-                        context,
+                        this,
                         resources.getString(R.string.txt_toast_add_book_category),
                         Toast.LENGTH_SHORT
                     ).show()
-                    (context as Activity).finish()
+                    setResult(Activity.RESULT_OK)
+                    finish()
                 }
             }
         compositeDisposable.add(disposable)

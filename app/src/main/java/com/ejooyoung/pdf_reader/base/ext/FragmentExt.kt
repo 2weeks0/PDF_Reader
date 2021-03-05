@@ -53,5 +53,5 @@ fun Fragment.startAddCategoryToBookActivity(categoryGuid: String) {
     val intent = Intent(requireContext(), AddCategoryToBookActivity::class.java).apply {
         putExtra(Const.KEY_BUNDLE_CATEGORY, categoryGuid)
     }
-    startActivity(intent)
+    startActivityForResult(intent, Const.KEY_REQUEST_ADD_CATEGORY_TO_BOOK)
 }

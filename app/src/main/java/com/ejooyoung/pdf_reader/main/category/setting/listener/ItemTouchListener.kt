@@ -49,7 +49,7 @@ class ItemTouchListener private constructor(
         MenuDialog.Factory(view.context, touchPosX, touchPosY + view.y)
             .setItems(R.layout.item_menu_dialog, R.array.MENU_SETTING_CATEGORY) { v: View, i: Int ->
                 when (i) {
-                    0 -> menuDialogItemClickListener.onChangeName(v, item)
+                    0 -> menuDialogItemClickListener.onAddCategoryToBook(view, item)
                     1 -> menuDialogItemClickListener.onChangeName(v, item)
                     2 -> menuDialogItemClickListener.onDeleteItem(item)
                 }

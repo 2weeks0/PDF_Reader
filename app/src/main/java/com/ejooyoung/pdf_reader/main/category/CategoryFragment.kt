@@ -1,11 +1,16 @@
 package com.ejooyoung.pdf_reader.main.category
 
+import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.ejooyoung.pdf_reader.ViewModelFactories
+import com.ejooyoung.pdf_reader.base.Const
 import com.ejooyoung.pdf_reader.base.mvvm.BaseFragment
+import com.ejooyoung.pdf_reader.base.utils.DevLogger
 import com.ejooyoung.pdf_reader.databinding.FragmentCategoryBinding
+import com.ejooyoung.pdf_reader.main.MainActivity
 
 class CategoryFragment : BaseFragment<CategoryViewModel, FragmentCategoryBinding>() {
 
@@ -36,6 +41,14 @@ class CategoryFragment : BaseFragment<CategoryViewModel, FragmentCategoryBinding
     override fun onBindingCreated() {
         binding.rvCategory.adapter = CategoryAdapter(viewModel).apply {
             setHasStableIds(true)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == Const.KEY_REQUEST_ADD_CATEGORY_TO_BOOK && resultCode == Activity.RESULT_OK) {
+            DevLogger.i()
+            viewModel.onFinishAddCategoryToBook()
         }
     }
 }

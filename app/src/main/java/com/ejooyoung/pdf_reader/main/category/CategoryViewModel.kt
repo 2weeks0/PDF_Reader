@@ -145,4 +145,8 @@ class CategoryViewModel private constructor(
     fun startSettingCategoryActivity(view: View) {
         view.findFragment<CategoryFragment>().startSettingCategoryActivity()
     }
+
+    fun onFinishAddCategoryToBook() {
+        loadCategory()
+    }
 }
